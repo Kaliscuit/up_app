@@ -7,12 +7,23 @@
 //
 
 #import "UPAppDelegate.h"
+#import "UPEnrollmentViewController.h"
 
 @implementation UPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    UPEnrollmentViewController *enrollmentViewController = [[UPEnrollmentViewController alloc] init];
+    
+    UINavigationController *enrollmentNavigationController = [[UINavigationController alloc] initWithRootViewController:enrollmentViewController];
+    
+    self.window = [[[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
+    self.window.rootViewController = enrollmentNavigationController;
+    [enrollmentNavigationController setNavigationBarHidden:YES];
+    [enrollmentViewController release];
+    [enrollmentNavigationController release];
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 							

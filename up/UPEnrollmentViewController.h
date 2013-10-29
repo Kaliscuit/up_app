@@ -2,7 +2,7 @@
 //  UPEnrollmentViewController.h
 //  up
 //
-//  Created by joy.long on 13-10-28.
+//  Created by joy.long on 13-10-30.
 //  Copyright (c) 2013年 me.v2up. All rights reserved.
 //
 
