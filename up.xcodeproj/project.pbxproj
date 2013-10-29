@@ -13,8 +13,6 @@
 		A8D113B8181EBE31001385FE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A8D113B6181EBE31001385FE /* InfoPlist.strings */; };
 		A8D113BA181EBE31001385FE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D113B9181EBE31001385FE /* main.m */; };
 		A8D113BE181EBE31001385FE /* UPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D113BD181EBE31001385FE /* UPAppDelegate.m */; };
-		A8D113C1181EBE31001385FE /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8D113BF181EBE31001385FE /* Main_iPhone.storyboard */; };
-		A8D113C4181EBE31001385FE /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8D113C2181EBE31001385FE /* Main_iPad.storyboard */; };
 		A8D113C7181EBE31001385FE /* UPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D113C6181EBE31001385FE /* UPViewController.m */; };
 		A8D113C9181EBE31001385FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8D113C8181EBE31001385FE /* Images.xcassets */; };
 		A8D113D0181EBE31001385FE /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D113CF181EBE31001385FE /* XCTest.framework */; };
@@ -45,8 +43,6 @@
 		A8D113BB181EBE31001385FE /* up-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "up-Prefix.pch"; sourceTree = "<group>"; };
 		A8D113BC181EBE31001385FE /* UPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UPAppDelegate.h; sourceTree = "<group>"; };
 		A8D113BD181EBE31001385FE /* UPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UPAppDelegate.m; sourceTree = "<group>"; };
-		A8D113C0181EBE31001385FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		A8D113C3181EBE31001385FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		A8D113C5181EBE31001385FE /* UPViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UPViewController.h; sourceTree = "<group>"; };
 		A8D113C6181EBE31001385FE /* UPViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UPViewController.m; sourceTree = "<group>"; };
 		A8D113C8181EBE31001385FE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -116,8 +112,6 @@
 			children = (
 				A8D113BC181EBE31001385FE /* UPAppDelegate.h */,
 				A8D113BD181EBE31001385FE /* UPAppDelegate.m */,
-				A8D113BF181EBE31001385FE /* Main_iPhone.storyboard */,
-				A8D113C2181EBE31001385FE /* Main_iPad.storyboard */,
 				A8D113C5181EBE31001385FE /* UPViewController.h */,
 				A8D113C6181EBE31001385FE /* UPViewController.m */,
 				A8D113C8181EBE31001385FE /* Images.xcassets */,
@@ -232,9 +226,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A8D113C4181EBE31001385FE /* Main_iPad.storyboard in Resources */,
 				A8D113C9181EBE31001385FE /* Images.xcassets in Resources */,
-				A8D113C1181EBE31001385FE /* Main_iPhone.storyboard in Resources */,
 				A8D113B8181EBE31001385FE /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,22 +277,6 @@
 				A8D113B7181EBE31001385FE /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		A8D113BF181EBE31001385FE /* Main_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A8D113C0181EBE31001385FE /* Base */,
-			);
-			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		A8D113C2181EBE31001385FE /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A8D113C3181EBE31001385FE /* Base */,
-			);
-			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		A8D113D8181EBE31001385FE /* InfoPlist.strings */ = {
@@ -393,10 +369,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "up/up-Prefix.pch";
 				INFOPLIST_FILE = "up/up-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -406,10 +385,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "up/up-Prefix.pch";
 				INFOPLIST_FILE = "up/up-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -475,6 +457,7 @@
 				A8D113E1181EBE31001385FE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A8D113E2181EBE31001385FE /* Build configuration list for PBXNativeTarget "upTests" */ = {
 			isa = XCConfigurationList;
@@ -483,6 +466,7 @@
 				A8D113E4181EBE31001385FE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
