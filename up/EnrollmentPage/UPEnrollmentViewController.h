@@ -1,5 +1,5 @@
 //
-//  UPViewController.h
+//  UPEnrollmentViewController.h
 //  up
 //
 //  Created by joy.long on 13-10-28.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UPViewController : UIViewController
+@interface UPEnrollmentViewController : UIViewController
 
 @end
