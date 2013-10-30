@@ -10,6 +10,7 @@
 		A83F645118201CE700F41481 /* UPSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A83F644B18201CE700F41481 /* UPSearchBar.m */; };
 		A83F645518201DB300F41481 /* UPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A83F645418201DB300F41481 /* UPAppDelegate.m */; };
 		A83F645818201E7C00F41481 /* UPEnrollmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A83F645718201E7C00F41481 /* UPEnrollmentViewController.m */; };
+		A8906DEF182180AE00F0D3B8 /* UPSearchResultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A8906DEE182180AE00F0D3B8 /* UPSearchResultManager.m */; };
 		A8D113AE181EBE31001385FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D113AD181EBE31001385FE /* Foundation.framework */; };
 		A8D113B0181EBE31001385FE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D113AF181EBE31001385FE /* CoreGraphics.framework */; };
 		A8D113B2181EBE31001385FE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D113B1181EBE31001385FE /* UIKit.framework */; };
@@ -40,6 +41,8 @@
 		A83F645418201DB300F41481 /* UPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPAppDelegate.m; sourceTree = "<group>"; };
 		A83F645618201E7C00F41481 /* UPEnrollmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPEnrollmentViewController.h; path = up/UPEnrollmentViewController.h; sourceTree = SOURCE_ROOT; };
 		A83F645718201E7C00F41481 /* UPEnrollmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UPEnrollmentViewController.m; path = up/UPEnrollmentViewController.m; sourceTree = SOURCE_ROOT; };
+		A8906DED182180AE00F0D3B8 /* UPSearchResultManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPSearchResultManager.h; path = up/UPSearchResultManager.h; sourceTree = SOURCE_ROOT; };
+		A8906DEE182180AE00F0D3B8 /* UPSearchResultManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UPSearchResultManager.m; path = up/UPSearchResultManager.m; sourceTree = SOURCE_ROOT; };
 		A8D113AA181EBE31001385FE /* up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = up.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8D113AD181EBE31001385FE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A8D113AF181EBE31001385FE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -96,15 +99,6 @@
 			path = Controls;
 			sourceTree = "<group>";
 		};
-		A83F644C18201CE700F41481 /* EnrollmentPage */ = {
-			isa = PBXGroup;
-			children = (
-				A83F645618201E7C00F41481 /* UPEnrollmentViewController.h */,
-				A83F645718201E7C00F41481 /* UPEnrollmentViewController.m */,
-			);
-			path = EnrollmentPage;
-			sourceTree = "<group>";
-		};
 		A83F644F18201CE700F41481 /* main */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +113,24 @@
 			children = (
 			);
 			path = ThirdPart;
+			sourceTree = "<group>";
+		};
+		A8906DF01821818B00F0D3B8 /* EnrollmentPage */ = {
+			isa = PBXGroup;
+			children = (
+				A83F645618201E7C00F41481 /* UPEnrollmentViewController.h */,
+				A83F645718201E7C00F41481 /* UPEnrollmentViewController.m */,
+			);
+			path = EnrollmentPage;
+			sourceTree = "<group>";
+		};
+		A8906DF11821818B00F0D3B8 /* SearchPage */ = {
+			isa = PBXGroup;
+			children = (
+				A8906DED182180AE00F0D3B8 /* UPSearchResultManager.h */,
+				A8906DEE182180AE00F0D3B8 /* UPSearchResultManager.m */,
+			);
+			path = SearchPage;
 			sourceTree = "<group>";
 		};
 		A8D113A1181EBE31001385FE = {
@@ -154,9 +166,10 @@
 		A8D113B3181EBE31001385FE /* up */ = {
 			isa = PBXGroup;
 			children = (
+				A8906DF01821818B00F0D3B8 /* EnrollmentPage */,
+				A8906DF11821818B00F0D3B8 /* SearchPage */,
 				A83F644818201CE700F41481 /* Common */,
 				A83F644918201CE700F41481 /* Controls */,
-				A83F644C18201CE700F41481 /* EnrollmentPage */,
 				A83F644F18201CE700F41481 /* main */,
 				A83F645018201CE700F41481 /* ThirdPart */,
 				A8D113C8181EBE31001385FE /* Images.xcassets */,
@@ -295,6 +308,7 @@
 				A8D113BA181EBE31001385FE /* main.m in Sources */,
 				A83F645118201CE700F41481 /* UPSearchBar.m in Sources */,
 				A83F645818201E7C00F41481 /* UPEnrollmentViewController.m in Sources */,
+				A8906DEF182180AE00F0D3B8 /* UPSearchResultManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
