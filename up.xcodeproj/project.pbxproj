@@ -9,8 +9,16 @@
 /* Begin PBXBuildFile section */
 		A83F645118201CE700F41481 /* UPSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A83F644B18201CE700F41481 /* UPSearchBar.m */; };
 		A83F645518201DB300F41481 /* UPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A83F645418201DB300F41481 /* UPAppDelegate.m */; };
-		A83F645818201E7C00F41481 /* UPEnrollmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A83F645718201E7C00F41481 /* UPEnrollmentViewController.m */; };
-		A8906DEF182180AE00F0D3B8 /* UPSearchResultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A8906DEE182180AE00F0D3B8 /* UPSearchResultManager.m */; };
+		A8906DF41821906000F0D3B8 /* UPSearchResultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A8906DF31821906000F0D3B8 /* UPSearchResultManager.m */; };
+		A8906DF71821906600F0D3B8 /* UPEnrollmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8906DF61821906600F0D3B8 /* UPEnrollmentViewController.m */; };
+		A8906E1C182190B100F0D3B8 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A8906E10182190B100F0D3B8 /* FMDatabase.m */; };
+		A8906E1D182190B100F0D3B8 /* FMDatabase+InMemoryOnDiskIO.m in Sources */ = {isa = PBXBuildFile; fileRef = A8906E12182190B100F0D3B8 /* FMDatabase+InMemoryOnDiskIO.m */; };
+		A8906E1E182190B100F0D3B8 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A8906E14182190B100F0D3B8 /* FMDatabaseAdditions.m */; };
+		A8906E1F182190B100F0D3B8 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = A8906E16182190B100F0D3B8 /* FMDatabasePool.m */; };
+		A8906E20182190B100F0D3B8 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A8906E18182190B100F0D3B8 /* FMDatabaseQueue.m */; };
+		A8906E21182190B100F0D3B8 /* fmdb.m in Sources */ = {isa = PBXBuildFile; fileRef = A8906E19182190B100F0D3B8 /* fmdb.m */; };
+		A8906E22182190B100F0D3B8 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = A8906E1B182190B100F0D3B8 /* FMResultSet.m */; };
+		A8906E241821916A00F0D3B8 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A8906E231821916A00F0D3B8 /* libsqlite3.0.dylib */; };
 		A8D113AE181EBE31001385FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D113AD181EBE31001385FE /* Foundation.framework */; };
 		A8D113B0181EBE31001385FE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D113AF181EBE31001385FE /* CoreGraphics.framework */; };
 		A8D113B2181EBE31001385FE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D113B1181EBE31001385FE /* UIKit.framework */; };
@@ -39,10 +47,24 @@
 		A83F644B18201CE700F41481 /* UPSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPSearchBar.m; sourceTree = "<group>"; };
 		A83F645318201DB300F41481 /* UPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPAppDelegate.h; sourceTree = "<group>"; };
 		A83F645418201DB300F41481 /* UPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPAppDelegate.m; sourceTree = "<group>"; };
-		A83F645618201E7C00F41481 /* UPEnrollmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPEnrollmentViewController.h; path = up/UPEnrollmentViewController.h; sourceTree = SOURCE_ROOT; };
-		A83F645718201E7C00F41481 /* UPEnrollmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UPEnrollmentViewController.m; path = up/UPEnrollmentViewController.m; sourceTree = SOURCE_ROOT; };
-		A8906DED182180AE00F0D3B8 /* UPSearchResultManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPSearchResultManager.h; path = up/UPSearchResultManager.h; sourceTree = SOURCE_ROOT; };
-		A8906DEE182180AE00F0D3B8 /* UPSearchResultManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UPSearchResultManager.m; path = up/UPSearchResultManager.m; sourceTree = SOURCE_ROOT; };
+		A8906DF21821906000F0D3B8 /* UPSearchResultManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPSearchResultManager.h; sourceTree = "<group>"; };
+		A8906DF31821906000F0D3B8 /* UPSearchResultManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPSearchResultManager.m; sourceTree = "<group>"; };
+		A8906DF51821906600F0D3B8 /* UPEnrollmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPEnrollmentViewController.h; sourceTree = "<group>"; };
+		A8906DF61821906600F0D3B8 /* UPEnrollmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPEnrollmentViewController.m; sourceTree = "<group>"; };
+		A8906E0F182190B100F0D3B8 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		A8906E10182190B100F0D3B8 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		A8906E11182190B100F0D3B8 /* FMDatabase+InMemoryOnDiskIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FMDatabase+InMemoryOnDiskIO.h"; sourceTree = "<group>"; };
+		A8906E12182190B100F0D3B8 /* FMDatabase+InMemoryOnDiskIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FMDatabase+InMemoryOnDiskIO.m"; sourceTree = "<group>"; };
+		A8906E13182190B100F0D3B8 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		A8906E14182190B100F0D3B8 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		A8906E15182190B100F0D3B8 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		A8906E16182190B100F0D3B8 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		A8906E17182190B100F0D3B8 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		A8906E18182190B100F0D3B8 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		A8906E19182190B100F0D3B8 /* fmdb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fmdb.m; sourceTree = "<group>"; };
+		A8906E1A182190B100F0D3B8 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		A8906E1B182190B100F0D3B8 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		A8906E231821916A00F0D3B8 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		A8D113AA181EBE31001385FE /* up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = up.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8D113AD181EBE31001385FE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A8D113AF181EBE31001385FE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -64,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8906E241821916A00F0D3B8 /* libsqlite3.0.dylib in Frameworks */,
 				A8D113B0181EBE31001385FE /* CoreGraphics.framework in Frameworks */,
 				A8D113B2181EBE31001385FE /* UIKit.framework in Frameworks */,
 				A8D113AE181EBE31001385FE /* Foundation.framework in Frameworks */,
@@ -111,6 +134,7 @@
 		A83F645018201CE700F41481 /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				A8906E0E1821909300F0D3B8 /* FMDB */,
 			);
 			path = ThirdPart;
 			sourceTree = "<group>";
@@ -118,8 +142,8 @@
 		A8906DF01821818B00F0D3B8 /* EnrollmentPage */ = {
 			isa = PBXGroup;
 			children = (
-				A83F645618201E7C00F41481 /* UPEnrollmentViewController.h */,
-				A83F645718201E7C00F41481 /* UPEnrollmentViewController.m */,
+				A8906DF51821906600F0D3B8 /* UPEnrollmentViewController.h */,
+				A8906DF61821906600F0D3B8 /* UPEnrollmentViewController.m */,
 			);
 			path = EnrollmentPage;
 			sourceTree = "<group>";
@@ -127,10 +151,30 @@
 		A8906DF11821818B00F0D3B8 /* SearchPage */ = {
 			isa = PBXGroup;
 			children = (
-				A8906DED182180AE00F0D3B8 /* UPSearchResultManager.h */,
-				A8906DEE182180AE00F0D3B8 /* UPSearchResultManager.m */,
+				A8906DF21821906000F0D3B8 /* UPSearchResultManager.h */,
+				A8906DF31821906000F0D3B8 /* UPSearchResultManager.m */,
 			);
 			path = SearchPage;
+			sourceTree = "<group>";
+		};
+		A8906E0E1821909300F0D3B8 /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				A8906E0F182190B100F0D3B8 /* FMDatabase.h */,
+				A8906E10182190B100F0D3B8 /* FMDatabase.m */,
+				A8906E11182190B100F0D3B8 /* FMDatabase+InMemoryOnDiskIO.h */,
+				A8906E12182190B100F0D3B8 /* FMDatabase+InMemoryOnDiskIO.m */,
+				A8906E13182190B100F0D3B8 /* FMDatabaseAdditions.h */,
+				A8906E14182190B100F0D3B8 /* FMDatabaseAdditions.m */,
+				A8906E15182190B100F0D3B8 /* FMDatabasePool.h */,
+				A8906E16182190B100F0D3B8 /* FMDatabasePool.m */,
+				A8906E17182190B100F0D3B8 /* FMDatabaseQueue.h */,
+				A8906E18182190B100F0D3B8 /* FMDatabaseQueue.m */,
+				A8906E19182190B100F0D3B8 /* fmdb.m */,
+				A8906E1A182190B100F0D3B8 /* FMResultSet.h */,
+				A8906E1B182190B100F0D3B8 /* FMResultSet.m */,
+			);
+			path = FMDB;
 			sourceTree = "<group>";
 		};
 		A8D113A1181EBE31001385FE = {
@@ -155,6 +199,7 @@
 		A8D113AC181EBE31001385FE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A8906E231821916A00F0D3B8 /* libsqlite3.0.dylib */,
 				A8D113AD181EBE31001385FE /* Foundation.framework */,
 				A8D113AF181EBE31001385FE /* CoreGraphics.framework */,
 				A8D113B1181EBE31001385FE /* UIKit.framework */,
@@ -304,11 +349,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8906DF71821906600F0D3B8 /* UPEnrollmentViewController.m in Sources */,
 				A83F645518201DB300F41481 /* UPAppDelegate.m in Sources */,
 				A8D113BA181EBE31001385FE /* main.m in Sources */,
+				A8906E1D182190B100F0D3B8 /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
+				A8906E1F182190B100F0D3B8 /* FMDatabasePool.m in Sources */,
+				A8906E20182190B100F0D3B8 /* FMDatabaseQueue.m in Sources */,
+				A8906E22182190B100F0D3B8 /* FMResultSet.m in Sources */,
+				A8906E1C182190B100F0D3B8 /* FMDatabase.m in Sources */,
 				A83F645118201CE700F41481 /* UPSearchBar.m in Sources */,
-				A83F645818201E7C00F41481 /* UPEnrollmentViewController.m in Sources */,
-				A8906DEF182180AE00F0D3B8 /* UPSearchResultManager.m in Sources */,
+				A8906E21182190B100F0D3B8 /* fmdb.m in Sources */,
+				A8906DF41821906000F0D3B8 /* UPSearchResultManager.m in Sources */,
+				A8906E1E182190B100F0D3B8 /* FMDatabaseAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
