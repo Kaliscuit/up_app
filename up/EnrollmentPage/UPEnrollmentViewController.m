@@ -7,6 +7,8 @@
 //
 
 #import "UPEnrollmentViewController.h"
+#import "UPSearchResultManager.h"
+#import "AFNetworking.h"
 
 #define SearchBarWidth (240.0f)
 #define SearchBarHeight (50.0f)
@@ -14,7 +16,7 @@
 #define ScreenHeight ([UIScreen mainScreen].bounds.size.height)
 
 #define SearchBarInitFrame CGRectMake((ScreenWidth - SearchBarWidth) / 2, (ScreenHeight - SearchBarHeight) / 2, SearchBarWidth, SearchBarHeight)
-#define SearchBarEditFrame CGRectMake(0, 0, ScreenWidth, SearchBarHeight)
+#define SearchBarEditFrame CGRectMake(0, [UIApplication sharedApplication].statusBarFrame.size.height, ScreenWidth, SearchBarHeight)
 
 typedef enum {
     EnrollmentSearchBarStatusInit = 0,
@@ -25,6 +27,9 @@ typedef enum {
     UISearchBar *_searchBar;
     UITapGestureRecognizer *_closeSearchTapGesture;
     UITableView *_tableView;
+    
+    AFHTTPRequestOperationManager *_manager;
+    UISearchDisplayController *_displayController;
 }
 @property (nonatomic, assign) EnrollmentSearchBarStatus searchBarStatus;
 @end
@@ -49,11 +54,16 @@ typedef enum {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UPSearchResultManager *a = [[UPSearchResultManager alloc] init];
+    [a defaultDB];
+    
     NSLog(@"%s", __PRETTY_FUNCTION__);
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self initSearchBar];
-    [self initTableView];
+    [self initSearchDisplayController];
+    [self initSearchRequest];
 }
 
 - (void)initSearchBar {
@@ -71,9 +81,15 @@ typedef enum {
     [_searchBar release];
 }
 
-- (void)initTableView {
-//    _searchBar.
+- (void)initSearchDisplayController {
+    _displayController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
+    
 }
+
+- (void)initSearchRequest {
+     _manager = [AFHTTPRequestOperationManager manager];
+}
+
 #pragma mark - 点击搜索框之外的区域结束搜索
 - (void)closeSearch:(UITapGestureRecognizer *)gesture {
     NSLog(@"%s", __PRETTY_FUNCTION__);
@@ -83,31 +99,85 @@ typedef enum {
 }
 
 #pragma mark - SearchBarDelegate
+// return NO to not become first responder
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
+    return YES;
+}
+
+// called when text starts editing
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     NSLog(@"%s", __PRETTY_FUNCTION__);
     self.searchBarStatus = EnrollmentSearchBarStatusEdit;
 }
-
+// return NO to not resign first responder
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
+    return YES;
+}
+// called when text ends editing
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     NSLog(@"%s", __PRETTY_FUNCTION__);
     self.searchBarStatus = EnrollmentSearchBarStatusInit;
+}
+// called when text changes (including clear)
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    NSDictionary *parameters = @{@"searchText": searchText};
+    [_manager POST:@"http://sunnykale.com/json.php" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+
+}
+
+// called before text changes
+- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    return YES;
+}
+
+// called when keyboard search button pressed
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    NSLog(@"显示第一个职位");
+}
+
+// called when bookmark button pressed
+- (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar {
+    
+}
+
+// called when cancel button pressed
+- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar {
+//    [_displayController setActive:NO animated:NO];
+//    [_searchBar resignFirstResponder];
+    self.searchBarStatus = EnrollmentSearchBarStatusInit;
+}
+
+// called when search results button pressed
+- (void)searchBarResultsListButtonClicked:(UISearchBar *)searchBar {
+    
+}
+
+// 搜索栏下面的分栏类型按钮
+- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
+    
 }
 
 #pragma mark - 搜索框状态变化
 - (void)setSearchBarStatus:(EnrollmentSearchBarStatus)searchBarStatus {
     NSLog(@"%s", __PRETTY_FUNCTION__);
     if (searchBarStatus == EnrollmentSearchBarStatusInit) {
+        [_searchBar setShowsCancelButton:NO animated:YES];
+        [_searchBar resignFirstResponder];
         [UIView beginAnimations:@"EnrollmentSearchBarChangeToEditStatus" context:nil];
         [UIView setAnimationDuration:0.2f];
 //        _searchBar.frame = CGRectMake((ScreenWidth - SearchBarWidth) / 2, 0, SearchBarWidth, SearchBarHeight);
         _searchBar.frame = SearchBarInitFrame;
         [UIView commitAnimations];
         
-        if ([[self.view gestureRecognizers] containsObject:_closeSearchTapGesture]) {
-            [self.view removeGestureRecognizer:_closeSearchTapGesture];
-        }
+//        if ([[self.view gestureRecognizers] containsObject:_closeSearchTapGesture]) {
+//            [self.view removeGestureRecognizer:_closeSearchTapGesture];
+//        }
         
-        [_searchBar setShowsCancelButton:NO animated:YES];
+        
         
     } else if (searchBarStatus == EnrollmentSearchBarStatusEdit){
         [UIView beginAnimations:@"EnrollmentSearchBarChangeToInitStatus" context:nil];
@@ -115,19 +185,13 @@ typedef enum {
         _searchBar.frame = SearchBarEditFrame;
         [UIView commitAnimations];
         
-        _closeSearchTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeSearch:)];
-        _closeSearchTapGesture.numberOfTapsRequired = 1;
-        [_closeSearchTapGesture setCancelsTouchesInView:NO];
-        [self.view addGestureRecognizer:_closeSearchTapGesture];
-        [_closeSearchTapGesture release];
-        
         [_searchBar setShowsCancelButton:YES animated:YES];
     } else {
         // LOG
     }
 }
 
-#pragma mark - 搜索框数据显示
+#pragma mark - SearchDisplayControllerDelegate
 - (void) searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
     
 }
@@ -135,6 +199,7 @@ typedef enum {
 - (void) searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller {
     
 }
+
 - (void) searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
     
 }
@@ -167,7 +232,7 @@ typedef enum {
 
 // return YES to reload table. called when search string/option changes. convenience methods on top UISearchBar delegate methods
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-    return NO;
+    return YES;
 }
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
     return NO;

@@ -24,6 +24,9 @@
     [enrollmentNavigationController release];
     [self.window makeKeyAndVisible];
     
+    
+//    [self requestChange]; // 是否要拉取
+    
     return YES;
 }
 							

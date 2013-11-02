@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FMDatabase.h"
 
 @interface UPSearchResultManager : NSObject
+
+- (FMDatabase *)defaultDB;
 
 @end
