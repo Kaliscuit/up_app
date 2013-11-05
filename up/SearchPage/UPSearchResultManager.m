@@ -15,7 +15,7 @@
 
 @implementation UPSearchResultManager
 
-- (UPSearchResultManager *)sharedInstance {
++ (UPSearchResultManager *)sharedInstance {
     static UPSearchResultManager *_sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

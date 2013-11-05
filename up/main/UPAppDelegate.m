@@ -7,21 +7,28 @@
 //
 
 #import "UPAppDelegate.h"
-#import "UPEnrollmentViewController.h"
+#import "UPSearchViewController.h"
+#import "UPIndexScrollViewController.h"
 
 @implementation UPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    UPEnrollmentViewController *enrollmentViewController = [[UPEnrollmentViewController alloc] init];
+    UPIndexScrollViewController *indexScrollViewController = [[UPIndexScrollViewController alloc] init];
     
-    UINavigationController *enrollmentNavigationController = [[UINavigationController alloc] initWithRootViewController:enrollmentViewController];
+    UINavigationController *indexScrollNavigationController = [[UINavigationController alloc] initWithRootViewController:indexScrollViewController];
+//    UPSearchViewController *searchViewController = [[UPSearchViewController alloc] init];
+//    UINavigationController *searchNavigationController = [[UINavigationController alloc]initWithRootViewController:searchViewController];
     
     self.window = [[[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
-    self.window.rootViewController = enrollmentNavigationController;
-    [enrollmentNavigationController setNavigationBarHidden:YES];
-    [enrollmentViewController release];
-    [enrollmentNavigationController release];
+//    self.window.rootViewController = searchNavigationController;
+    self.window.rootViewController = indexScrollNavigationController;
+    [indexScrollNavigationController setNavigationBarHidden:YES];
+//    [searchNavigationController setNavigationBarHidden:YES];
+    [indexScrollViewController release];
+    [indexScrollNavigationController release];
+//    [searchViewController release];
+//    [searchNavigationController release];
     [self.window makeKeyAndVisible];
     
     

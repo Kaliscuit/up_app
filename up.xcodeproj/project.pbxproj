@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A868318F18281BE0005D4375 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A868319118281BE0005D4375 /* Localizable.strings */; };
+		A868319718281CE2005D4375 /* UPCommonInitMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = A868319618281CE2005D4375 /* UPCommonInitMethod.m */; };
+		A868319E1828A334005D4375 /* UPSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A868319D1828A334005D4375 /* UPSearchViewController.m */; };
+		A86831A41828ABFC005D4375 /* UPIndexScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A86831A31828ABFC005D4375 /* UPIndexScrollViewController.m */; };
+		A86831A71828AD5E005D4375 /* UPMoreSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A86831A61828AD5E005D4375 /* UPMoreSearchViewController.m */; };
 		A8906E261821938C00F0D3B8 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A8906E251821938C00F0D3B8 /* libsqlite3.dylib */; };
-		A8906E281821954000F0D3B8 /* UPEnrollmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8906DF61821906600F0D3B8 /* UPEnrollmentViewController.m */; };
 		A8906E291821954000F0D3B8 /* UPSearchResultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A8906DF31821906000F0D3B8 /* UPSearchResultManager.m */; };
 		A8906E2A1821954000F0D3B8 /* UPSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A83F644B18201CE700F41481 /* UPSearchBar.m */; };
 		A8906E2B1821954000F0D3B8 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = A8906E10182190B100F0D3B8 /* FMDatabase.m */; };
@@ -29,15 +33,16 @@
 		A8D113DC181EBE31001385FE /* upTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D113DB181EBE31001385FE /* upTests.m */; };
 		A8D701F91824CFBB0065C8BF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D113B9181EBE31001385FE /* main.m */; };
 		A8D701FA1824CFC40065C8BF /* UPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A83F645418201DB300F41481 /* UPAppDelegate.m */; };
-		A8D7020F182512460065C8BF /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D701FD182512460065C8BF /* AFHTTPRequestOperation.m */; };
-		A8D70210182512460065C8BF /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D701FF182512460065C8BF /* AFHTTPRequestOperationManager.m */; };
-		A8D70211182512460065C8BF /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D70201182512460065C8BF /* AFHTTPSessionManager.m */; };
-		A8D70212182512460065C8BF /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D70204182512460065C8BF /* AFNetworkReachabilityManager.m */; };
-		A8D70213182512460065C8BF /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D70206182512460065C8BF /* AFSecurityPolicy.m */; };
+		A8D7020F182512460065C8BF /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D701FD182512460065C8BF /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		A8D70210182512460065C8BF /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D701FF182512460065C8BF /* AFHTTPRequestOperationManager.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		A8D70211182512460065C8BF /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D70201182512460065C8BF /* AFHTTPSessionManager.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		A8D70212182512460065C8BF /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D70204182512460065C8BF /* AFNetworkReachabilityManager.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		A8D70213182512460065C8BF /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D70206182512460065C8BF /* AFSecurityPolicy.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		A8D70214182512460065C8BF /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D70208182512460065C8BF /* AFURLConnectionOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		A8D70215182512460065C8BF /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D7020A182512460065C8BF /* AFURLRequestSerialization.m */; };
-		A8D70216182512460065C8BF /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D7020C182512460065C8BF /* AFURLResponseSerialization.m */; };
+		A8D70215182512460065C8BF /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D7020A182512460065C8BF /* AFURLRequestSerialization.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		A8D70216182512460065C8BF /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D7020C182512460065C8BF /* AFURLResponseSerialization.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		A8D70217182512460065C8BF /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D7020E182512460065C8BF /* AFURLSessionManager.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		A8D7021B1825636B0065C8BF /* UPEnrollmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D7021A1825636B0065C8BF /* UPEnrollmentViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,10 +60,22 @@
 		A83F644B18201CE700F41481 /* UPSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPSearchBar.m; sourceTree = "<group>"; };
 		A83F645318201DB300F41481 /* UPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPAppDelegate.h; sourceTree = "<group>"; };
 		A83F645418201DB300F41481 /* UPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPAppDelegate.m; sourceTree = "<group>"; };
+		A868318B18281053005D4375 /* CommonDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonDefine.h; sourceTree = "<group>"; };
+		A868319018281BE0005D4375 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A868319218281C3F005D4375 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		A868319318281C3F005D4375 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		A868319418281C3F005D4375 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		A868319518281CE2005D4375 /* UPCommonInitMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPCommonInitMethod.h; sourceTree = "<group>"; };
+		A868319618281CE2005D4375 /* UPCommonInitMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPCommonInitMethod.m; sourceTree = "<group>"; };
+		A868319B18282E3F005D4375 /* LocalizedName.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalizedName.h; sourceTree = "<group>"; };
+		A868319C1828A334005D4375 /* UPSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPSearchViewController.h; sourceTree = "<group>"; };
+		A868319D1828A334005D4375 /* UPSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPSearchViewController.m; sourceTree = "<group>"; };
+		A86831A21828ABFC005D4375 /* UPIndexScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPIndexScrollViewController.h; sourceTree = "<group>"; };
+		A86831A31828ABFC005D4375 /* UPIndexScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPIndexScrollViewController.m; sourceTree = "<group>"; };
+		A86831A51828AD5E005D4375 /* UPMoreSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPMoreSearchViewController.h; sourceTree = "<group>"; };
+		A86831A61828AD5E005D4375 /* UPMoreSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPMoreSearchViewController.m; sourceTree = "<group>"; };
 		A8906DF21821906000F0D3B8 /* UPSearchResultManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPSearchResultManager.h; sourceTree = "<group>"; };
 		A8906DF31821906000F0D3B8 /* UPSearchResultManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPSearchResultManager.m; sourceTree = "<group>"; };
-		A8906DF51821906600F0D3B8 /* UPEnrollmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPEnrollmentViewController.h; sourceTree = "<group>"; };
-		A8906DF61821906600F0D3B8 /* UPEnrollmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPEnrollmentViewController.m; sourceTree = "<group>"; };
 		A8906E0F182190B100F0D3B8 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		A8906E10182190B100F0D3B8 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
 		A8906E11182190B100F0D3B8 /* FMDatabase+InMemoryOnDiskIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FMDatabase+InMemoryOnDiskIO.h"; sourceTree = "<group>"; };
@@ -82,7 +99,7 @@
 		A8D113B7181EBE31001385FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A8D113B9181EBE31001385FE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A8D113BB181EBE31001385FE /* up-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "up-Prefix.pch"; sourceTree = "<group>"; };
-		A8D113C8181EBE31001385FE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A8D113C8181EBE31001385FE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		A8D113CE181EBE31001385FE /* upTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = upTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8D113CF181EBE31001385FE /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		A8D113D7181EBE31001385FE /* upTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "upTests-Info.plist"; sourceTree = "<group>"; };
@@ -107,6 +124,9 @@
 		A8D7020C182512460065C8BF /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		A8D7020D182512460065C8BF /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		A8D7020E182512460065C8BF /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		A8D702191825636B0065C8BF /* UPEnrollmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPEnrollmentViewController.h; sourceTree = "<group>"; };
+		A8D7021A1825636B0065C8BF /* UPEnrollmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPEnrollmentViewController.m; sourceTree = "<group>"; };
+		A8D7021C182563810065C8BF /* CommonURL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonURL.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +157,11 @@
 		A83F644818201CE700F41481 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A8D7021C182563810065C8BF /* CommonURL.h */,
+				A868318B18281053005D4375 /* CommonDefine.h */,
+				A868319518281CE2005D4375 /* UPCommonInitMethod.h */,
+				A868319618281CE2005D4375 /* UPCommonInitMethod.m */,
+				A868319B18282E3F005D4375 /* LocalizedName.h */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -155,6 +180,8 @@
 			children = (
 				A83F645318201DB300F41481 /* UPAppDelegate.h */,
 				A83F645418201DB300F41481 /* UPAppDelegate.m */,
+				A86831A21828ABFC005D4375 /* UPIndexScrollViewController.h */,
+				A86831A31828ABFC005D4375 /* UPIndexScrollViewController.m */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -168,13 +195,13 @@
 			path = ThirdPart;
 			sourceTree = "<group>";
 		};
-		A8906DF01821818B00F0D3B8 /* EnrollmentPage */ = {
+		A868318C18281B5A005D4375 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				A8906DF51821906600F0D3B8 /* UPEnrollmentViewController.h */,
-				A8906DF61821906600F0D3B8 /* UPEnrollmentViewController.m */,
+				A8D113C8181EBE31001385FE /* Images.xcassets */,
+				A868319118281BE0005D4375 /* Localizable.strings */,
 			);
-			path = EnrollmentPage;
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		A8906DF11821818B00F0D3B8 /* SearchPage */ = {
@@ -182,6 +209,10 @@
 			children = (
 				A8906DF21821906000F0D3B8 /* UPSearchResultManager.h */,
 				A8906DF31821906000F0D3B8 /* UPSearchResultManager.m */,
+				A868319C1828A334005D4375 /* UPSearchViewController.h */,
+				A868319D1828A334005D4375 /* UPSearchViewController.m */,
+				A86831A51828AD5E005D4375 /* UPMoreSearchViewController.h */,
+				A86831A61828AD5E005D4375 /* UPMoreSearchViewController.m */,
 			);
 			path = SearchPage;
 			sourceTree = "<group>";
@@ -241,13 +272,13 @@
 		A8D113B3181EBE31001385FE /* up */ = {
 			isa = PBXGroup;
 			children = (
-				A8906DF01821818B00F0D3B8 /* EnrollmentPage */,
+				A8D70218182563420065C8BF /* LoginOrEnrollPage */,
 				A8906DF11821818B00F0D3B8 /* SearchPage */,
 				A83F644818201CE700F41481 /* Common */,
 				A83F644918201CE700F41481 /* Controls */,
 				A83F644F18201CE700F41481 /* main */,
 				A83F645018201CE700F41481 /* ThirdPart */,
-				A8D113C8181EBE31001385FE /* Images.xcassets */,
+				A868318C18281B5A005D4375 /* Resource */,
 				A8D113B4181EBE31001385FE /* Supporting Files */,
 			);
 			path = up;
@@ -306,6 +337,15 @@
 				A8D7020E182512460065C8BF /* AFURLSessionManager.m */,
 			);
 			path = AFNetworking;
+			sourceTree = "<group>";
+		};
+		A8D70218182563420065C8BF /* LoginOrEnrollPage */ = {
+			isa = PBXGroup;
+			children = (
+				A8D702191825636B0065C8BF /* UPEnrollmentViewController.h */,
+				A8D7021A1825636B0065C8BF /* UPEnrollmentViewController.m */,
+			);
+			path = LoginOrEnrollPage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -371,6 +411,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = A8D113A1181EBE31001385FE;
 			productRefGroup = A8D113AB181EBE31001385FE /* Products */;
@@ -389,6 +430,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8D113C9181EBE31001385FE /* Images.xcassets in Resources */,
+				A868318F18281BE0005D4375 /* Localizable.strings in Resources */,
 				A8D113B8181EBE31001385FE /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -410,8 +452,8 @@
 			files = (
 				A8D7020F182512460065C8BF /* AFHTTPRequestOperation.m in Sources */,
 				A8D701FA1824CFC40065C8BF /* UPAppDelegate.m in Sources */,
+				A868319718281CE2005D4375 /* UPCommonInitMethod.m in Sources */,
 				A8D701F91824CFBB0065C8BF /* main.m in Sources */,
-				A8906E281821954000F0D3B8 /* UPEnrollmentViewController.m in Sources */,
 				A8906E291821954000F0D3B8 /* UPSearchResultManager.m in Sources */,
 				A8D70217182512460065C8BF /* AFURLSessionManager.m in Sources */,
 				A8D70211182512460065C8BF /* AFHTTPSessionManager.m in Sources */,
@@ -420,10 +462,14 @@
 				A8906E2B1821954000F0D3B8 /* FMDatabase.m in Sources */,
 				A8D70216182512460065C8BF /* AFURLResponseSerialization.m in Sources */,
 				A8D70215182512460065C8BF /* AFURLRequestSerialization.m in Sources */,
+				A86831A71828AD5E005D4375 /* UPMoreSearchViewController.m in Sources */,
 				A8D70214182512460065C8BF /* AFURLConnectionOperation.m in Sources */,
 				A8D70210182512460065C8BF /* AFHTTPRequestOperationManager.m in Sources */,
 				A8906E2C1821954000F0D3B8 /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
 				A8906E2D1821954000F0D3B8 /* FMDatabaseAdditions.m in Sources */,
+				A8D7021B1825636B0065C8BF /* UPEnrollmentViewController.m in Sources */,
+				A868319E1828A334005D4375 /* UPSearchViewController.m in Sources */,
+				A86831A41828ABFC005D4375 /* UPIndexScrollViewController.m in Sources */,
 				A8D70213182512460065C8BF /* AFSecurityPolicy.m in Sources */,
 				A8906E2E1821954000F0D3B8 /* FMDatabasePool.m in Sources */,
 				A8906E2F1821954000F0D3B8 /* FMDatabaseQueue.m in Sources */,
@@ -450,10 +496,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		A868319118281BE0005D4375 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A868319018281BE0005D4375 /* en */,
+				A868319218281C3F005D4375 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		A8D113B6181EBE31001385FE /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				A8D113B7181EBE31001385FE /* en */,
+				A868319318281C3F005D4375 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -462,6 +518,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A8D113D9181EBE31001385FE /* en */,
+				A868319418281C3F005D4375 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -551,6 +608,7 @@
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "up/up-Prefix.pch";
 				INFOPLIST_FILE = "up/up-Info.plist";
@@ -571,6 +629,7 @@
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "up/up-Prefix.pch";
 				INFOPLIST_FILE = "up/up-Info.plist";

@@ -13,4 +13,7 @@
 
 - (FMDatabase *)defaultDB;
 
+- (NSArray *)getSearchData:(NSString *)searchStr;
+
++ (UPSearchResultManager *)sharedInstance;
 @end
