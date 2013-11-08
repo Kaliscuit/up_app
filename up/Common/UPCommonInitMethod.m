@@ -28,7 +28,7 @@
     }
 }
 
-+ (void)initButton:(UIButton *)button withFrame:(CGRect)rect withTitle:(NSString *)title withTitleColor:(UIColor *)titleColor withBackgroundColor:(UIColor *)backgroundColor withAction:(SEL)action {
++ (void)initButton:(UIButton *)button withFrame:(CGRect)rect withTitle:(NSString *)title withTitleColor:(UIColor *)titleColor withBackgroundColor:(UIColor *)backgroundColor {
     if (NSStringFromCGRect(rect).length > 0) {
         button.frame = rect;
     }
@@ -40,9 +40,6 @@
     }
     if (backgroundColor) {
         [button setBackgroundColor:backgroundColor];
-    }
-    if (NSStringFromSelector(action).length > 0) {
-        [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
     }
 }
 

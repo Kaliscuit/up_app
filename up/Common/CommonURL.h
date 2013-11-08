@@ -11,5 +11,9 @@
 
 #define Url_Server_base @"http://api.dev.v2up.me"
 #define Url_Search_Suggest_Post @"position/suggest"
-#define Parameter_Search_Suggest_Post @"keyword"
+#define Url_Parameter_Search_Suggest_Post @"keyword"
+#define Url_Login_Post @"user/login"
+#define Url_Enroll_Post @"user/register"
+#define Url_Nickname_Post @"user/set-name"
+#define Url_Email_Check_Post @"user/check-email"
 #endif

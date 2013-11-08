@@ -8,29 +8,24 @@
 
 #import "UPSearchViewController.h"
 #import "UPSearchResultManager.h"
-#import "AFNetworking.h"
 #import "CommonDefine.h"
 #import "UPCommonInitMethod.h"
+//#import "UPLoginOrEnrollViewController.h"
+#import "CommonNotification.h"
 
 #define SearchBarWidth (240.0f)
 #define SearchBarHeight (50.0f)
 
 
-#define SearchBarInitFrame CGRectMake(30, 250, 258, 45)
+#define SearchBarInitFrame CGRectMake(30, 250, 258, 30)
 #define SearchBarEditFrame CGRectMake(0, [UIApplication sharedApplication].statusBarFrame.size.height, ScreenWidth, SearchBarHeight)
 
 #define isClassEqual(x, y) ([[x class] isEqual:[y class]])?YES:NO
-
-typedef enum {
-    EnrollmentSearchBarStatusInit = 0,
-    EnrollmentSearchBarStatusEdit = 1
-}EnrollmentSearchBarStatus;
 
 @interface UPSearchViewController ()<UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate> {
     UISearchBar *_searchBar;
     UILabel *_searchBarTipLabel;
     UIButton *_accountButton;
-    AFHTTPRequestOperationManager *_manager;
     UISearchDisplayController *_displayController;
     
     NSInteger _positionCount;
@@ -39,16 +34,10 @@ typedef enum {
     NSString *_keyword;
     
     UPSearchResultManager *_searchResultManager;
-    
-    UIPageControl *_pageControl;
-    UIScrollView *_scrollView;
-
 }
-@property (nonatomic, assign) EnrollmentSearchBarStatus searchBarStatus;
 @end
 
 @implementation UPSearchViewController
-@synthesize searchBarStatus = _searchBarStatus;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -75,47 +64,56 @@ typedef enum {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    //    UPSearchResultManager *a = [[UPSearchResultManager alloc] init];
-    //    [a defaultDB];
-    //    [a release];
     NSLog(@"%s", __PRETTY_FUNCTION__);
     
     self.view.backgroundColor = BaseColor;
     
+    [self initUI];
+
+    _positions = [[NSMutableArray alloc] init];
+    _searchKeywords = [[NSMutableArray alloc] init];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserName:) name:@"UserName" object:nil];
+}
+
+- (void)updateUserName:(NSNotification *)notify {
+    [_accountButton setTitle:[[notify userInfo] objectForKey:@"UserName"] forState:UIControlStateNormal];
+    [_accountButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+}
+
+- (void)onClickAccountButton:(UIButton *)sendere {
+    NSLog(@"点击登录按钮");
+    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPopEnrollmentOrLoginViewController object:nil];
+}
+
+- (void)initUI {
     _searchBarTipLabel = [[UILabel alloc] init];
     [UPCommonInitMethod initLabel:_searchBarTipLabel withFrame:CGRectMake(36, 223, 150, 25) withText:@"我的梦想职业" withTextColor:[UIColor whiteColor] withBackgroundColor:[UIColor clearColor] withFont:[UIFont systemFontOfSize:20]];
     [self.view addSubview:_searchBarTipLabel];
     
+    UIButton *fakeSearchBar = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [fakeSearchBar setFrame:SearchBarInitFrame];
+    [fakeSearchBar setImage:[UIImage imageNamed:@"icn_finder.png"] forState:UIControlStateNormal];
+    [fakeSearchBar setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
+    [fakeSearchBar addTarget:self action:@selector(beginSearch) forControlEvents:UIControlEventTouchDown];
+    [fakeSearchBar setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:fakeSearchBar];
+    [fakeSearchBar release];
+    
     _accountButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [UPCommonInitMethod initButton:_accountButton withFrame:CGRectMake(36.0f, (ScreenHeight - 90.0f), 100.0f, 40.0f) withTitle:@"未登录" withTitleColor:[UIColor colorWithWhite:179.0f/255.0f alpha:1.0] withBackgroundColor:[UIColor whiteColor] withAction:@selector(onClickAccountButton:)];
+    [UPCommonInitMethod initButton:_accountButton withFrame:CGRectMake(36.0f, (ScreenHeight - 90.0f), 100.0f, 40.0f) withTitle:@"未登录" withTitleColor:[UIColor colorWithWhite:179.0f/255.0f alpha:1.0] withBackgroundColor:[UIColor whiteColor]];
+    [_accountButton addTarget:self action:@selector(onClickAccountButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_accountButton setImage:[UIImage imageNamed:@"icn_user_default.png"] forState:UIControlStateNormal];
+    [_accountButton setImage:[UIImage imageNamed:@"icn_user_default_highlight.png"] forState:UIControlStateSelected];
+    [_accountButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
     [UPCommonInitMethod initButtonWithRadius:_accountButton withCornerRadius:20.0f];
-    [_accountButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 25, 0, 0)];
+    [_accountButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     [self.view addSubview:_accountButton];
+    [_accountButton release];
     
-    [self initSearchBar];
-    [self initSearchDisplayController];
-    [self initSearchRequest];
-    
-    _positions = [[NSMutableArray alloc] init];
-    _searchKeywords = [[NSMutableArray alloc] init];
-    
-    _pageControl = [[UIPageControl alloc] init];
-    _scrollView = [[UIScrollView alloc] init];
-}
-
-//- (UIStatusBarStyle)preferredStatusBarStyle {
-//    return UIStatusBarStyleLightContent;
-//}
-
-- (void)onClickAccountButton:(UIButton *)sendere {
-    NSLog(@"点击登录按钮");
-}
-
-- (void)initSearchBar {
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(30, 250, 258, 45)];
+    _searchBar = [[UISearchBar alloc] initWithFrame:SearchBarEditFrame];
     [_searchBar setSearchBarStyle:UISearchBarStyleMinimal];
-    [_searchBar setPlaceholder:@"请输入感兴趣的职位"];
+//    [_searchBar setPlaceholder:@"请输入感兴趣的职位"];
     [_searchBar setTintColor:[UIColor redColor]]; // 光标颜色
     _searchBar.backgroundColor = [UIColor clearColor];
     [_searchBar setOpaque:NO];
@@ -124,19 +122,16 @@ typedef enum {
 	[self.view addSubview:_searchBar];
     _searchBar.delegate = self;
     [_searchBar release];
-}
-
-- (void)initSearchDisplayController {
+    
     _displayController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
     _displayController.delegate = self;
     _displayController.searchResultsDelegate = self;
     _displayController.searchResultsDataSource = self;
 }
 
-- (void)initSearchRequest {
-    _manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:Url_Server_base]];
+- (void)beginSearch {
+    [_searchBar becomeFirstResponder];
 }
-
 #pragma mark - SearchBarDelegate
 // return NO to not become first responder
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
@@ -146,7 +141,7 @@ typedef enum {
 // called when text starts editing
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     NSLog(@"%s", __PRETTY_FUNCTION__);
-    self.searchBarStatus = EnrollmentSearchBarStatusEdit;
+//    self.searchBarStatus = EnrollmentSearchBarStatusEdit;
 }
 // return NO to not resign first responder
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
@@ -185,12 +180,13 @@ typedef enum {
 //            
 //        }
 //        [_positions addObjectsFromArray:[[responseObject objectForKey:@"d"] objectForKey:@"positions"]];
-//        [_displayController.searchResultsTableView reloadData];
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Error: %@", error);
-//    }];
-//    
+    if (_positions) {
+        [_displayController.searchResultsTableView reloadData];
+    } else {
+        [_displayController.searchResultsTableView performSelector:@selector(reloadData) withObject:nil afterDelay:1.0];
+    }
+    
+
 }
 
 // called before text changes
@@ -212,29 +208,29 @@ typedef enum {
 }
 
 #pragma mark - 搜索框状态变化
-- (void)setSearchBarStatus:(EnrollmentSearchBarStatus)searchBarStatus {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-    if (searchBarStatus == EnrollmentSearchBarStatusInit) {
-        [_searchBar setShowsCancelButton:NO animated:YES];
-        [_searchBar resignFirstResponder];
-        [UIView beginAnimations:@"EnrollmentSearchBarChangeToEditStatus" context:nil];
-        [UIView setAnimationDuration:0.2f];
-        //        _searchBar.frame = CGRectMake((ScreenWidth - SearchBarWidth) / 2, 0, SearchBarWidth, SearchBarHeight);
-        _searchBar.frame = SearchBarInitFrame;
-        [UIView commitAnimations];
-        
-        
-    } else if (searchBarStatus == EnrollmentSearchBarStatusEdit){
-        [UIView beginAnimations:@"EnrollmentSearchBarChangeToInitStatus" context:nil];
-        [UIView setAnimationDuration:0.2f];
-        _searchBar.frame = SearchBarEditFrame;
-        [UIView commitAnimations];
-        
-        [_searchBar setShowsCancelButton:YES animated:YES];
-    } else {
-        // LOG
-    }
-}
+//- (void)setSearchBarStatus:(EnrollmentSearchBarStatus)searchBarStatus {
+//    NSLog(@"%s", __PRETTY_FUNCTION__);
+//    if (searchBarStatus == EnrollmentSearchBarStatusInit) {
+//        [_searchBar setShowsCancelButton:NO animated:YES];
+//        [_searchBar resignFirstResponder];
+//        [UIView beginAnimations:@"EnrollmentSearchBarChangeToEditStatus" context:nil];
+//        [UIView setAnimationDuration:0.2f];
+//        //        _searchBar.frame = CGRectMake((ScreenWidth - SearchBarWidth) / 2, 0, SearchBarWidth, SearchBarHeight);
+//        _searchBar.frame = SearchBarInitFrame;
+//        [UIView commitAnimations];
+//        
+//        
+//    } else if (searchBarStatus == EnrollmentSearchBarStatusEdit){
+//        [UIView beginAnimations:@"EnrollmentSearchBarChangeToInitStatus" context:nil];
+//        [UIView setAnimationDuration:0.2f];
+//        _searchBar.frame = SearchBarEditFrame;
+//        [UIView commitAnimations];
+//        
+//        [_searchBar setShowsCancelButton:YES animated:YES];
+//    } else {
+//        // LOG
+//    }
+//}
 
 #pragma mark - SearchDisplayControllerDelegate
 - (void) searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
@@ -299,11 +295,11 @@ typedef enum {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
     if ([_positions objectAtIndex:indexPath.row]) {
-        //        NSString *text = [[_positions objectAtIndex:indexPath.row] objectForKey:@"name"];
+//            NSString *text = [[_positions objectAtIndex:indexPath.row] objectForKey:@"name"];
         //        NSMutableAttributedString *mutable = [[NSMutableAttributedString alloc] initWithString:text];
         //        [mutable addAttribute: NSForegroundColorAttributeName value:BaseColor range:[text rangeOfString:_keyword]];
         //        cell.textLabel.attributedText = mutable;
-        //        cell.textLabel.text = [[_positions objectAtIndex:indexPath.row] objectForKey:@"name"];
+              cell.textLabel.text = [[_positions objectAtIndex:indexPath.row] objectForKey:@"name"];
     }
     
     return cell;

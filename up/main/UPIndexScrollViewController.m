@@ -8,7 +8,10 @@
 
 #import "UPIndexScrollViewController.h"
 #import "CommonDefine.h"
+#import "CommonNotification.h"
 #import <objc/runtime.h>
+#import <QuartzCore/QuartzCore.h>
+
 @interface UPIndexScrollViewController ()<UIScrollViewDelegate> {
     UIPageControl *_pageControl;
     UIScrollView *_scrollView;
@@ -45,6 +48,9 @@
     return UIStatusBarStyleLightContent;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -68,6 +74,8 @@
     [self loadScrollViewWithPage:1];
     
     [self.view addSubview:_pageControl];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentEnrollmentOrLoginViewController:) name:NotificationPopEnrollmentOrLoginViewController object:nil];
 }
 
 - (void)loadScrollViewWithPage:(int)page {
@@ -111,7 +119,6 @@
         }
         [self setNeedsStatusBarAppearanceUpdate];
     }
-    
 }
 
 - (UIView *)view
@@ -119,4 +126,18 @@
     return _scrollView;
 }
 
+#pragma mark - Notification
+- (void)presentEnrollmentOrLoginViewController:(NSNotification *)notification {
+    id class = objc_getClass("UPFirstPageLoginOrEnrollViewController");
+    id enrollmentViewController = [[class alloc] init];
+    CATransition* transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionMoveIn;//可更改为其他方式
+    transition.subtype = kCATransitionFromTop;//可更改为其他方式
+    [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];
+    transition.delegate = self;
+    [self.navigationController pushViewController:enrollmentViewController animated:YES];
+    [enrollmentViewController release];
+}
 @end

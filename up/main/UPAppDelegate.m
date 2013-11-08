@@ -9,7 +9,7 @@
 #import "UPAppDelegate.h"
 #import "UPSearchViewController.h"
 #import "UPIndexScrollViewController.h"
-
+#import "UPCommonHelper.h"
 @implementation UPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -17,20 +17,18 @@
     UPIndexScrollViewController *indexScrollViewController = [[UPIndexScrollViewController alloc] init];
     
     UINavigationController *indexScrollNavigationController = [[UINavigationController alloc] initWithRootViewController:indexScrollViewController];
-//    UPSearchViewController *searchViewController = [[UPSearchViewController alloc] init];
-//    UINavigationController *searchNavigationController = [[UINavigationController alloc]initWithRootViewController:searchViewController];
+//    if ([UPCommonHelper isIOS7]) {
+//        self.window = [[[UIWindow alloc] initWithFrame:CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 20)] autorelease];
+//    } else {
+        self.window = [[[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
+//    }
     
-    self.window = [[[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
-//    self.window.rootViewController = searchNavigationController;
     self.window.rootViewController = indexScrollNavigationController;
     [indexScrollNavigationController setNavigationBarHidden:YES];
-//    [searchNavigationController setNavigationBarHidden:YES];
     [indexScrollViewController release];
     [indexScrollNavigationController release];
-//    [searchViewController release];
-//    [searchNavigationController release];
     [self.window makeKeyAndVisible];
-    
+
     
 //    [self requestChange]; // 是否要拉取
     
