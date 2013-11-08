@@ -31,6 +31,8 @@
 
     NSArray *segmentedArray = [[NSArray alloc] initWithObjects:@"Top 10",@"所有职业", nil];
     UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:segmentedArray];
+    [segmentedArray release];
+    
     [segmentedControl setFrame:CGRectMake(50, 20, 220, 30)];
     [segmentedControl setTintColor:BaseColor];
     [segmentedControl addTarget:self action:@selector(changeTable:) forControlEvents:UIControlEventValueChanged];

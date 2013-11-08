@@ -91,6 +91,7 @@
         (viewController).view.frame = frame;
         [_scrollView addSubview:(viewController).view];
     }
+    [viewController release];
 }
 
 - (void)didReceiveMemoryWarning
