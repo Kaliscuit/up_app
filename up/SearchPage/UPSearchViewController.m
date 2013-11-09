@@ -10,7 +10,7 @@
 #import "UPSearchResultManager.h"
 #import "CommonDefine.h"
 #import "UPCommonInitMethod.h"
-//#import "UPLoginOrEnrollViewController.h"
+#import "UPNetworkHelper.h"
 #import "CommonNotification.h"
 
 #define SearchBarWidth (240.0f)
@@ -22,7 +22,7 @@
 
 #define isClassEqual(x, y) ([[x class] isEqual:[y class]])?YES:NO
 
-@interface UPSearchViewController ()<UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate> {
+@interface UPSearchViewController ()<UPNetworkHelperDelegate,UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate> {
     UISearchBar *_searchBar;
     UILabel *_searchBarTipLabel;
     UIButton *_accountButton;
@@ -48,11 +48,12 @@
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     SAFE_RELEASE(_searchBar);
     SAFE_RELEASE(_searchBarTipLabel);
-    SAFE_RELEASE(_accountButton);
     SAFE_RELEASE(_positions);
     SAFE_RELEASE(_searchKeywords);
+    SAFE_RELEASE(_displayController);
     [super dealloc];
 }
 - (void)didReceiveMemoryWarning
@@ -73,15 +74,18 @@
     _positions = [[NSMutableArray alloc] init];
     _searchKeywords = [[NSMutableArray alloc] init];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserName:) name:@"UserName" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserName:) name:@"Nickname" object:nil];
 }
 
 - (void)updateUserName:(NSNotification *)notify {
-    [_accountButton setTitle:[[notify userInfo] objectForKey:@"UserName"] forState:UIControlStateNormal];
-    [_accountButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [_accountButton setImage:[UIImage imageNamed:@"icn_user_default_highlight.png"] forState:UIControlStateNormal];
+    [_accountButton setTitle:[[notify userInfo] objectForKey:@"Nickname"] forState:UIControlStateNormal];
+    [_accountButton setTitleColor:[UIColor colorWithRed:10.0f/255.0f green:95.0f/255.0f blue:255.0f/255.0f alpha:1.0] forState:UIControlStateNormal];
+    [_accountButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
+    [_accountButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
 }
 
-- (void)onClickAccountButton:(UIButton *)sendere {
+- (void)onClickAccountButton:(UIButton *)sender {
     NSLog(@"点击登录按钮");
     [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPopEnrollmentOrLoginViewController object:nil];
 }
@@ -100,16 +104,19 @@
     [self.view addSubview:fakeSearchBar];
     [fakeSearchBar release];
     
-    _accountButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [UPCommonInitMethod initButton:_accountButton withFrame:CGRectMake(36.0f, (ScreenHeight - 90.0f), 100.0f, 40.0f) withTitle:@"未登录" withTitleColor:[UIColor colorWithWhite:179.0f/255.0f alpha:1.0] withBackgroundColor:[UIColor whiteColor]];
+    _accountButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_accountButton setFrame:CGRectMake(36.0f, (ScreenHeight - 90.0f), 100.0f, 40.0f)];
+    // TODO: 判断是否是已登录
+    [_accountButton setTitle:@"未登录" forState:UIControlStateNormal];
+    
+    [_accountButton setTitleColor:[UIColor colorWithWhite:179.0f/255.0f alpha:1.0] forState:UIControlStateNormal];
+    [_accountButton setBackgroundColor:[UIColor whiteColor]];
     [_accountButton addTarget:self action:@selector(onClickAccountButton:) forControlEvents:UIControlEventTouchUpInside];
     [_accountButton setImage:[UIImage imageNamed:@"icn_user_default.png"] forState:UIControlStateNormal];
-    [_accountButton setImage:[UIImage imageNamed:@"icn_user_default_highlight.png"] forState:UIControlStateSelected];
     [_accountButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
     [UPCommonInitMethod initButtonWithRadius:_accountButton withCornerRadius:20.0f];
     [_accountButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     [self.view addSubview:_accountButton];
-    [_accountButton release];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:SearchBarEditFrame];
     [_searchBar setSearchBarStyle:UISearchBarStyleMinimal];
@@ -121,12 +128,21 @@
     [_searchBar setAutoresizesSubviews:YES];
 	[self.view addSubview:_searchBar];
     _searchBar.delegate = self;
-    [_searchBar release];
     
     _displayController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
     _displayController.delegate = self;
     _displayController.searchResultsDelegate = self;
     _displayController.searchResultsDataSource = self;
+    
+}
+
+- (void)requestSuccess:(NSDictionary *)responseObject withTag:(NSNumber *)tag {
+
+    NSLog(@"kkkkkkk0000>   %@", responseObject);
+}
+
+- (void)requestFail:(NSError *)error withTag:(NSNumber *)tag {
+    
 }
 
 - (void)beginSearch {

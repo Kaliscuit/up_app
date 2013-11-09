@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UPIndexScrollViewController.h"
 
 @interface UPAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
-
+@property (retain, nonatomic) UIWindow *window;
+@property (nonatomic, retain) UPIndexScrollViewController *indexScrollViewController;
+@property (nonatomic, retain) UINavigationController *indexScrollNavigationController;
 @end

@@ -8,8 +8,8 @@
 
 #import "UPOptionalUsernameViewController.h"
 #import "CommonURL.h"
-#import "AFHTTPRequestOperationManager.h"
-@interface UPOptionalUsernameViewController ()
+#import "UPNetworkHelper.h"
+@interface UPOptionalUsernameViewController ()<UPNetworkHelperDelegate>
 
 @end
 
@@ -37,6 +37,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [UPNetworkHelper sharedInstance].delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,15 +48,19 @@
 
 - (void)onClickNextStepButton:(id)sender {
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.textField.text,@"name", nil];
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:Url_Server_base]];
-    [manager POST:Url_Nickname_Post parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"UserName --success : %@", responseObject);
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"UserName" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.textField.text,@"UserName", nil]];
-        [self.navigationController popToRootViewControllerAnimated:YES];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"error : %@", [error userInfo]);
-    }];
+    [[UPNetworkHelper sharedInstance] postNicknameWithDictionary:dict];
     [dict release];
 }
 
+- (void)requestSuccess:(NSDictionary *)responseObject withTag:(NSNumber *)tag {
+    if ([tag integerValue] == Tag_Nickname) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Nickname" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.textField.text,@"Nickname", nil]];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    
+}
+
+- (void)requestFail:(NSError *)error withTag:(NSNumber *)tag {
+    
+}
 @end

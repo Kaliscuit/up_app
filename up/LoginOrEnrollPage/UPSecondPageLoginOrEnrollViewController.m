@@ -8,10 +8,10 @@
 
 #import "UPSecondPageLoginOrEnrollViewController.h"
 #import "CommonDefine.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "UPNetworkHelper.h"
 #import "UPOptionalUsernameViewController.h"
 
-@interface UPSecondPageLoginOrEnrollViewController ()
+@interface UPSecondPageLoginOrEnrollViewController ()<UPNetworkHelperDelegate>
 
 @end
 
@@ -59,7 +59,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
+    [UPNetworkHelper sharedInstance].delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,11 +76,13 @@
         [alert release];
         return;
     }
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.emailStr,@"email",self.textField.text,@"password", nil];
     if (_isEnroll) {
-        [self enrollAccount];
+        [[UPNetworkHelper sharedInstance] postEnrollWithDictionary:dict];
     } else {
-        [self loginAccount];
+        [[UPNetworkHelper sharedInstance] postLoginWithDictionary:dict];
     }
+    [dict release];
 }
 
 - (BOOL)isValidPassword {
@@ -88,16 +91,32 @@
     }
     return NO;
 }
-- (void)loginAccount {
-    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.emailStr,@"email",self.textField.text,@"password", nil];
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:Url_Server_base]];
-    [manager POST:Url_Login_Post parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"登录成功");
-        // 看有没有name
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+- (void)requestSuccess:(NSDictionary *)responseObject withTag:(NSNumber *)tag{
+    if ([tag integerValue]== Tag_Login) { // 登录成功
+        // TODO:做类型检查
+        NSDictionary *userProfile = [[responseObject objectForKey:@"d"] objectForKey:@"profile"];
+        [[NSUserDefaults standardUserDefaults] setObject:userProfile forKey:@"UserProfile"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         
-    }];
-    [dict release];
+        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[userProfile objectForKey:@"name"],@"Nickname", nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Nickname" object:nil userInfo:dict];
+        [dict release];
+    
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    } else if ([tag integerValue]== Tag_Enroll){ // 注册成功
+        [self createNickname];
+    } else {
+        NSLog(@"登陆注册第二阶段出错");
+    }
+}
+
+- (void)requestFail:(NSError *)error withTag:(NSNumber *)tag{
+    if ([tag integerValue]== Tag_Login) { // 登录失败
+        
+    } else if([tag integerValue] == Tag_Enroll){ // 注册失败
+        
+    }
 }
 
 - (void)enrollAccount {
@@ -106,19 +125,19 @@
     [manager POST:Url_Enroll_Post parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"ppppp-->YES: %@", responseObject);
 
-        NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-        NSHTTPCookie *cookie = [[cookieJar cookies] lastObject];
-        NSLog(@"cookie :%@", cookie);
-        
-        NSMutableDictionary* cookieDictionary = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"v2up"]];
-        NSLog(@"ppppp-->dictiron : %@", cookieDictionary);
-        if ([[cookieDictionary allValues] count] == 0) {
-            [cookieDictionary setValue:cookie.properties forKey:@"v2up"];
-            [[NSUserDefaults standardUserDefaults] setObject:cookieDictionary forKey:@"v2up"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
+//        NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+//        NSHTTPCookie *cookie = [[cookieJar cookies] lastObject];
+//        NSLog(@"cookie :%@", cookie);
+//        
+//        NSMutableDictionary* cookieDictionary = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"v2up"]];
+//        NSLog(@"ppppp-->dictiron : %@", cookieDictionary);
+//        if ([[cookieDictionary allValues] count] == 0) {
+//            [cookieDictionary setValue:cookie.properties forKey:@"v2up"];
+//            [[NSUserDefaults standardUserDefaults] setObject:cookieDictionary forKey:@"v2up"];
+//            [[NSUserDefaults standardUserDefaults] synchronize];
+//        }
 
-        NSLog(@"ppppppp-->sessionCookies:%@", [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"v2up"]);
+//        NSLog(@"ppppppp-->sessionCookies:%@", [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"v2up"]);
         [self createNickname];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败未处理

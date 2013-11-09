@@ -35,6 +35,7 @@
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     SAFE_RELEASE(_pageControl);
     SAFE_RELEASE(_scrollView);
     SAFE_RELEASE(_viewControllers);
@@ -48,19 +49,29 @@
     return UIStatusBarStyleLightContent;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:YES];
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
+        [self setAutomaticallyAdjustsScrollViewInsets:NO];
+    }
+    
     self.view.backgroundColor = [UIColor whiteColor];
     _maxPages = 2;
     _viewControllers = [[NSArray alloc] initWithObjects:@"UPSearchViewController", @"UPMoreSearchViewController", nil];
 	_pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, (ScreenHeight - 25), 320, 18)];
     _pageControl.currentPage = 0;
     _pageControl.numberOfPages = _maxPages;
-    
     
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
     _scrollView.pagingEnabled = YES;
@@ -73,6 +84,7 @@
     [self loadScrollViewWithPage:0];
     [self loadScrollViewWithPage:1];
     
+    [self.view addSubview:_scrollView];
     [self.view addSubview:_pageControl];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentEnrollmentOrLoginViewController:) name:NotificationPopEnrollmentOrLoginViewController object:nil];
@@ -91,7 +103,7 @@
         (viewController).view.frame = frame;
         [_scrollView addSubview:(viewController).view];
     }
-    [viewController release];
+//    [viewController release];
 }
 
 - (void)didReceiveMemoryWarning
@@ -106,10 +118,6 @@
     CGFloat pageWidth = _scrollView.frame.size.width;
     int page = floor((_scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     if (page != _pageControl.currentPage) {
-        CGRect rect = _pageControl.frame;
-        rect.origin.x = page * ScreenWidth;
-        
-        [_pageControl setFrame:rect];
         _pageControl.currentPage = page;
         if (page == 1) {
             [_pageControl setPageIndicatorTintColor:[UIColor grayColor]];
@@ -120,11 +128,6 @@
         }
         [self setNeedsStatusBarAppearanceUpdate];
     }
-}
-
-- (UIView *)view
-{
-    return _scrollView;
 }
 
 #pragma mark - Notification

@@ -11,25 +11,28 @@
 #import "UPIndexScrollViewController.h"
 #import "UPCommonHelper.h"
 @implementation UPAppDelegate
+@synthesize indexScrollViewController = _indexScrollViewController;
+@synthesize indexScrollNavigationController = _indexScrollNavigationController;
+
+- (void)dealloc {
+    [_window release];
+    [_indexScrollNavigationController release];
+    _indexScrollNavigationController = nil;
+    [_indexScrollViewController release];
+    _indexScrollViewController = nil;
+    [super dealloc];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    UPIndexScrollViewController *indexScrollViewController = [[UPIndexScrollViewController alloc] init];
+    _indexScrollViewController = [[UPIndexScrollViewController alloc] init];
     
-    UINavigationController *indexScrollNavigationController = [[UINavigationController alloc] initWithRootViewController:indexScrollViewController];
-//    if ([UPCommonHelper isIOS7]) {
-//        self.window = [[[UIWindow alloc] initWithFrame:CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 20)] autorelease];
-//    } else {
-        self.window = [[[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
-//    }
-    
-    self.window.rootViewController = indexScrollNavigationController;
-    [indexScrollNavigationController setNavigationBarHidden:YES];
-    [indexScrollViewController release];
-    [indexScrollNavigationController release];
+    _indexScrollNavigationController = [[UINavigationController alloc] initWithRootViewController:_indexScrollViewController];
+    [_indexScrollNavigationController setNavigationBarHidden:YES];
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.rootViewController = [_indexScrollNavigationController retain];
     [self.window makeKeyAndVisible];
 
-    
 //    [self requestChange]; // 是否要拉取
     
     return YES;

@@ -10,6 +10,7 @@
 		A83C9BED182C07A200D8F644 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A83C9BEC182C07A200D8F644 /* QuartzCore.framework */; };
 		A83C9BF0182C0B0600D8F644 /* UPFirstPageLoginOrEnrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A83C9BEF182C0B0600D8F644 /* UPFirstPageLoginOrEnrollViewController.m */; };
 		A83C9BF3182C0F4500D8F644 /* UPSecondPageLoginOrEnrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A83C9BF2182C0F4500D8F644 /* UPSecondPageLoginOrEnrollViewController.m */; };
+		A83CA4D5182D756F00810C3E /* UPNetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A83CA4D4182D756F00810C3E /* UPNetworkHelper.m */; };
 		A8659847182D42CF0099C965 /* UPOptionalUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8659846182D42CF0099C965 /* UPOptionalUsernameViewController.m */; };
 		A868318F18281BE0005D4375 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A868319118281BE0005D4375 /* Localizable.strings */; };
 		A868319718281CE2005D4375 /* UPCommonInitMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = A868319618281CE2005D4375 /* UPCommonInitMethod.m */; };
@@ -67,6 +68,8 @@
 		A83C9BEF182C0B0600D8F644 /* UPFirstPageLoginOrEnrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPFirstPageLoginOrEnrollViewController.m; sourceTree = "<group>"; };
 		A83C9BF1182C0F4500D8F644 /* UPSecondPageLoginOrEnrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPSecondPageLoginOrEnrollViewController.h; sourceTree = "<group>"; };
 		A83C9BF2182C0F4500D8F644 /* UPSecondPageLoginOrEnrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPSecondPageLoginOrEnrollViewController.m; sourceTree = "<group>"; };
+		A83CA4D3182D756F00810C3E /* UPNetworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPNetworkHelper.h; sourceTree = "<group>"; };
+		A83CA4D4182D756F00810C3E /* UPNetworkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPNetworkHelper.m; sourceTree = "<group>"; };
 		A83F597D182A976B00F3405A /* CommonNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonNotification.h; sourceTree = "<group>"; };
 		A83F644A18201CE700F41481 /* UPSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPSearchBar.h; sourceTree = "<group>"; };
 		A83F644B18201CE700F41481 /* UPSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPSearchBar.m; sourceTree = "<group>"; };
@@ -184,6 +187,8 @@
 				A83F597D182A976B00F3405A /* CommonNotification.h */,
 				A880B440182BF11A0055B6DC /* UPCommonHelper.h */,
 				A880B441182BF11A0055B6DC /* UPCommonHelper.m */,
+				A83CA4D3182D756F00810C3E /* UPNetworkHelper.h */,
+				A83CA4D4182D756F00810C3E /* UPNetworkHelper.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -486,6 +491,7 @@
 				A868319718281CE2005D4375 /* UPCommonInitMethod.m in Sources */,
 				A8D701F91824CFBB0065C8BF /* main.m in Sources */,
 				A8906E291821954000F0D3B8 /* UPSearchResultManager.m in Sources */,
+				A83CA4D5182D756F00810C3E /* UPNetworkHelper.m in Sources */,
 				A83C9BF3182C0F4500D8F644 /* UPSecondPageLoginOrEnrollViewController.m in Sources */,
 				A880B43F182BE6520055B6DC /* UPLoginOrEnrollViewControllerBase.m in Sources */,
 				A83C9BF0182C0B0600D8F644 /* UPFirstPageLoginOrEnrollViewController.m in Sources */,

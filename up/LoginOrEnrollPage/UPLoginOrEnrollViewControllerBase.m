@@ -22,7 +22,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
 }
@@ -43,6 +43,7 @@
     _textField = [[UPTextField alloc] initWithFrame:CGRectMake(0, 80, 320, 40)];
     [_textField setBackgroundColor:[UIColor whiteColor]];
     _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _textField.autocapitalizationType = NO;
     _textField.delegate = self;
     [self.view addSubview:_textField];
    

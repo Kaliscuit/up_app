@@ -16,4 +16,6 @@
 #define Url_Enroll_Post @"user/register"
 #define Url_Nickname_Post @"user/set-name"
 #define Url_Email_Check_Post @"user/check-email"
+#define Url_Profile_Post @"user/profile"
+
 #endif

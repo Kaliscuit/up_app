@@ -10,6 +10,11 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "UPSecondPageLoginOrEnrollViewController.h"
 #import "UPCommonHelper.h"
+#import "UPNetworkHelper.h"
+
+@interface UPFirstPageLoginOrEnrollViewController()<UPNetworkHelperDelegate>
+
+@end
 
 @implementation UPFirstPageLoginOrEnrollViewController
 
@@ -24,6 +29,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    [self.textField setKeyboardType:UIKeyboardTypeEmailAddress];
     [self.navigationController setNavigationBarHidden:NO];
     self.navigationItem.hidesBackButton = YES;
     self.title  =@"登录";
@@ -63,31 +70,30 @@
     self.textField.clearButtonMode = UITextFieldViewModeNever;
     
     NSString *emailStr = self.textField.text;
-    NSLog(@"emailStr : %@", emailStr);
+    
     
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:emailStr,@"email", nil];
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:Url_Server_base]];
-    [manager POST:Url_Email_Check_Post parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"success : %@", responseObject);
-        [self receiveSuccessMessage:responseObject];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"fail : %@", [error description]);
-        [self receiveFailMessage];
-    }];
+    [UPNetworkHelper sharedInstance].delegate = self;
+    [[UPNetworkHelper sharedInstance] postEmailCheckWithDictionary:dict];
     [dict release];
+    
 }
 
-- (void)receiveFailMessage {
+#pragma mark - AFNetworkHelperDelegate
+- (void)requestFail:(NSDictionary *)responseObject withTag:(NSNumber *)tag{
     // 弹警告框
     self.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.indicatorView stopAnimating];
 }
 
-- (void)receiveSuccessMessage:(NSDictionary *)dict {
+- (void)requestSuccess:(NSDictionary *)responseObject withTag:(NSNumber *)tag{
+    if ([tag integerValue] != Tag_Email_Check) {
+        return;
+    }
     self.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.indicatorView stopAnimating];
     
-    NSInteger responseCode = [[dict objectForKey:@"c"] integerValue];
+    NSInteger responseCode = [[responseObject objectForKey:@"c"] integerValue];
     if (responseCode == 415) {
         // 格式不对
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"邮箱格式错误" message:@"格式错误" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
