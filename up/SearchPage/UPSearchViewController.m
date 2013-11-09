@@ -119,7 +119,10 @@
     [self.view addSubview:_accountButton];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:SearchBarEditFrame];
-    [_searchBar setSearchBarStyle:UISearchBarStyleMinimal];
+    if ([self respondsToSelector:@selector(setSearchBarStyle:)]) {
+        [_searchBar setSearchBarStyle:UISearchBarStyleMinimal];
+    }
+    
 //    [_searchBar setPlaceholder:@"请输入感兴趣的职位"];
     [_searchBar setTintColor:[UIColor redColor]]; // 光标颜色
     _searchBar.backgroundColor = [UIColor clearColor];

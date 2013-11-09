@@ -11,7 +11,7 @@
 #import "CommonNotification.h"
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
-
+#import "UPCommonHelper.h"
 @interface UPIndexScrollViewController ()<UIScrollViewDelegate> {
     UIPageControl *_pageControl;
     UIScrollView *_scrollView;
@@ -43,7 +43,7 @@
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    if (_pageControl.currentPage > 0) {
+    if (_pageControl.currentPage > 0 || ![UPCommonHelper isIOS7]) {
         return UIStatusBarStyleDefault;
     }
     return UIStatusBarStyleLightContent;
@@ -56,7 +56,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
-    
+    if (![UPCommonHelper isIOS7]) {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    }
 }
 
 - (void)viewDidLoad
@@ -126,7 +128,9 @@
             [_pageControl setCurrentPageIndicatorTintColor:[UIColor whiteColor]];
             [_pageControl setPageIndicatorTintColor:nil];
         }
-        [self setNeedsStatusBarAppearanceUpdate];
+        if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+            [self setNeedsStatusBarAppearanceUpdate];
+        }
     }
 }
 
