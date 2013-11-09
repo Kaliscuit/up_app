@@ -92,7 +92,8 @@
     }
     self.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.indicatorView stopAnimating];
-    
+    NSLog(@"DDDDDDDDD--->RESPONSE OBJECT: %@", responseObject);
+#ifdef __UP__
     NSInteger responseCode = [[responseObject objectForKey:@"c"] integerValue];
     if (responseCode == 415) {
         // 格式不对
@@ -110,6 +111,7 @@
         [self.navigationController pushViewController:nextController animated:YES];
         [nextController release];
     }
+#endif
 }
 
 @end

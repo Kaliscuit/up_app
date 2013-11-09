@@ -119,32 +119,6 @@
     }
 }
 
-- (void)enrollAccount {
-    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.emailStr,@"email",self.textField.text,@"password", nil];
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:Url_Server_base]];
-    [manager POST:Url_Enroll_Post parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"ppppp-->YES: %@", responseObject);
-
-//        NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-//        NSHTTPCookie *cookie = [[cookieJar cookies] lastObject];
-//        NSLog(@"cookie :%@", cookie);
-//        
-//        NSMutableDictionary* cookieDictionary = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"v2up"]];
-//        NSLog(@"ppppp-->dictiron : %@", cookieDictionary);
-//        if ([[cookieDictionary allValues] count] == 0) {
-//            [cookieDictionary setValue:cookie.properties forKey:@"v2up"];
-//            [[NSUserDefaults standardUserDefaults] setObject:cookieDictionary forKey:@"v2up"];
-//            [[NSUserDefaults standardUserDefaults] synchronize];
-//        }
-
-//        NSLog(@"ppppppp-->sessionCookies:%@", [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"v2up"]);
-        [self createNickname];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // 失败未处理
-    }];
-    [dict release];
-}
-
 - (void)createNickname {
     UPOptionalUsernameViewController *nicknameController = [[UPOptionalUsernameViewController alloc] init];
     [self.navigationController pushViewController:nicknameController animated:YES];

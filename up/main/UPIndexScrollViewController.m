@@ -81,6 +81,7 @@
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.scrollsToTop = NO;
+    _scrollView.bounces = NO;
     _scrollView.delegate = self;
     
     [self loadScrollViewWithPage:0];

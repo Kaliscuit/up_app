@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UPSearchBar : UISearchBar
+typedef enum {
+    UPSearchBarStatusInit,
+    UPSearchBarStatusBeginSearch,
+}UPSearchBarStatus;
 
+@interface UPSearchBar : UITextField {
+    UIImageView *_leftIcon;
+    UPSearchBarStatus _status;
+}
+
+- (void)updateStatus:(UPSearchBarStatus)status;
 @end

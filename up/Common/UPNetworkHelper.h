@@ -14,6 +14,7 @@
 #define Tag_Enroll 7777713
 #define Tag_Nickname 7777714
 #define Tag_Profile 7777715
+#define Tag_Search_Suggest 7777716
 
 @protocol UPNetworkHelperDelegate <NSObject>
 
@@ -33,4 +34,5 @@
 - (void)postEnrollWithDictionary:(NSDictionary *)dict;
 - (void)postNicknameWithDictionary:(NSDictionary *)dict;
 - (void)postProfileWithDictionary:(NSDictionary *)dict;
+- (void)postSearchSuggestWithDictionary:(NSDictionary *)dict;
 @end

@@ -106,7 +106,11 @@
     operation.shouldUseCredentialStorage = self.shouldUseCredentialStorage;
     operation.credential = self.credential;
     operation.securityPolicy = self.securityPolicy;
-
+    NSLog(@"---------------------------------------");
+    NSLog(@"ppppppppppp-->AFHttp request opeartion: %@", operation);
+    NSLog(@"ffffffff--->openration credential--->%@", operation.credential);
+    NSLog(@"ffffffff--->openration securityPolicy--->%@", operation.securityPolicy);
+    NSLog(@"---------------------------------------");
     [operation setCompletionBlockWithSuccess:success failure:failure];
 
     return operation;
