@@ -13,6 +13,7 @@
 #import "CommonNotification.h"
 #import "UPSearchBar.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UPJobDetailView.h"
 
 #define SearchBarWidth (240.0f)
 #define SearchBarHeight (50.0f)
@@ -41,6 +42,7 @@
     
     UIButton *_cancelButton;
     
+    UPJobDetailView *_detailView;
 }
 @end
 
@@ -149,6 +151,11 @@
     _searchResultTableView.dataSource =self;
     [self.view addSubview:_searchResultTableView];
     
+    _detailView = [[UPJobDetailView alloc] initWithFrame:_searchResultTableView.frame];
+    [_detailView setHidden:YES];
+    [self.view addSubview:_detailView];
+    
+    
 }
 
 - (void)onClickCancelSearchButton:(UIButton *)sender {
@@ -190,29 +197,46 @@
     return YES;
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:textField.text,@"keyword", nil];
+    [[UPNetworkHelper sharedInstance] postSearchPositionWithDictionary:dict];
+    [dict release];
+    return YES;
+}
 - (void)requestSuccess:(NSDictionary *)responseObject withTag:(NSNumber *)tag {
+    NSLog(@"search response : %@", responseObject);
     if ([tag integerValue] == Tag_Search_Suggest) {
-        NSLog(@"search suggest : %@", responseObject);
+        
         if ([_searchResultArray count] > 0) {
             [_searchResultArray removeAllObjects];
         }
         [_searchResultArray addObjectsFromArray:[[responseObject objectForKey:@"d"] objectForKey:@"positions"]];
         
-
         [_searchResultTableView reloadData];
-
-        
+    } else if ([tag integerValue] == Tag_Search_Position) {
+        [_detailView setHidden:NO];
     }
 }
 
 - (void)requestFail:(NSError *)error withTag:(NSNumber *)tag {
     if ([tag integerValue] == Tag_Search_Suggest) {
         
+    } else if ([tag integerValue] == Tag_Search_Position) {
+        
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [_searchResultTableView cellForRowAtIndexPath:indexPath];
+    NSString *str = ((UILabel *)[cell viewWithTag:17888]).text;
+    NSLog(@"点击搜索职位 ：%@", str);
+    _searchBar.text = str;
     
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:_searchBar.text,@"keyword", nil];
+    [[UPNetworkHelper sharedInstance] postSearchPositionWithDictionary:dict];
+    [dict release];
+    // TODO:搜索职位
+    [_searchBar resignFirstResponder];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

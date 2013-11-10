@@ -111,4 +111,8 @@
 - (void)postSearchSuggestWithDictionary:(NSDictionary *)dict {
     [self _postURLWithTag:Url_Search_Suggest_Post tag:Tag_Search_Suggest Dictionary:dict];
 }
+
+- (void)postSearchPositionWithDictionary:(NSDictionary *)dict {
+    [self _postURLWithTag:Url_Search_Position_Post tag:Tag_Search_Position Dictionary:dict];
+}
 @end
