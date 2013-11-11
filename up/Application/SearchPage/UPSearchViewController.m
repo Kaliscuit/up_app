@@ -151,12 +151,24 @@
     _searchResultTableView.dataSource =self;
     [self.view addSubview:_searchResultTableView];
     
-    _detailView = [[UPJobDetailView alloc] initWithFrame:_searchResultTableView.frame];
+    _detailView = [[UPJobDetailView alloc] initWithFrame:CGRectMake(_searchResultTableView.frame.origin.x, _searchResultTableView.frame.origin.y, 320, self.view.frame.size.height - _searchResultTableView.frame.origin.y)];
     [_detailView setHidden:YES];
     [self.view addSubview:_detailView];
     
     
+//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [button addTarget:self action:@selector(beginEvaluate) forControlEvents:UIControlEventTouchUpInside];
+//    [button setTitle:@"评估" forState:UIControlStateNormal];
+//    [button setFrame:CGRectMake(0, 400, 100, 100)];
+//    [button setBackgroundColor:[UIColor redColor]];
+//    [self.view addSubview:button];
+//    [button release];
+    
 }
+
+//- (void)beginEvaluate {
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"Test" object:nil];
+//}
 
 - (void)onClickCancelSearchButton:(UIButton *)sender {
     [UIView beginAnimations:@"SearchBarEndEdit" context:nil];
@@ -210,11 +222,13 @@
         if ([_searchResultArray count] > 0) {
             [_searchResultArray removeAllObjects];
         }
-        [_searchResultArray addObjectsFromArray:[[responseObject objectForKey:@"d"] objectForKey:@"positions"]];
+        [_searchResultArray addObjectsFromArray:[[responseObject objectForKey:@"d"] objectForKey:@"suggestions"]];
         
         [_searchResultTableView reloadData];
     } else if ([tag integerValue] == Tag_Search_Position) {
         [_detailView setHidden:NO];
+        [_detailView updateInformation:@"IOS工程师" introduce:@"你好" requireAbility:@"你好" JobRankNumber:[NSNumber numberWithInt:15]];
+//        [_detailView setBackgroundColor:[UIColor redColor]];
     }
 }
 

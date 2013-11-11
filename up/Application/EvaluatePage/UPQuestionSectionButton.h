@@ -1,5 +1,5 @@
 //
-//  UPEvaluateViewController.h
+//  UPQuestionSectionButton.h
 //  up
 //
 //  Created by joy.long on 13-11-10.
@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UPEvaluateViewController : UIViewController
+@interface UPQuestionSectionButton : UIButton
 
-@property (nonatomic, copy) NSString *positionTitle;
+- (void)updateIndexButton:(NSInteger)index;
+
 @end

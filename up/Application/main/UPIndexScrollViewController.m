@@ -67,7 +67,7 @@
     if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
         [self setAutomaticallyAdjustsScrollViewInsets:NO];
     }
-    
+    self.navigationController.navigationBar.translucent = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     _maxPages = 2;
     _viewControllers = [[NSArray alloc] initWithObjects:@"UPSearchViewController", @"UPMoreSearchViewController", nil];
@@ -91,6 +91,7 @@
     [self.view addSubview:_pageControl];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentEnrollmentOrLoginViewController:) name:NotificationPopEnrollmentOrLoginViewController object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentEvaluateViewController:) name:@"Test" object:nil];
 }
 
 - (void)loadScrollViewWithPage:(int)page {
@@ -149,4 +150,31 @@
     [self.navigationController pushViewController:enrollmentViewController animated:YES];
     [enrollmentViewController release];
 }
+
+- (void)presentEvaluateViewController:(NSNotification *)notification {
+    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+    temporaryBarButtonItem.title = @"取消评审";
+    temporaryBarButtonItem.target = self;
+    temporaryBarButtonItem.action = @selector(back:);
+    self.navigationItem.backBarButtonItem = temporaryBarButtonItem;
+    [temporaryBarButtonItem release];
+        
+    id class = objc_getClass("UPEvaluateViewController");
+    id enrollmentViewController = [[class alloc] init];
+    CATransition* transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionMoveIn;//可更改为其他方式
+    transition.subtype = kCATransitionFromTop;//可更改为其他方式
+    [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];
+    transition.delegate = self;
+    [self.navigationController pushViewController:enrollmentViewController animated:YES];
+    [enrollmentViewController release];
+}
+
+
+- (void)back:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 @end
