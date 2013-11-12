@@ -19,6 +19,7 @@
 #define Url_Profile_Post @"user/profile"
 #define Url_Search_Suggest_Post @"position/suggest"
 #define Url_Search_Position_Post @"position/search"
+#define Url_Search_Hot_Post @"position/hot"
 
 #define Url_Search_Suggest_Post_Parameter @"keyword"
 #endif

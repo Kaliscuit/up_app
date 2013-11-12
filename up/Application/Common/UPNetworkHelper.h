@@ -16,7 +16,7 @@
 #define Tag_Profile 7777715
 #define Tag_Search_Suggest 7777716
 #define Tag_Search_Position 7777717
-
+#define Tag_Search_Hot 7777718
 @protocol UPNetworkHelperDelegate <NSObject>
 
 - (void)requestSuccess:(NSDictionary *)responseObject withTag:(NSNumber *)tag;
@@ -37,5 +37,6 @@
 - (void)postProfileWithDictionary:(NSDictionary *)dict;
 - (void)postSearchSuggestWithDictionary:(NSDictionary *)dict;
 - (void)postSearchPositionWithDictionary:(NSDictionary *)dict;
+- (void)postSearchHot;
 
 @end

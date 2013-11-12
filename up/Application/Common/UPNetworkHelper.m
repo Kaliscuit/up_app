@@ -115,4 +115,8 @@
 - (void)postSearchPositionWithDictionary:(NSDictionary *)dict {
     [self _postURLWithTag:Url_Search_Position_Post tag:Tag_Search_Position Dictionary:dict];
 }
+
+- (void)postSearchHot {
+    [self _postURLWithTag:Url_Search_Hot_Post tag:Tag_Search_Hot Dictionary:nil];
+}
 @end
