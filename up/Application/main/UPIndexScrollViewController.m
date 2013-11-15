@@ -95,7 +95,7 @@
 #pragma mark - Notification
 - (void)addNotification {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentEnrollmentOrLoginViewController:) name:NotificationPopEnrollmentOrLoginViewController object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentEvaluateViewController:) name:@"Test" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentEvaluateViewController:) name:@"BeginEvaluate" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentDetailJobViewController:) name:@"DetailJob" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentJobTypeViewController:) name:@"JobType" object:nil];
 }
@@ -105,6 +105,12 @@
 }
 
 - (void)presentDetailJobViewController:(NSNotification *)notify {
+    NSDictionary *dict = [notify userInfo];
+    UPDetailJobViewController *detailJobViewController = [[UPDetailJobViewController alloc] init];
+    detailJobViewController.positionTitle = [dict objectForKey:@"positionTitle"];
+    detailJobViewController.positionDescription = [dict objectForKey:@"positionDesc"];
+    detailJobViewController.rankNumber = 1;
+    
     UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
     temporaryBarButtonItem.title = @"返回";
     temporaryBarButtonItem.tintColor = [UIColor redColor];
@@ -113,11 +119,7 @@
     self.navigationItem.backBarButtonItem = temporaryBarButtonItem;
     [temporaryBarButtonItem release];
     
-    NSDictionary *dict = [notify userInfo];
-    UPDetailJobViewController *detailJobViewController = [[UPDetailJobViewController alloc] init];
-    detailJobViewController.positionTitle = [dict objectForKey:@"positionTitle"];
-    detailJobViewController.positionDescription = [dict objectForKey:@"positionDesc"];
-    detailJobViewController.rankNumber = 1;
+
     
     [self.navigationController pushViewController:detailJobViewController animated:YES];
     [detailJobViewController release];
@@ -157,7 +159,7 @@
     UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
     temporaryBarButtonItem.title = @"取消评审";
     temporaryBarButtonItem.target = self;
-    temporaryBarButtonItem.action = @selector(back:);
+    temporaryBarButtonItem.action = @selector(backTo:);
     self.navigationItem.backBarButtonItem = temporaryBarButtonItem;
     [temporaryBarButtonItem release];
     
@@ -221,6 +223,10 @@
 
 - (void)back:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)backTo:(id)sender {
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 @end

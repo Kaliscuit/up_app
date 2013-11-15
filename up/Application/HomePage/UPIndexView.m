@@ -10,7 +10,6 @@
 #import "UPNetworkHelper.h"
 #import "UPSearchBar.h"
 #import <QuartzCore/QuartzCore.h>
-#import "UPJobDetailView.h"
 
 #define SearchBarWidth (240.0f)
 #define SearchBarHeight (50.0f)
@@ -24,6 +23,7 @@
 @interface UPIndexView()<UPNetworkHelperDelegate,UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
     
     UITableView *_searchResultTableView;
+    UITableView *_keySearchResultTableView;
     
     UILabel *_searchBarTipLabel;
     UIButton *_accountButton;
@@ -38,7 +38,12 @@
     
     UIButton *_cancelButton;
     
-    UPJobDetailView *_detailView;
+    NSMutableArray *_keySearchResultArray;
+    NSInteger _keySearchCount;
+    BOOL _hadNext;
+    NSInteger _currentPage;
+    
+    BOOL _isSearchKeyword;
 }
 
 @end
@@ -58,7 +63,7 @@
         
         _searchResultArray = [[NSMutableArray alloc] init];
         _searchKeywords = [[NSMutableArray alloc] init];
-        
+        _keySearchResultArray = [[NSMutableArray alloc] init];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserName:) name:@"Nickname" object:nil];
     }
     return self;
@@ -142,7 +147,7 @@
     [_cancelButton addTarget:self action:@selector(onClickCancelSearchButton:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_cancelButton];
     
-    _searchResultTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_HEIGHT, SCREEN_HEIGHT - 60 - 216)];
+    _searchResultTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT - 60 - 216)];
     [_searchResultTableView setBackgroundColor:ColorWithWhiteAlpha(255.0f, 0.5)];
     [_searchResultTableView setHidden:YES];
     _searchResultTableView.delegate = self;
@@ -150,38 +155,25 @@
     _searchResultTableView.dataSource =self;
     [self addSubview:_searchResultTableView];
     
-    _detailView = [[UPJobDetailView alloc] initWithFrame:CGRectMake(_searchResultTableView.frame.origin.x, 50.0f, 320, self.frame.size.height - _searchResultTableView.frame.origin.y)];
-    [_detailView setHidden:YES];
-    [self addSubview:_detailView];
     
-    
-//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [button addTarget:self action:@selector(getProfile) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    //    [button addTarget:self action:@selector(beginEvaluate) forControlEvents:UIControlEventTouchUpInside];
-//    [button setTitle:@"评估" forState:UIControlStateNormal];
-//    [button setFrame:CGRectMake(0, 400, 100, 100)];
-//    [button setBackgroundColor:[UIColor redColor]];
-//    [self addSubview:button];
-//    [button release];
+    _keySearchResultTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT - 60)];
+    [_keySearchResultTableView setBackgroundColor:ColorWithWhiteAlpha(255.0f, 0.5)];
+    [_keySearchResultTableView setHidden:YES];
+    _keySearchResultTableView.delegate = self;
+    _keySearchResultTableView.dataSource =self;
+    [self addSubview:_keySearchResultTableView];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldValueChanged:) name:UITextFieldTextDidChangeNotification object:_searchBar];
+    
+    _keySearchCount = 0;
 }
-
-//- (void)getProfile {
-//    [UPNetworkHelper sharedInstance].delegate = self;
-//    [[UPNetworkHelper sharedInstance] postProfileWithDictionary:nil];
-//}
-
-//- (void)beginEvaluate {
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"Test" object:nil];
-//}
-
 
 - (void)textFieldValueChanged:(NSNotification *)notify {
     if (_searchBar.text.length == 0) {
         [_searchResultArray removeAllObjects];
     }
     else {
+        _isSearchKeyword = NO;
         if ([UPNetworkHelper sharedInstance].delegate != self) {
             [UPNetworkHelper sharedInstance].delegate = self;
         }
@@ -196,6 +188,7 @@
     
     [_searchBar resignFirstResponder];
     [_searchResultTableView setHidden:YES];
+    [_keySearchResultTableView setHidden:YES];
     [_searchBar setFrame:SearchBarInitFrame];
     [UIView commitAnimations];
     [_cancelButton setHidden:YES];
@@ -218,10 +211,12 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [UPNetworkHelper sharedInstance].delegate = self;
-    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:textField.text,@"keyword", nil];
     
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:textField.text,@"keyword", nil];
     [[UPNetworkHelper sharedInstance] postSearchPositionWithDictionary:dict];
     [dict release];
+    
+    [_keySearchResultTableView setHidden:NO];
     return YES;
 }
 - (void)requestSuccess:(NSDictionary *)responseObject withTag:(NSNumber *)tag {
@@ -234,12 +229,19 @@
         
         [_searchResultTableView reloadData];
     } else if ([tag integerValue] == Tag_Search_Position) {
-//        NSString *title = [responseObject objectForKey:@""]
-        [_detailView setHidden:NO];
-        [_detailView updateInformation:@"IOS工程师" introduce:@"你好" requireAbility:@"你好" JobRankNumber:[NSNumber numberWithInt:15]];
-        //        [_detailView setBackgroundColor:[UIColor redColor]];
-    } else if ([tag integerValue] == Tag_Profile) {
+        NSDictionary *dict = [responseObject objectForKey:@"d"];
+        [_keySearchResultArray addObjectsFromArray:[dict objectForKey:@"result"]];
+        _keySearchCount += [[dict objectForKey:@"count"] integerValue];
+        _currentPage = [[dict objectForKey:@"page"] integerValue];
+        _hadNext = [[dict objectForKey:@"next"] boolValue];
+        NSLog(@"count : %d", _keySearchCount);
         
+        [_keySearchResultTableView reloadData];
+    } else if ([tag integerValue] == Tag_Position_Profile) {
+        NSDictionary *responseDict = [[responseObject objectForKey:@"d"] objectForKey:@"profile"];
+        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[responseDict objectForKey:@"position"],@"positionTitle",[responseDict objectForKey:@"position_desc"],@"positionDesc", nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DetailJob" object:nil userInfo:dict];
+        [dict release];
     }
 }
 
@@ -256,15 +258,28 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [_searchResultTableView cellForRowAtIndexPath:indexPath];
-    NSString *str = ((UILabel *)[cell viewWithTag:17888]).text;
-    NSLog(@"点击搜索职位 ：%@", str);
-    _searchBar.text = str;
-    
-    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:_searchBar.text,@"keyword", nil];
-    [[UPNetworkHelper sharedInstance] postSearchPositionWithDictionary:dict];
-    [dict release];
-    [_searchBar resignFirstResponder];
+    if ([tableView isEqual:_searchResultTableView]) {
+        UITableViewCell *cell = [_searchResultTableView cellForRowAtIndexPath:indexPath];
+        NSString *str = ((UILabel *)[cell viewWithTag:17888]).text;
+        NSLog(@"点击搜索职位 ：%@", str);
+        _searchBar.text = str;
+        
+        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:_searchBar.text,@"keyword", nil];
+        [[UPNetworkHelper sharedInstance] postSearchPositionWithDictionary:dict];
+        [dict release];
+        [_searchBar resignFirstResponder];
+        
+        [_searchResultTableView setHidden:YES];
+        [_keySearchResultTableView setHidden:NO];
+    } else if ([tableView isEqual:_keySearchResultTableView]) {
+        
+        [UPNetworkHelper sharedInstance].delegate = self;
+        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[[_keySearchResultArray objectAtIndex:indexPath.row] objectForKey:@"id"],@"pid", nil];
+        [[UPNetworkHelper sharedInstance] postPositionProfileWithDictionary:dict];
+        [dict release];
+        
+        
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -285,11 +300,40 @@
             [label release];
         }
         if ([_searchResultArray objectAtIndex:indexPath.row]) {
-            //            NSString *text = [[_positions objectAtIndex:indexPath.row] objectForKey:@"name"];
-            //        NSMutableAttributedString *mutable = [[NSMutableAttributedString alloc] initWithString:text];
-            //        [mutable addAttribute: NSForegroundColorAttributeName value:BaseColor range:[text rangeOfString:_keyword]];
-            //        cell.textLabel.attributedText = mutable;
             ((UILabel *)[cell viewWithTag:17888]).text = [_searchResultArray objectAtIndex:indexPath.row];
+        }
+        
+        return cell;
+    } else if ([tableView isEqual:_keySearchResultTableView]) {
+        UITableViewCell *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"keySearchCell"];
+        if (cell == nil) {
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"keySearchCell"] autorelease];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            UIImageView *icon = [[UIImageView alloc] init];
+            [icon setFrame:CGRectMake(15, (cell.frame.size.height - 15) / 2, 15, 15)];
+            icon.layer.masksToBounds = YES;
+            [icon setBackgroundColor:GrayColor];
+            icon.layer.cornerRadius = 5.0f;
+            [cell addSubview:icon];
+            [icon release];
+            
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(icon.frame.origin.x + icon.frame.size.width+15, 0, cell.frame.size.width - icon.frame.origin.x - icon.frame.size.width, cell.frame.size.height)];
+            [label setBackgroundColor:ClearColor];
+            [label setTag:17888];
+            
+            [cell addSubview:label];
+            [label release];
+        }
+        if (_hadNext && indexPath.row == (_keySearchCount - 5)) {
+            NSLog(@"ffff-->text : %@", _searchBar.text);
+            NSLog(@"ffff-->currentPage；%d", _currentPage);
+            NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:_searchBar.text,@"keyword",[NSNumber numberWithInteger:(_currentPage + 1)],@"page" ,nil];
+            [UPNetworkHelper sharedInstance].delegate = self;
+            [[UPNetworkHelper sharedInstance] postSearchPositionWithDictionary:dict];
+            [dict release];
+        }
+        if ([_keySearchResultArray objectAtIndex:indexPath.row]) {
+            ((UILabel *)[cell viewWithTag:17888]).text = [[_keySearchResultArray objectAtIndex:indexPath.row] objectForKey:@"position"];
         }
         
         return cell;
@@ -297,10 +341,7 @@
     return nil;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if ([tableView isEqual:_searchResultTableView]) {
-        return 1;
-    }
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -309,6 +350,8 @@
             return 10;
         }
         return [_searchResultArray count];
+    } else if ([tableView isEqual:_keySearchResultTableView]) {
+        return _keySearchCount;
     }
     return 0;
 }

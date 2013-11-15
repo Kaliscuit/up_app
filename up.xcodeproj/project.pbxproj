@@ -27,7 +27,6 @@
 		A87B0983182F63380064A8E9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B094B182F63380064A8E9 /* main.m */; };
 		A87B0984182F63380064A8E9 /* UPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B094D182F63380064A8E9 /* UPAppDelegate.m */; };
 		A87B0985182F63380064A8E9 /* UPIndexScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B094F182F63380064A8E9 /* UPIndexScrollViewController.m */; };
-		A87B0986182F63380064A8E9 /* UPJobDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B0952182F63380064A8E9 /* UPJobDetailView.m */; };
 		A87B0989182F63380064A8E9 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B095A182F63380064A8E9 /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		A87B098A182F63380064A8E9 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B095C182F63380064A8E9 /* AFHTTPRequestOperationManager.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		A87B098B182F63380064A8E9 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B095E182F63380064A8E9 /* AFHTTPSessionManager.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -116,8 +115,6 @@
 		A87B094D182F63380064A8E9 /* UPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPAppDelegate.m; sourceTree = "<group>"; };
 		A87B094E182F63380064A8E9 /* UPIndexScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPIndexScrollViewController.h; path = ../main/UPIndexScrollViewController.h; sourceTree = "<group>"; };
 		A87B094F182F63380064A8E9 /* UPIndexScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UPIndexScrollViewController.m; path = ../main/UPIndexScrollViewController.m; sourceTree = "<group>"; };
-		A87B0951182F63380064A8E9 /* UPJobDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPJobDetailView.h; sourceTree = "<group>"; };
-		A87B0952182F63380064A8E9 /* UPJobDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPJobDetailView.m; sourceTree = "<group>"; };
 		A87B0959182F63380064A8E9 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		A87B095A182F63380064A8E9 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		A87B095B182F63380064A8E9 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -319,8 +316,6 @@
 				A8065B801835E28E00AFE71E /* UPIndexView.m */,
 				A8065B8B18365E3300AFE71E /* UPDetailJobViewController.h */,
 				A8065B8C18365E3300AFE71E /* UPDetailJobViewController.m */,
-				A87B0951182F63380064A8E9 /* UPJobDetailView.h */,
-				A87B0952182F63380064A8E9 /* UPJobDetailView.m */,
 				A8065B821835E76100AFE71E /* UPMoreSearchResultView.h */,
 				A8065B831835E76100AFE71E /* UPMoreSearchResultView.m */,
 				A8065B851836336A00AFE71E /* UPSearchTableViewCell.h */,
@@ -593,7 +588,6 @@
 				A87B097A182F63380064A8E9 /* UPCommonHelper.m in Sources */,
 				A87B0980182F63380064A8E9 /* UPLoginOrEnrollViewControllerBase.m in Sources */,
 				A87B0984182F63380064A8E9 /* UPAppDelegate.m in Sources */,
-				A87B0986182F63380064A8E9 /* UPJobDetailView.m in Sources */,
 				A87B098D182F63380064A8E9 /* AFSecurityPolicy.m in Sources */,
 				A8065B841835E76100AFE71E /* UPMoreSearchResultView.m in Sources */,
 				A87B0994182F63380064A8E9 /* FMDatabaseAdditions.m in Sources */,

@@ -42,6 +42,14 @@
     return CGRectInset(bounds, 25, 0);
 }
 
+- (CGRect)textRectForBounds:(CGRect)bounds {
+    [super textRectForBounds:bounds];
+    if (![UPCommonHelper isIOS7]) {
+        return CGRectMake(25, 5, bounds.size.width, bounds.size.height);
+    }
+    return CGRectInset(bounds, 25, 0);
+}
+
 - (void)updateStatus:(UPSearchBarStatus)status {
     if (status == UPSearchBarStatusInit) {
         self.placeholder = @"";

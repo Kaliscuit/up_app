@@ -15,4 +15,5 @@
 @property (nonatomic, copy) NSString *positionTitle;
 @property (nonatomic, copy) NSString *positionDescription;
 @property (nonatomic) NSInteger rankNumber;
+@property (nonatomic, copy) NSString *positiionRequire;
 @end

@@ -23,24 +23,24 @@
 - (CGRect)placeholderRectForBounds:(CGRect)bounds {
     [super placeholderRectForBounds:bounds];
     if (![UPCommonHelper isIOS7]) {
-        return CGRectMake(bounds.origin.x + 20, 10, bounds.size.width, bounds.size.height);
+        return CGRectMake(bounds.origin.x + 10, 10, bounds.size.width, bounds.size.height);
     }
-    return CGRectInset(bounds, 20, 0);
+    return CGRectInset(bounds, 10, 0);
 }
 
 - (CGRect)editingRectForBounds:(CGRect)bounds {
     [super editingRectForBounds:bounds];
     if (![UPCommonHelper isIOS7]) {
-        return CGRectMake(bounds.origin.x + 20, 10, bounds.size.width, bounds.size.height);
+        return CGRectMake(bounds.origin.x + 10, 10, bounds.size.width, bounds.size.height);
     }
-    return CGRectInset(bounds, 20, 0);
+    return CGRectInset(bounds, 10, 0);
 }
 
 - (CGRect)textRectForBounds:(CGRect)bounds {
     [super editingRectForBounds:bounds];
     if (![UPCommonHelper isIOS7]) {
-        return CGRectMake(bounds.origin.x + 20, 10, bounds.size.width, bounds.size.height);
+        return CGRectMake(bounds.origin.x + 10, 10, bounds.size.width, bounds.size.height);
     }
-    return CGRectInset(bounds, 20, 0);
+    return CGRectInset(bounds, 10, 0);
 }
 @end

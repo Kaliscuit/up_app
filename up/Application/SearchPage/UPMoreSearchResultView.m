@@ -168,7 +168,13 @@
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *objectDict = [_allPositions objectAtIndex:indexPath.row];
+    NSDictionary *objectDict = nil;
+    if ([self isAllPositionShow]) {
+        objectDict = [_allPositions objectAtIndex:indexPath.row];
+    } else {
+        objectDict = [_hotPositions objectAtIndex:indexPath.row];
+    }
+    [UPNetworkHelper sharedInstance].delegate = self;
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[objectDict objectForKey:@"id"],@"pid", nil];
     [[UPNetworkHelper sharedInstance] postPositionProfileWithDictionary:dict];
     [dict release];
@@ -177,7 +183,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AllPositionsCell"];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"AllPositionsCell"] autorelease];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:13]];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     if ([self isAllPositionShow] && indexPath.row == _allPositionCount - 6) {
         if (_isExistNextPage) {
@@ -188,7 +196,6 @@
     
         if ([_allPositions count] > 0) {
             NSString *text = [[_allPositions objectAtIndex:indexPath.row] objectForKey:@"position"];
-                [cell.textLabel setFont:[UIFont systemFontOfSize:([UIFont systemFontSize] - 1)]];
             cell.textLabel.text = text;
         }
     } else {
