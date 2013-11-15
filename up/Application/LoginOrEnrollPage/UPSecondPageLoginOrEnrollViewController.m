@@ -9,7 +9,7 @@
 #import "UPSecondPageLoginOrEnrollViewController.h"
 #import "CommonDefine.h"
 #import "UPNetworkHelper.h"
-#import "UPOptionalUsernameViewController.h"
+#import "UPUserItem.h"
 
 @interface UPSecondPageLoginOrEnrollViewController ()<UPNetworkHelperDelegate>
 
@@ -31,12 +31,15 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO];
     self.navigationItem.backBarButtonItem.title = @"返回";
-    [self.textField setPlaceholder:@"密码"];
-    self.textField.secureTextEntry = YES;
-    if (_isEnroll) {
+
+    if (self.isEnrollProcess) {
+        [self.textFieldName setPlaceholder:@"用户名"];
+        self.textFieldName.secureTextEntry = NO;
+        [self.textFieldPassword setPlaceholder:@"密码"];
+        self.textFieldPassword.secureTextEntry = YES;
         self.title = @"注册";
         [self.nextStepButton setTitle:@"创建账户" forState:UIControlStateNormal];
-        
+    
         NSString *string = [NSString stringWithFormat:@"用%@创建新的账户",self.emailStr];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string];
         NSRange range=[string rangeOfString:self.emailStr];
@@ -44,6 +47,9 @@
         [self.messageLabel setAttributedText:attributedString];
         [attributedString release];
     } else {
+        [self.textFieldName setPlaceholder:@"密码"];
+        self.textFieldName.secureTextEntry = YES;
+        
         self.title = @"登录";
         [self.nextStepButton setTitle:@"登录" forState:UIControlStateNormal];
         
@@ -76,39 +82,56 @@
         [alert release];
         return;
     }
-    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.emailStr,@"email",self.textField.text,@"password", nil];
-    if (_isEnroll) {
+    if (self.isEnrollProcess) {
+        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.emailStr,@"email",self.textFieldName.text,@"name",self.textFieldPassword,@"password", nil];
         [[UPNetworkHelper sharedInstance] postEnrollWithDictionary:dict];
+        [dict release];
     } else {
+
+        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.emailStr,@"email",self.textFieldName.text,@"password", nil];
         [[UPNetworkHelper sharedInstance] postLoginWithDictionary:dict];
+        [dict release];
     }
-    [dict release];
 }
 
 - (BOOL)isValidPassword {
-    if (self.textField.text.length >= 8) {
+    if (!self.isEnrollProcess && self.textFieldName.text.length >= 8) {
+        return YES;
+    } else if(self.isEnrollProcess && self.textFieldPassword.text.length >= 8) {
         return YES;
     }
     return NO;
 }
 
 - (void)requestSuccess:(NSDictionary *)responseObject withTag:(NSNumber *)tag{
+    NSDictionary *userProfile = [[responseObject objectForKey:@"d"] objectForKey:@"profile"];
+    
+    UPUserItem *user = [UPUserItem sharedInstance];
+    user.name = [userProfile objectForKey:@"name"];
+    user.userid = [userProfile objectForKey:@"id"];
+    user.email = [userProfile objectForKey:@"email"];
+    user.avatarUrl = [userProfile objectForKey:@"avatar"];
+    user.gender = [userProfile objectForKey:@"gender"];
+    user.birthday = [userProfile objectForKey:@"birthday"];
+    user.createDate = [userProfile objectForKey:@"create_at"];
+    user.updateDate = [userProfile objectForKey:@"update_at"];
+    
     if ([tag integerValue]== Tag_Login) { // 登录成功
-        // TODO:做类型检查
-        NSDictionary *userProfile = [[responseObject objectForKey:@"d"] objectForKey:@"profile"];
-        [[NSUserDefaults standardUserDefaults] setObject:userProfile forKey:@"UserProfile"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
         NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[userProfile objectForKey:@"name"],@"Nickname", nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"Nickname" object:nil userInfo:dict];
         [dict release];
     
         [self.navigationController popToRootViewControllerAnimated:YES];
     } else if ([tag integerValue]== Tag_Enroll){ // 注册成功
-        [self createNickname];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Nickname" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.textFieldName.text,@"Nickname", nil]];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     } else {
         NSLog(@"登陆注册第二阶段出错");
     }
+    
+    [[NSUserDefaults standardUserDefaults] setValue:user.userid forKey:@"UserID"];
+    [[NSUserDefaults standardUserDefaults] setValue:user.name forKey:@"UserName"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)requestFail:(NSError *)error withTag:(NSNumber *)tag{
@@ -119,9 +142,8 @@
     }
 }
 
-- (void)createNickname {
-    UPOptionalUsernameViewController *nicknameController = [[UPOptionalUsernameViewController alloc] init];
-    [self.navigationController pushViewController:nicknameController animated:YES];
-    [nicknameController release];
+- (void)requestSuccessWithFailMessage:(NSString *)message withTag:(NSNumber *)tag {
+    
 }
+
 @end

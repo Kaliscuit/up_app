@@ -1,16 +1,13 @@
 //
-//  UPSearchViewController.m
+//  UPIndexView.m
 //  up
 //
-//  Created by joy.long on 13-11-5.
+//  Created by joy.long on 13-11-15.
 //  Copyright (c) 2013年 me.v2up. All rights reserved.
 //
 
-#import "UPSearchViewController.h"
-#import "CommonDefine.h"
-#import "UPCommonInitMethod.h"
+#import "UPIndexView.h"
 #import "UPNetworkHelper.h"
-#import "CommonNotification.h"
 #import "UPSearchBar.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UPJobDetailView.h"
@@ -24,8 +21,7 @@
 
 #define isClassEqual(x, y) ([[x class] isEqual:[y class]])?YES:NO
 
-@interface UPSearchViewController ()<UPNetworkHelperDelegate,UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
-//    UISearchBar *_searchBar;
+@interface UPIndexView()<UPNetworkHelperDelegate,UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
     
     UITableView *_searchResultTableView;
     
@@ -44,131 +40,154 @@
     
     UPJobDetailView *_detailView;
 }
-@end
 
-@implementation UPSearchViewController
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+@end
+@implementation UPIndexView
+
+- (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithFrame:frame];
     if (self) {
-        // Custom initialization
+        NSLog(@"%s", __PRETTY_FUNCTION__);
+        
+        self.backgroundColor = BaseColor;
+        
+        [UPNetworkHelper sharedInstance].delegate = self;
+        
+        [self initUI];
+        
+        _searchResultArray = [[NSMutableArray alloc] init];
+        _searchKeywords = [[NSMutableArray alloc] init];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserName:) name:@"Nickname" object:nil];
     }
     return self;
 }
 
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     SAFE_RELEASE(_searchBar);
-//    SAFE_RELEASE(_searchBarTipLabel);
+    //    SAFE_RELEASE(_searchBarTipLabel);
     SAFE_RELEASE(_searchResultArray);
     SAFE_RELEASE(_searchKeywords);
     SAFE_RELEASE(_displayController);
     [super dealloc];
 }
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-    
-    self.view.backgroundColor = BaseColor;
-    
-    [UPNetworkHelper sharedInstance].delegate = self;
-    
-    [self initUI];
-
-    _searchResultArray = [[NSMutableArray alloc] init];
-    _searchKeywords = [[NSMutableArray alloc] init];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserName:) name:@"Nickname" object:nil];
-}
 
 - (void)updateUserName:(NSNotification *)notify {
-    [_accountButton setImage:[UIImage imageNamed:@"icn_user_default_highlight.png"] forState:UIControlStateNormal];
-    [_accountButton setTitle:[[notify userInfo] objectForKey:@"Nickname"] forState:UIControlStateNormal];
-    [_accountButton setTitleColor:[UIColor colorWithRed:10.0f/255.0f green:95.0f/255.0f blue:255.0f/255.0f alpha:1.0] forState:UIControlStateNormal];
-    [_accountButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
-    [_accountButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+    [self _updateUserName:[[notify userInfo] objectForKey:@"Nickname"]];
+}
+
+- (void)_updateUserName:(NSString *)userName {
+    if (userName.length > 0) {
+        [_accountButton setImage:[UIImage imageNamed:@"icn_user_default_highlight.png"] forState:UIControlStateNormal];
+        [_accountButton setTitle:userName forState:UIControlStateNormal];
+        [_accountButton setTitleColor:RGBCOLOR(10.0f, 95.0f, 255.0f) forState:UIControlStateNormal];
+        [_accountButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
+    } else {
+        [_accountButton setTitleColor:ColorWithWhite(179.0f) forState:UIControlStateNormal];
+        [_accountButton setTitle:@"未登录" forState:UIControlStateNormal];
+        [_accountButton setImage:[UIImage imageNamed:@"icn_user_default.png"] forState:UIControlStateNormal];
+        [_accountButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
+        
+    }
+    
 }
 
 - (void)onClickAccountButton:(UIButton *)sender {
-    NSLog(@"点击登录按钮");
-    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPopEnrollmentOrLoginViewController object:nil];
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"UserName"] == nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPopEnrollmentOrLoginViewController object:nil];
+    }
 }
 
 - (void)initUI {
-    
     _searchBarTipLabel = [[UILabel alloc] init];
     [_searchBarTipLabel setFrame:CGRectMake(36, 223, 150, 25)];
     [_searchBarTipLabel setText:@"我的梦想职业"];
-    [_searchBarTipLabel setTextColor:[UIColor whiteColor]];
-    [_searchBarTipLabel setBackgroundColor:[UIColor clearColor] ];
+    [_searchBarTipLabel setTextColor:WhiteColor];
+    [_searchBarTipLabel setBackgroundColor:ClearColor ];
     [_searchBarTipLabel setFont:[UIFont systemFontOfSize:20]];
-    [self.view addSubview:_searchBarTipLabel];
+    [self addSubview:_searchBarTipLabel];
     [_searchBarTipLabel release];
     
     _accountButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_accountButton setFrame:CGRectMake(36.0f, (ScreenHeight - 90.0f), 100.0f, 40.0f)];
-    // TODO: 判断是否是已登录
-    [_accountButton setTitle:@"未登录" forState:UIControlStateNormal];
-    
-    [_accountButton setTitleColor:[UIColor colorWithWhite:179.0f/255.0f alpha:1.0] forState:UIControlStateNormal];
-    [_accountButton setBackgroundColor:[UIColor whiteColor]];
+    [_accountButton setFrame:CGRectMake(36.0f, (SCREEN_HEIGHT - 90.0f), 100.0f, 40.0f)];
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"UserName"]) {
+        [self _updateUserName:[[NSUserDefaults standardUserDefaults] valueForKey:@"UserName"]];
+    } else {
+        [self _updateUserName:nil];
+    }
+    [_accountButton setBackgroundColor:WhiteColor];
     [_accountButton addTarget:self action:@selector(onClickAccountButton:) forControlEvents:UIControlEventTouchUpInside];
-    [_accountButton setImage:[UIImage imageNamed:@"icn_user_default.png"] forState:UIControlStateNormal];
-    [_accountButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
-    [UPCommonInitMethod initButtonWithRadius:_accountButton withCornerRadius:20.0f];
+    _accountButton.layer.masksToBounds = YES;
+    _accountButton.layer.cornerRadius = 20.0f;
     [_accountButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-    [self.view addSubview:_accountButton];
+    [self addSubview:_accountButton];
     
     _searchBar = [[UPSearchBar alloc] initWithFrame:SearchBarInitFrame];
     [_searchBar.layer setMasksToBounds:YES];
     [_searchBar.layer setCornerRadius:5.0f];
     _searchBar.delegate = self;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-    [_searchBar setBackgroundColor:[UIColor whiteColor]];
-    [self.view addSubview:_searchBar];
+    [_searchBar setBackgroundColor:WhiteColor];
+    [self addSubview:_searchBar];
     
     _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_cancelButton setFrame:CGRectMake(265, 20, 45, 30)];
     [_cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
-    [_cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_cancelButton setTitleColor:WhiteColor forState:UIControlStateNormal];
     [_cancelButton setHidden:YES];
     [_cancelButton.titleLabel setFont:[UIFont systemFontOfSize:14.0]];
     [_cancelButton addTarget:self action:@selector(onClickCancelSearchButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_cancelButton];
+    [self addSubview:_cancelButton];
     
-    _searchResultTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, ScreenWidth, ScreenHeight - 60 - 216)];
-    [_searchResultTableView setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.5]];
+    _searchResultTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_HEIGHT, SCREEN_HEIGHT - 60 - 216)];
+    [_searchResultTableView setBackgroundColor:ColorWithWhiteAlpha(255.0f, 0.5)];
     [_searchResultTableView setHidden:YES];
     _searchResultTableView.delegate = self;
     _searchResultTableView.bounces = NO;
     _searchResultTableView.dataSource =self;
-    [self.view addSubview:_searchResultTableView];
+    [self addSubview:_searchResultTableView];
     
-    _detailView = [[UPJobDetailView alloc] initWithFrame:CGRectMake(_searchResultTableView.frame.origin.x, _searchResultTableView.frame.origin.y, 320, self.view.frame.size.height - _searchResultTableView.frame.origin.y)];
+    _detailView = [[UPJobDetailView alloc] initWithFrame:CGRectMake(_searchResultTableView.frame.origin.x, 50.0f, 320, self.frame.size.height - _searchResultTableView.frame.origin.y)];
     [_detailView setHidden:YES];
-    [self.view addSubview:_detailView];
+    [self addSubview:_detailView];
     
     
 //    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [button addTarget:self action:@selector(beginEvaluate) forControlEvents:UIControlEventTouchUpInside];
+//    [button addTarget:self action:@selector(getProfile) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    //    [button addTarget:self action:@selector(beginEvaluate) forControlEvents:UIControlEventTouchUpInside];
 //    [button setTitle:@"评估" forState:UIControlStateNormal];
 //    [button setFrame:CGRectMake(0, 400, 100, 100)];
 //    [button setBackgroundColor:[UIColor redColor]];
-//    [self.view addSubview:button];
+//    [self addSubview:button];
 //    [button release];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldValueChanged:) name:UITextFieldTextDidChangeNotification object:_searchBar];
 }
+
+//- (void)getProfile {
+//    [UPNetworkHelper sharedInstance].delegate = self;
+//    [[UPNetworkHelper sharedInstance] postProfileWithDictionary:nil];
+//}
 
 //- (void)beginEvaluate {
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"Test" object:nil];
 //}
+
+
+- (void)textFieldValueChanged:(NSNotification *)notify {
+    if (_searchBar.text.length == 0) {
+        [_searchResultArray removeAllObjects];
+    }
+    else {
+        if ([UPNetworkHelper sharedInstance].delegate != self) {
+            [UPNetworkHelper sharedInstance].delegate = self;
+        }
+        [[UPNetworkHelper sharedInstance] postSearchSuggestWithDictionary:[NSDictionary dictionaryWithObjectsAndKeys:_searchBar.text,@"keyword", nil]];
+    }
+}
 
 - (void)onClickCancelSearchButton:(UIButton *)sender {
     [UIView beginAnimations:@"SearchBarEndEdit" context:nil];
@@ -197,20 +216,10 @@
     return YES;
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    
-}
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    NSLog(@"搜索框string: %@", string);
-    if (_searchBar.text.length == 0) {
-        [_searchResultArray removeAllObjects];
-    }
-    [[UPNetworkHelper sharedInstance] postSearchSuggestWithDictionary:[NSDictionary dictionaryWithObjectsAndKeys:_searchBar.text,@"keyword", nil]];
-    return YES;
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [UPNetworkHelper sharedInstance].delegate = self;
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:textField.text,@"keyword", nil];
+    
     [[UPNetworkHelper sharedInstance] postSearchPositionWithDictionary:dict];
     [dict release];
     return YES;
@@ -218,7 +227,6 @@
 - (void)requestSuccess:(NSDictionary *)responseObject withTag:(NSNumber *)tag {
     NSLog(@"search response : %@", responseObject);
     if ([tag integerValue] == Tag_Search_Suggest) {
-        
         if ([_searchResultArray count] > 0) {
             [_searchResultArray removeAllObjects];
         }
@@ -226,9 +234,12 @@
         
         [_searchResultTableView reloadData];
     } else if ([tag integerValue] == Tag_Search_Position) {
+//        NSString *title = [responseObject objectForKey:@""]
         [_detailView setHidden:NO];
         [_detailView updateInformation:@"IOS工程师" introduce:@"你好" requireAbility:@"你好" JobRankNumber:[NSNumber numberWithInt:15]];
-//        [_detailView setBackgroundColor:[UIColor redColor]];
+        //        [_detailView setBackgroundColor:[UIColor redColor]];
+    } else if ([tag integerValue] == Tag_Profile) {
+        
     }
 }
 
@@ -240,6 +251,10 @@
     }
 }
 
+- (void)requestSuccessWithFailMessage:(NSString *)message withTag:(NSNumber *)tag {
+    
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [_searchResultTableView cellForRowAtIndexPath:indexPath];
     NSString *str = ((UILabel *)[cell viewWithTag:17888]).text;
@@ -249,7 +264,6 @@
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:_searchBar.text,@"keyword", nil];
     [[UPNetworkHelper sharedInstance] postSearchPositionWithDictionary:dict];
     [dict release];
-    // TODO:搜索职位
     [_searchBar resignFirstResponder];
 }
 
@@ -259,12 +273,12 @@
         if (cell == nil) {
             cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"] autorelease];
             UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icn_finder.png"]];
-            [icon setFrame:CGRectMake(10, (cell.frame.size.height - 15) / 2, 15, 15)];
+            [icon setFrame:CGRectMake(15, (cell.frame.size.height - 15) / 2, 15, 15)];
             [cell addSubview:icon];
             [icon release];
             
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(icon.frame.origin.x + icon.frame.size.width+15, 0, cell.frame.size.width - icon.frame.origin.x - icon.frame.size.width, cell.frame.size.height)];
-            [label setBackgroundColor:[UIColor clearColor]];
+            [label setBackgroundColor:ClearColor];
             [label setTag:17888];
             
             [cell addSubview:label];
@@ -298,4 +312,5 @@
     }
     return 0;
 }
+
 @end

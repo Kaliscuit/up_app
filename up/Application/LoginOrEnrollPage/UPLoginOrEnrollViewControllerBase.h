@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "UPTextField.h"
+
 @interface UPLoginOrEnrollViewControllerBase : UIViewController<UITextFieldDelegate>
 
-@property (nonatomic, retain) UPTextField *textField;
+@property (nonatomic, retain) UPTextField *textFieldName;
 @property (nonatomic, retain) UIActivityIndicatorView *indicatorView;
 @property (nonatomic, retain) UILabel *messageLabel;
 @property (nonatomic, retain) UIButton *nextStepButton;
-
+@property (nonatomic, retain) UPTextField *textFieldPassword;
+@property (nonatomic) BOOL isEnrollProcess;
 @end

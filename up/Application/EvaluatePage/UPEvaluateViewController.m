@@ -40,51 +40,51 @@
     [self.navigationController setNavigationBarHidden:NO];
     self.navigationItem.hidesBackButton = NO;
     self.navigationItem.backBarButtonItem.title = @"重新选择";
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.view setBackgroundColor:WhiteColor];
     self.title = @"技能评估";
     
     UILabel *titleTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 100, 15)];
     [titleTipLabel setText:@"目标职业"];
     [titleTipLabel setFont:[UIFont systemFontOfSize:14]];
-    [titleTipLabel setBackgroundColor:[UIColor clearColor]];
-    [titleTipLabel setTextColor:[UIColor grayColor]];
+    [titleTipLabel setBackgroundColor:ClearColor];
+    [titleTipLabel setTextColor:GrayColor];
     [self.view addSubview:titleTipLabel];
     [titleTipLabel release];
     
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 35, 280, 30)];
     [_titleLabel setFont:[UIFont systemFontOfSize:18]];
     [_titleLabel setText:@"前端工程师"];
-    [_titleLabel setTextColor:[UIColor blackColor]];
-    [_titleLabel setBackgroundColor:[UIColor clearColor]];
+    [_titleLabel setTextColor:BlackColor];
+    [_titleLabel setBackgroundColor:ClearColor];
     [self.view addSubview:_titleLabel];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(20, 80, 280, 0.5)];
-    [lineView setBackgroundColor:[UIColor grayColor]];
+    [lineView setBackgroundColor:GrayColor];
     [self.view addSubview:lineView];
     [lineView release];
     
     UILabel *nextTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 100, 100, 20)];
     [nextTipLabel setText:@"下一步"];
     [nextTipLabel setFont:[UIFont systemFontOfSize:14]];
-    [nextTipLabel setBackgroundColor:[UIColor clearColor]];
-    [nextTipLabel setTextColor:[UIColor grayColor]];
+    [nextTipLabel setBackgroundColor:ClearColor];
+    [nextTipLabel setTextColor:GrayColor];
     [self.view addSubview:nextTipLabel];
     [nextTipLabel release];
     
     UILabel *nextDetailLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 120, 280, 80)];
     [nextDetailLabel setText:@"接下来我们会推荐一些课程给你学习以及巩固一下领域的知识，所以，先来完成一个简单的能力评估吧"];
     [nextDetailLabel setNumberOfLines:0];
-    [nextDetailLabel setBackgroundColor:[UIColor clearColor]];
-    [nextDetailLabel setTextColor:[UIColor blackColor]];
+    [nextDetailLabel setBackgroundColor:ClearColor];
+    [nextDetailLabel setTextColor:BlackColor];
     [self.view addSubview:nextDetailLabel];
     [nextDetailLabel release];
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake((ScreenWidth - 140) / 2, nextDetailLabel.frame.origin.y + nextDetailLabel.frame.size.height + 60, 140, 60)];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 140) / 2, nextDetailLabel.frame.origin.y + nextDetailLabel.frame.size.height + 60, 140, 60)];
     [button setBackgroundColor:BaseColor];
     [button.layer setMasksToBounds:YES];
     [button.layer setCornerRadius:30.0f];
     [button setTitle:@"开始评估" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setTitleColor:WhiteColor forState:UIControlStateNormal];
     [button addTarget:self action:@selector(onClickBeginEvaluateButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
     [button release];

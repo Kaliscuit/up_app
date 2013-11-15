@@ -35,7 +35,7 @@
     _pageNumber = 10;
     
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
-    [_scrollView setContentSize:CGSizeMake((_pageNumber * ScreenWidth), _scrollView.frame.size.height)];
+    [_scrollView setContentSize:CGSizeMake((_pageNumber * SCREEN_WIDTH), _scrollView.frame.size.height)];
     [self.view addSubview:_scrollView];
     _scrollView.delegate = self;
     

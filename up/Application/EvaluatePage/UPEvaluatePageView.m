@@ -30,13 +30,13 @@
     if (self) {
         self.backgroundColor = BaseColor;
         _indexLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 30, 10, 10)];
-        [_indexLabel setBackgroundColor:[UIColor clearColor]];
-        [_indexLabel setTextColor:[UIColor whiteColor]];
+        [_indexLabel setBackgroundColor:ClearColor];
+        [_indexLabel setTextColor:WhiteColor];
         [self addSubview: _indexLabel];
         
-        _questionTitleLable = [[UILabel alloc] initWithFrame:CGRectMake(_indexLabel.frame.origin.x + _indexLabel.frame.size.width, _indexLabel.frame.origin.y, ScreenWidth - _indexLabel.frame.origin.x * 2 - _indexLabel.frame.size.width, 80)];
-        [_questionTitleLable setBackgroundColor:[UIColor clearColor]];
-        [_questionTitleLable setTextColor:[UIColor whiteColor]];
+        _questionTitleLable = [[UILabel alloc] initWithFrame:CGRectMake(_indexLabel.frame.origin.x + _indexLabel.frame.size.width, _indexLabel.frame.origin.y, SCREEN_WIDTH - _indexLabel.frame.origin.x * 2 - _indexLabel.frame.size.width, 80)];
+        [_questionTitleLable setBackgroundColor:ClearColor];
+        [_questionTitleLable setTextColor:WhiteColor];
         [self addSubview:_questionTitleLable];
         
         UPQuestionSectionButton *sectionButton = [[UPQuestionSectionButton alloc] initWithFrame:CGRectMake(5, _questionTitleLable.frame.origin.y + _questionTitleLable.frame.size.height, 310, 30)];

@@ -30,13 +30,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self.textField setKeyboardType:UIKeyboardTypeEmailAddress];
     [self.navigationController setNavigationBarHidden:NO];
     self.navigationItem.hidesBackButton = YES;
-    self.title  =@"登录";
+    self.title  =@"输入邮箱";
     self.messageLabel.text = @"请输入邮箱地址，登陆或注册新用户";
-    [self.textField setPlaceholder:@"电子邮箱"];
+    [self.textFieldName setPlaceholder:@"电子邮箱"];
     [self.nextStepButton setTitle:@"下一步" forState:UIControlStateNormal];
+    
 }
 - (void)viewDidLoad
 {
@@ -51,13 +51,13 @@
 }
 
 - (void)onClickNextStepButton:(id)sender {
-    if (self.textField.text.length == 0) {
+    if (self.textFieldName.text.length == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"邮箱不能为空" message:@"不能为空" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
         [alert show];
         [alert release];
         return;
     }
-    BOOL isEmail = [UPCommonHelper isValidateEmail:self.textField.text];
+    BOOL isEmail = [UPCommonHelper isValidateEmail:self.textFieldName.text];
     if (!isEmail) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"邮箱格式错误" message:@"格式错误" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
         [alert show];
@@ -67,9 +67,9 @@
     [self.indicatorView setHidden:NO];
     [self.indicatorView startAnimating];
     
-    self.textField.clearButtonMode = UITextFieldViewModeNever;
+    self.textFieldName.clearButtonMode = UITextFieldViewModeNever;
     
-    NSString *emailStr = self.textField.text;
+    NSString *emailStr = self.textFieldName.text;
     
     
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:emailStr,@"email", nil];
@@ -82,7 +82,7 @@
 #pragma mark - AFNetworkHelperDelegate
 - (void)requestFail:(NSDictionary *)responseObject withTag:(NSNumber *)tag{
     // 弹警告框
-    self.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.textFieldName.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.indicatorView stopAnimating];
 }
 
@@ -90,10 +90,9 @@
     if ([tag integerValue] != Tag_Email_Check) {
         return;
     }
-    self.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.textFieldName.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.indicatorView stopAnimating];
-    NSLog(@"DDDDDDDDD--->RESPONSE OBJECT: %@", responseObject);
-#ifdef __UP__
+
     NSInteger responseCode = [[responseObject objectForKey:@"c"] integerValue];
     if (responseCode == 415) {
         // 格式不对
@@ -102,16 +101,19 @@
         [alert release];
     } else {
         UPSecondPageLoginOrEnrollViewController *nextController = [[UPSecondPageLoginOrEnrollViewController alloc] init];
-        nextController.emailStr = self.textField.text;
+        nextController.emailStr = self.textFieldName.text;
         if (responseCode == 404) { // 未注册
-            nextController.isEnroll = YES;
+            nextController.isEnrollProcess = YES;
         } else { // 已经注册
-            nextController.isEnroll = NO;
+            nextController.isEnrollProcess = NO;
         }
         [self.navigationController pushViewController:nextController animated:YES];
         [nextController release];
     }
-#endif
+
 }
 
+- (void)requestSuccessWithFailMessage:(NSString *)message withTag:(NSNumber *)tag {
+    
+}
 @end

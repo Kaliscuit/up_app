@@ -7,7 +7,6 @@
 //
 
 #import "UPNetworkHelper.h"
-#import "CommonURL.h"
 @implementation UPNetworkHelper
 
 + (UPNetworkHelper *)sharedInstance {
@@ -28,54 +27,12 @@
 }
 
 - (void)_postURLWithTag:(NSString *)url tag:(int)tag Dictionary:(NSDictionary *)dict{
-    NSLog(@"ppppddddd-->dict: %@", dict);
-#ifndef TRUE
-    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    for (NSHTTPCookie *cookie in [cookieJar cookies]) {
-        NSLog(@"Cookie ---- %@", cookie);
-    }
-    NSArray *cookieArray = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:@"http://api.dev.v2up.me/usre/check-email"]];
-    NSDictionary *cookieDict = [NSHTTPCookie requestHeaderFieldsWithCookies:cookieArray];
-    NSLog(@"pppppppppppppppp-->d : %@", cookieDict);
-    
-    
-    NSString *valueStr = [NSString stringWithFormat:@"email=%@&password=%@",@"nihao@qqwer.com",@"1111111111"];
-    NSData *postData = [valueStr dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-//    [request setHTTPBody:postData];
-
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://api.dev.v2up.me/user/check-email"]];
-    [request setHTTPMethod:@"POST"];
-    [request setHTTPShouldHandleCookies:YES];
-    [request setAllHTTPHeaderFields:cookieDict];
-    [request setHTTPBody:postData];
-    
-    AFHTTPRequestOperation *operator = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [operator setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if ([self.delegate respondsToSelector:@selector(requestSuccess:withTag:)]) {
-            [self.delegate performSelector:@selector(requestSuccess:withTag:) withObject:(NSDictionary *)responseObject withObject:[NSNumber numberWithInteger:tag]];
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-
-    }];
-    [operator start];
-#else
     [_manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Class : %@", [responseObject class]);
         if (responseObject == nil) {
             NSLog(@"请求成功，但是返回值为空");
         }
         NSLog(@"返回值 responseObject: %@", responseObject);
-        NSLog(@"tag---->%d", tag);
-        
-        
-        NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-        for (NSHTTPCookie *cookie in [cookieJar cookies]) {
-            NSLog(@"Cookie ---- %@", cookie);
-        }
-        NSArray *dict = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:@"http://api.dev.v2up.me/usre/check-email"]];
-        NSDictionary *d = [NSHTTPCookie requestHeaderFieldsWithCookies:dict];
-        NSLog(@"pppppppppppppppp-->d : %@", d);
         
         if ([self.delegate respondsToSelector:@selector(requestSuccess:withTag:)]) {
             [self.delegate performSelector:@selector(requestSuccess:withTag:) withObject:(NSDictionary *)responseObject withObject:[NSNumber numberWithInteger:tag]];
@@ -85,7 +42,6 @@
             [self.delegate performSelector:@selector(requestFail:withTag:) withObject:error withObject:[NSNumber numberWithInteger:tag]];
         }
     }];
-#endif
 }
 
 - (void)postEmailCheckWithDictionary:(NSDictionary *)dict {
@@ -105,7 +61,39 @@
 }
 
 - (void)postProfileWithDictionary:(NSDictionary *)dict { // 不传字典拿到的是自己的，传字典拿到的是别人的
-    [self _postURLWithTag:Url_Profile_Post tag:Tag_Profile Dictionary:dict];
+//    [self _postURLWithTag:Url_Profile_Post tag:Tag_Profile Dictionary:dict];
+
+    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSDictionary *cookieDict = nil;
+    cookieDict = [NSHTTPCookie requestHeaderFieldsWithCookies:[cookieJar cookies]];
+    NSLog(@"pppppppppppppppp-->有没有注册的cookies : %@", cookieDict);
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://api.dev.v2up.me/user/profile"]];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPShouldHandleCookies:YES];
+    [request setAllHTTPHeaderFields:cookieDict];
+    [request setHTTPBody:nil];
+    
+    AFHTTPRequestOperation *operator = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    [operator setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"返回值：%@", operation.responseString);
+//        [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:URLString parameters:parameters];
+////        AFJSONResponseSerializer *json =
+        if ([self isRequestSuccessWithFailCode:responseObject]) {
+            NSString *failMessage = [responseObject objectForKey:@"m"];
+            if ([self.delegate respondsToSelector:@selector(requestSuccessWithFailMessage:withTag:)]) {
+                [self.delegate performSelector:@selector(requestSuccessWithFailMessage:withTag:) withObject:failMessage];
+            }
+        } else {
+            if ([self.delegate respondsToSelector:@selector(requestSuccess:withTag:)]) {
+                [self.delegate performSelector:@selector(requestSuccess:withTag:) withObject:(NSDictionary *)responseObject withObject:[NSNumber numberWithInteger:Tag_Profile]];
+            }
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+    [operator start];
 }
 
 - (void)postSearchSuggestWithDictionary:(NSDictionary *)dict {
@@ -119,4 +107,13 @@
 - (void)postSearchHot {
     [self _postURLWithTag:Url_Search_Hot_Post tag:Tag_Search_Hot Dictionary:nil];
 }
+
+- (void)postPositionProfileWithDictionary:(NSDictionary *)dict {
+    [self _postURLWithTag:Url_Position_Profile_Post tag:Tag_Position_Profile Dictionary:dict];
+}
+
+- (BOOL)isRequestSuccessWithFailCode:(id)responseObject {
+    return NO;
+}
+
 @end

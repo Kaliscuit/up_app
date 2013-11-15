@@ -7,25 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A8065B7D1835CA9E00AFE71E /* UPAlertTipLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A8065B7C1835CA9E00AFE71E /* UPAlertTipLabel.m */; };
+		A8065B811835E28E00AFE71E /* UPIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8065B801835E28E00AFE71E /* UPIndexView.m */; };
+		A8065B841835E76100AFE71E /* UPMoreSearchResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8065B831835E76100AFE71E /* UPMoreSearchResultView.m */; };
+		A8065B871836336A00AFE71E /* UPSearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A8065B861836336A00AFE71E /* UPSearchTableViewCell.m */; };
+		A8065B8A183659A400AFE71E /* UPJobTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8065B89183659A400AFE71E /* UPJobTypeViewController.m */; };
+		A8065B8D18365E3300AFE71E /* UPDetailJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8065B8C18365E3300AFE71E /* UPDetailJobViewController.m */; };
 		A83C9BED182C07A200D8F644 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A83C9BEC182C07A200D8F644 /* QuartzCore.framework */; };
 		A84C4690183132E2004A71B0 /* UPEvaluateProcessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C468F183132E2004A71B0 /* UPEvaluateProcessViewController.m */; };
 		A84C469618313A36004A71B0 /* UPEvaluatePageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C469518313A36004A71B0 /* UPEvaluatePageControl.m */; };
 		A868318F18281BE0005D4375 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A868319118281BE0005D4375 /* Localizable.strings */; };
 		A87B097A182F63380064A8E9 /* UPCommonHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B0937182F63380064A8E9 /* UPCommonHelper.m */; };
-		A87B097B182F63380064A8E9 /* UPCommonInitMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B0939182F63380064A8E9 /* UPCommonInitMethod.m */; };
 		A87B097C182F63380064A8E9 /* UPNetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B093B182F63380064A8E9 /* UPNetworkHelper.m */; };
 		A87B097D182F63380064A8E9 /* UPSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B093E182F63380064A8E9 /* UPSearchBar.m */; };
 		A87B097E182F63380064A8E9 /* UPTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B0940182F63380064A8E9 /* UPTextField.m */; };
 		A87B097F182F63380064A8E9 /* UPFirstPageLoginOrEnrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B0943182F63380064A8E9 /* UPFirstPageLoginOrEnrollViewController.m */; };
 		A87B0980182F63380064A8E9 /* UPLoginOrEnrollViewControllerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B0945182F63380064A8E9 /* UPLoginOrEnrollViewControllerBase.m */; };
-		A87B0981182F63380064A8E9 /* UPOptionalUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B0947182F63380064A8E9 /* UPOptionalUsernameViewController.m */; };
 		A87B0982182F63380064A8E9 /* UPSecondPageLoginOrEnrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B0949182F63380064A8E9 /* UPSecondPageLoginOrEnrollViewController.m */; };
 		A87B0983182F63380064A8E9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B094B182F63380064A8E9 /* main.m */; };
 		A87B0984182F63380064A8E9 /* UPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B094D182F63380064A8E9 /* UPAppDelegate.m */; };
 		A87B0985182F63380064A8E9 /* UPIndexScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B094F182F63380064A8E9 /* UPIndexScrollViewController.m */; };
 		A87B0986182F63380064A8E9 /* UPJobDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B0952182F63380064A8E9 /* UPJobDetailView.m */; };
-		A87B0987182F63380064A8E9 /* UPMoreSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B0954182F63380064A8E9 /* UPMoreSearchViewController.m */; };
-		A87B0988182F63380064A8E9 /* UPSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B0956182F63380064A8E9 /* UPSearchViewController.m */; };
 		A87B0989182F63380064A8E9 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B095A182F63380064A8E9 /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		A87B098A182F63380064A8E9 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B095C182F63380064A8E9 /* AFHTTPRequestOperationManager.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		A87B098B182F63380064A8E9 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B095E182F63380064A8E9 /* AFHTTPSessionManager.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -44,6 +46,7 @@
 		A87B099B182F65210064A8E9 /* UPEvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B099A182F65210064A8E9 /* UPEvaluateViewController.m */; };
 		A87B099E182F98350064A8E9 /* UPEvaluatePageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B099D182F98350064A8E9 /* UPEvaluatePageView.m */; };
 		A87B09A1182FA9850064A8E9 /* UPQuestionSectionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B09A0182FA9850064A8E9 /* UPQuestionSectionButton.m */; };
+		A8812A881833E4B4006EAA1E /* UPUserItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A8812A871833E4B4006EAA1E /* UPUserItem.m */; };
 		A8906E261821938C00F0D3B8 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A8906E251821938C00F0D3B8 /* libsqlite3.dylib */; };
 		A8D113AE181EBE31001385FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D113AD181EBE31001385FE /* Foundation.framework */; };
 		A8D113B0181EBE31001385FE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D113AF181EBE31001385FE /* CoreGraphics.framework */; };
@@ -68,6 +71,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A8065B781835BC7B00AFE71E /* CommonKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonKey.h; sourceTree = "<group>"; };
+		A8065B7B1835CA9E00AFE71E /* UPAlertTipLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPAlertTipLabel.h; sourceTree = "<group>"; };
+		A8065B7C1835CA9E00AFE71E /* UPAlertTipLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPAlertTipLabel.m; sourceTree = "<group>"; };
+		A8065B7F1835E28E00AFE71E /* UPIndexView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPIndexView.h; path = ../HomePage/UPIndexView.h; sourceTree = "<group>"; };
+		A8065B801835E28E00AFE71E /* UPIndexView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UPIndexView.m; path = ../HomePage/UPIndexView.m; sourceTree = "<group>"; };
+		A8065B821835E76100AFE71E /* UPMoreSearchResultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPMoreSearchResultView.h; sourceTree = "<group>"; };
+		A8065B831835E76100AFE71E /* UPMoreSearchResultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPMoreSearchResultView.m; sourceTree = "<group>"; };
+		A8065B851836336A00AFE71E /* UPSearchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPSearchTableViewCell.h; sourceTree = "<group>"; };
+		A8065B861836336A00AFE71E /* UPSearchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPSearchTableViewCell.m; sourceTree = "<group>"; };
+		A8065B88183659A400AFE71E /* UPJobTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPJobTypeViewController.h; sourceTree = "<group>"; };
+		A8065B89183659A400AFE71E /* UPJobTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPJobTypeViewController.m; sourceTree = "<group>"; };
+		A8065B8B18365E3300AFE71E /* UPDetailJobViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPDetailJobViewController.h; sourceTree = "<group>"; };
+		A8065B8C18365E3300AFE71E /* UPDetailJobViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPDetailJobViewController.m; sourceTree = "<group>"; };
 		A83C9BEC182C07A200D8F644 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A84C468E183132E2004A71B0 /* UPEvaluateProcessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPEvaluateProcessViewController.h; sourceTree = "<group>"; };
 		A84C468F183132E2004A71B0 /* UPEvaluateProcessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPEvaluateProcessViewController.m; sourceTree = "<group>"; };
@@ -83,8 +99,6 @@
 		A87B0935182F63380064A8E9 /* LocalizedName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizedName.h; sourceTree = "<group>"; };
 		A87B0936182F63380064A8E9 /* UPCommonHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPCommonHelper.h; sourceTree = "<group>"; };
 		A87B0937182F63380064A8E9 /* UPCommonHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPCommonHelper.m; sourceTree = "<group>"; };
-		A87B0938182F63380064A8E9 /* UPCommonInitMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPCommonInitMethod.h; sourceTree = "<group>"; };
-		A87B0939182F63380064A8E9 /* UPCommonInitMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPCommonInitMethod.m; sourceTree = "<group>"; };
 		A87B093A182F63380064A8E9 /* UPNetworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPNetworkHelper.h; sourceTree = "<group>"; };
 		A87B093B182F63380064A8E9 /* UPNetworkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPNetworkHelper.m; sourceTree = "<group>"; };
 		A87B093D182F63380064A8E9 /* UPSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPSearchBar.h; sourceTree = "<group>"; };
@@ -95,21 +109,15 @@
 		A87B0943182F63380064A8E9 /* UPFirstPageLoginOrEnrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPFirstPageLoginOrEnrollViewController.m; sourceTree = "<group>"; };
 		A87B0944182F63380064A8E9 /* UPLoginOrEnrollViewControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPLoginOrEnrollViewControllerBase.h; sourceTree = "<group>"; };
 		A87B0945182F63380064A8E9 /* UPLoginOrEnrollViewControllerBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPLoginOrEnrollViewControllerBase.m; sourceTree = "<group>"; };
-		A87B0946182F63380064A8E9 /* UPOptionalUsernameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPOptionalUsernameViewController.h; sourceTree = "<group>"; };
-		A87B0947182F63380064A8E9 /* UPOptionalUsernameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPOptionalUsernameViewController.m; sourceTree = "<group>"; };
 		A87B0948182F63380064A8E9 /* UPSecondPageLoginOrEnrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPSecondPageLoginOrEnrollViewController.h; sourceTree = "<group>"; };
 		A87B0949182F63380064A8E9 /* UPSecondPageLoginOrEnrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPSecondPageLoginOrEnrollViewController.m; sourceTree = "<group>"; };
 		A87B094B182F63380064A8E9 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A87B094C182F63380064A8E9 /* UPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPAppDelegate.h; sourceTree = "<group>"; };
 		A87B094D182F63380064A8E9 /* UPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPAppDelegate.m; sourceTree = "<group>"; };
-		A87B094E182F63380064A8E9 /* UPIndexScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPIndexScrollViewController.h; sourceTree = "<group>"; };
-		A87B094F182F63380064A8E9 /* UPIndexScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPIndexScrollViewController.m; sourceTree = "<group>"; };
+		A87B094E182F63380064A8E9 /* UPIndexScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPIndexScrollViewController.h; path = ../main/UPIndexScrollViewController.h; sourceTree = "<group>"; };
+		A87B094F182F63380064A8E9 /* UPIndexScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UPIndexScrollViewController.m; path = ../main/UPIndexScrollViewController.m; sourceTree = "<group>"; };
 		A87B0951182F63380064A8E9 /* UPJobDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPJobDetailView.h; sourceTree = "<group>"; };
 		A87B0952182F63380064A8E9 /* UPJobDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPJobDetailView.m; sourceTree = "<group>"; };
-		A87B0953182F63380064A8E9 /* UPMoreSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPMoreSearchViewController.h; sourceTree = "<group>"; };
-		A87B0954182F63380064A8E9 /* UPMoreSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPMoreSearchViewController.m; sourceTree = "<group>"; };
-		A87B0955182F63380064A8E9 /* UPSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPSearchViewController.h; sourceTree = "<group>"; };
-		A87B0956182F63380064A8E9 /* UPSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPSearchViewController.m; sourceTree = "<group>"; };
 		A87B0959182F63380064A8E9 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		A87B095A182F63380064A8E9 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		A87B095B182F63380064A8E9 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -148,6 +156,8 @@
 		A87B099D182F98350064A8E9 /* UPEvaluatePageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPEvaluatePageView.m; sourceTree = "<group>"; };
 		A87B099F182FA9850064A8E9 /* UPQuestionSectionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPQuestionSectionButton.h; sourceTree = "<group>"; };
 		A87B09A0182FA9850064A8E9 /* UPQuestionSectionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPQuestionSectionButton.m; sourceTree = "<group>"; };
+		A8812A861833E4B4006EAA1E /* UPUserItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPUserItem.h; sourceTree = "<group>"; };
+		A8812A871833E4B4006EAA1E /* UPUserItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPUserItem.m; sourceTree = "<group>"; };
 		A8906E231821916A00F0D3B8 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		A8906E251821938C00F0D3B8 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		A8D113AA181EBE31001385FE /* up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = up.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,6 +201,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A8065B7A1835BCCC00AFE71E /* BaseController */ = {
+			isa = PBXGroup;
+			children = (
+				A87B0944182F63380064A8E9 /* UPLoginOrEnrollViewControllerBase.h */,
+				A87B0945182F63380064A8E9 /* UPLoginOrEnrollViewControllerBase.m */,
+			);
+			name = BaseController;
+			sourceTree = "<group>";
+		};
+		A8065B7E1835E1B600AFE71E /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				A87B094E182F63380064A8E9 /* UPIndexScrollViewController.h */,
+				A87B094F182F63380064A8E9 /* UPIndexScrollViewController.m */,
+			);
+			path = HomePage;
+			sourceTree = "<group>";
+		};
 		A868318C18281B5A005D4375 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,6 +231,8 @@
 		A87B092F182F62C20064A8E9 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				A8065B7E1835E1B600AFE71E /* HomePage */,
+				A8812A851833E491006EAA1E /* Model */,
 				A87B0930182F62C20064A8E9 /* EvaluatePage */,
 				A87B0931182F63380064A8E9 /* Common */,
 				A87B093C182F63380064A8E9 /* Controls */,
@@ -240,10 +270,9 @@
 				A87B0935182F63380064A8E9 /* LocalizedName.h */,
 				A87B0936182F63380064A8E9 /* UPCommonHelper.h */,
 				A87B0937182F63380064A8E9 /* UPCommonHelper.m */,
-				A87B0938182F63380064A8E9 /* UPCommonInitMethod.h */,
-				A87B0939182F63380064A8E9 /* UPCommonInitMethod.m */,
 				A87B093A182F63380064A8E9 /* UPNetworkHelper.h */,
 				A87B093B182F63380064A8E9 /* UPNetworkHelper.m */,
+				A8065B781835BC7B00AFE71E /* CommonKey.h */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -255,6 +284,8 @@
 				A87B093E182F63380064A8E9 /* UPSearchBar.m */,
 				A87B093F182F63380064A8E9 /* UPTextField.h */,
 				A87B0940182F63380064A8E9 /* UPTextField.m */,
+				A8065B7B1835CA9E00AFE71E /* UPAlertTipLabel.h */,
+				A8065B7C1835CA9E00AFE71E /* UPAlertTipLabel.m */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -262,12 +293,9 @@
 		A87B0941182F63380064A8E9 /* LoginOrEnrollPage */ = {
 			isa = PBXGroup;
 			children = (
+				A8065B7A1835BCCC00AFE71E /* BaseController */,
 				A87B0942182F63380064A8E9 /* UPFirstPageLoginOrEnrollViewController.h */,
 				A87B0943182F63380064A8E9 /* UPFirstPageLoginOrEnrollViewController.m */,
-				A87B0944182F63380064A8E9 /* UPLoginOrEnrollViewControllerBase.h */,
-				A87B0945182F63380064A8E9 /* UPLoginOrEnrollViewControllerBase.m */,
-				A87B0946182F63380064A8E9 /* UPOptionalUsernameViewController.h */,
-				A87B0947182F63380064A8E9 /* UPOptionalUsernameViewController.m */,
 				A87B0948182F63380064A8E9 /* UPSecondPageLoginOrEnrollViewController.h */,
 				A87B0949182F63380064A8E9 /* UPSecondPageLoginOrEnrollViewController.m */,
 			);
@@ -280,8 +308,6 @@
 				A87B094B182F63380064A8E9 /* main.m */,
 				A87B094C182F63380064A8E9 /* UPAppDelegate.h */,
 				A87B094D182F63380064A8E9 /* UPAppDelegate.m */,
-				A87B094E182F63380064A8E9 /* UPIndexScrollViewController.h */,
-				A87B094F182F63380064A8E9 /* UPIndexScrollViewController.m */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -289,12 +315,18 @@
 		A87B0950182F63380064A8E9 /* SearchPage */ = {
 			isa = PBXGroup;
 			children = (
+				A8065B7F1835E28E00AFE71E /* UPIndexView.h */,
+				A8065B801835E28E00AFE71E /* UPIndexView.m */,
+				A8065B8B18365E3300AFE71E /* UPDetailJobViewController.h */,
+				A8065B8C18365E3300AFE71E /* UPDetailJobViewController.m */,
 				A87B0951182F63380064A8E9 /* UPJobDetailView.h */,
 				A87B0952182F63380064A8E9 /* UPJobDetailView.m */,
-				A87B0953182F63380064A8E9 /* UPMoreSearchViewController.h */,
-				A87B0954182F63380064A8E9 /* UPMoreSearchViewController.m */,
-				A87B0955182F63380064A8E9 /* UPSearchViewController.h */,
-				A87B0956182F63380064A8E9 /* UPSearchViewController.m */,
+				A8065B821835E76100AFE71E /* UPMoreSearchResultView.h */,
+				A8065B831835E76100AFE71E /* UPMoreSearchResultView.m */,
+				A8065B851836336A00AFE71E /* UPSearchTableViewCell.h */,
+				A8065B861836336A00AFE71E /* UPSearchTableViewCell.m */,
+				A8065B88183659A400AFE71E /* UPJobTypeViewController.h */,
+				A8065B89183659A400AFE71E /* UPJobTypeViewController.m */,
 			);
 			path = SearchPage;
 			sourceTree = "<group>";
@@ -352,6 +384,15 @@
 				A87B0979182F63380064A8E9 /* FMResultSet.m */,
 			);
 			path = FMDB;
+			sourceTree = "<group>";
+		};
+		A8812A851833E491006EAA1E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A8812A861833E4B4006EAA1E /* UPUserItem.h */,
+				A8812A871833E4B4006EAA1E /* UPUserItem.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		A8D113A1181EBE31001385FE = {
@@ -527,7 +568,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A87B0988182F63380064A8E9 /* UPSearchViewController.m in Sources */,
 				A87B0983182F63380064A8E9 /* main.m in Sources */,
 				A84C469618313A36004A71B0 /* UPEvaluatePageControl.m in Sources */,
 				A87B0982182F63380064A8E9 /* UPSecondPageLoginOrEnrollViewController.m in Sources */,
@@ -540,27 +580,31 @@
 				A87B098E182F63380064A8E9 /* AFURLConnectionOperation.m in Sources */,
 				A87B0991182F63380064A8E9 /* AFURLSessionManager.m in Sources */,
 				A87B0998182F63380064A8E9 /* FMResultSet.m in Sources */,
+				A8065B8D18365E3300AFE71E /* UPDetailJobViewController.m in Sources */,
 				A87B0992182F63380064A8E9 /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
 				A87B097E182F63380064A8E9 /* UPTextField.m in Sources */,
 				A87B097F182F63380064A8E9 /* UPFirstPageLoginOrEnrollViewController.m in Sources */,
-				A87B0981182F63380064A8E9 /* UPOptionalUsernameViewController.m in Sources */,
+				A8065B7D1835CA9E00AFE71E /* UPAlertTipLabel.m in Sources */,
 				A87B09A1182FA9850064A8E9 /* UPQuestionSectionButton.m in Sources */,
-				A87B097B182F63380064A8E9 /* UPCommonInitMethod.m in Sources */,
 				A87B0993182F63380064A8E9 /* FMDatabase.m in Sources */,
 				A87B0985182F63380064A8E9 /* UPIndexScrollViewController.m in Sources */,
+				A8065B811835E28E00AFE71E /* UPIndexView.m in Sources */,
+				A8065B871836336A00AFE71E /* UPSearchTableViewCell.m in Sources */,
 				A87B097A182F63380064A8E9 /* UPCommonHelper.m in Sources */,
 				A87B0980182F63380064A8E9 /* UPLoginOrEnrollViewControllerBase.m in Sources */,
 				A87B0984182F63380064A8E9 /* UPAppDelegate.m in Sources */,
 				A87B0986182F63380064A8E9 /* UPJobDetailView.m in Sources */,
 				A87B098D182F63380064A8E9 /* AFSecurityPolicy.m in Sources */,
-				A87B0987182F63380064A8E9 /* UPMoreSearchViewController.m in Sources */,
+				A8065B841835E76100AFE71E /* UPMoreSearchResultView.m in Sources */,
 				A87B0994182F63380064A8E9 /* FMDatabaseAdditions.m in Sources */,
 				A87B098A182F63380064A8E9 /* AFHTTPRequestOperationManager.m in Sources */,
 				A84C4690183132E2004A71B0 /* UPEvaluateProcessViewController.m in Sources */,
 				A87B0995182F63380064A8E9 /* FMDatabasePool.m in Sources */,
 				A87B097C182F63380064A8E9 /* UPNetworkHelper.m in Sources */,
+				A8065B8A183659A400AFE71E /* UPJobTypeViewController.m in Sources */,
 				A87B0990182F63380064A8E9 /* AFURLResponseSerialization.m in Sources */,
 				A87B099B182F65210064A8E9 /* UPEvaluateViewController.m in Sources */,
+				A8812A881833E4B4006EAA1E /* UPUserItem.m in Sources */,
 				A87B0996182F63380064A8E9 /* FMDatabaseQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

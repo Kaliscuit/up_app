@@ -11,6 +11,5 @@
 @interface UPSecondPageLoginOrEnrollViewController : UPLoginOrEnrollViewControllerBase
 
 @property (nonatomic, copy) NSString *emailStr;
-@property (nonatomic) BOOL isEnroll;
 
 @end

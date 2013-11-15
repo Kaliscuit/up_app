@@ -29,17 +29,17 @@
 - (CGRect)editingRectForBounds:(CGRect)bounds {
     [super editingRectForBounds:bounds];
     if (![UPCommonHelper isIOS7]) {
-        return CGRectMake(10, 5, bounds.size.width, bounds.size.height);
+        return CGRectMake(25, 5, bounds.size.width, bounds.size.height);
     }
-    return CGRectInset(bounds, 10, 0);
+    return CGRectInset(bounds, 25, 0);
 }
 
 - (CGRect)placeholderRectForBounds:(CGRect)bounds {
     [super placeholderRectForBounds:bounds];
     if (![UPCommonHelper isIOS7]) {
-        return CGRectMake(10, 5, bounds.size.width, bounds.size.height);
+        return CGRectMake(25, 5, bounds.size.width, bounds.size.height);
     }
-    return CGRectInset(bounds, 10, 0);
+    return CGRectInset(bounds, 25, 0);
 }
 
 - (void)updateStatus:(UPSearchBarStatus)status {

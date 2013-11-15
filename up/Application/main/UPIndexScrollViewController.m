@@ -7,15 +7,15 @@
 //
 
 #import "UPIndexScrollViewController.h"
-#import "CommonDefine.h"
-#import "CommonNotification.h"
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
 #import "UPCommonHelper.h"
+#import "UPDetailJobViewController.h"
+
 @interface UPIndexScrollViewController ()<UIScrollViewDelegate> {
     UIPageControl *_pageControl;
     UIScrollView *_scrollView;
-    NSArray *_viewControllers;
+    NSArray *_viewArray;
     NSInteger _maxPages;
     
     BOOL _pageControlUsed;
@@ -35,10 +35,10 @@
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self removeNotification];
     SAFE_RELEASE(_pageControl);
     SAFE_RELEASE(_scrollView);
-    SAFE_RELEASE(_viewControllers);
+    SAFE_RELEASE(_viewArray);
     [super dealloc];
 }
 
@@ -68,16 +68,16 @@
         [self setAutomaticallyAdjustsScrollViewInsets:NO];
     }
     self.navigationController.navigationBar.translucent = NO;
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = WhiteColor;
     _maxPages = 2;
-    _viewControllers = [[NSArray alloc] initWithObjects:@"UPSearchViewController", @"UPMoreSearchViewController", nil];
-	_pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, (ScreenHeight - 25), 320, 18)];
+    _viewArray = [[NSArray alloc] initWithObjects:@"UPIndexView", @"UPMoreSearchResultView", nil];
+	_pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, (SCREEN_HEIGHT - 25), 320, 18)];
     _pageControl.currentPage = 0;
     _pageControl.numberOfPages = _maxPages;
     
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     _scrollView.pagingEnabled = YES;
-    _scrollView.contentSize = CGSizeMake(ScreenWidth * _maxPages, ScreenHeight);
+    _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH * _maxPages, SCREEN_HEIGHT);
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.scrollsToTop = NO;
@@ -90,53 +90,55 @@
     [self.view addSubview:_scrollView];
     [self.view addSubview:_pageControl];
     
+    [self addNotification];
+}
+#pragma mark - Notification
+- (void)addNotification {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentEnrollmentOrLoginViewController:) name:NotificationPopEnrollmentOrLoginViewController object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentEvaluateViewController:) name:@"Test" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentDetailJobViewController:) name:@"DetailJob" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentJobTypeViewController:) name:@"JobType" object:nil];
 }
 
-- (void)loadScrollViewWithPage:(int)page {
-    if (page < 0 || page >= _maxPages) {
-        return;
-    }
-    UIViewController *viewController = [[objc_getClass([[_viewControllers objectAtIndex:page] UTF8String]) alloc] init];
+- (void)removeNotification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)presentDetailJobViewController:(NSNotification *)notify {
+    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+    temporaryBarButtonItem.title = @"返回";
+    temporaryBarButtonItem.tintColor = [UIColor redColor];
+    temporaryBarButtonItem.target = self;
+    temporaryBarButtonItem.action = @selector(back:);
+    self.navigationItem.backBarButtonItem = temporaryBarButtonItem;
+    [temporaryBarButtonItem release];
     
-    if (viewController.view.superview == nil) {
-        CGRect frame = _scrollView.frame;
-        frame.origin.x = frame.size.width * page;
-        frame.origin.y = 0;
-        (viewController).view.frame = frame;
-        [_scrollView addSubview:(viewController).view];
-    }
-//    [viewController release];
+    NSDictionary *dict = [notify userInfo];
+    UPDetailJobViewController *detailJobViewController = [[UPDetailJobViewController alloc] init];
+    detailJobViewController.positionTitle = [dict objectForKey:@"positionTitle"];
+    detailJobViewController.positionDescription = [dict objectForKey:@"positionDesc"];
+    detailJobViewController.rankNumber = 1;
+    
+    [self.navigationController pushViewController:detailJobViewController animated:YES];
+    [detailJobViewController release];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)presentJobTypeViewController:(NSNotification *)notification {
+    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+    temporaryBarButtonItem.title = @"返回";
+    temporaryBarButtonItem.tintColor = [UIColor redColor];
+    temporaryBarButtonItem.target = self;
+    temporaryBarButtonItem.action = @selector(back:);
+    self.navigationItem.backBarButtonItem = temporaryBarButtonItem;
+    [temporaryBarButtonItem release];
+    
+    id class = objc_getClass("UPJobTypeViewController");
+    id enrollmentViewController = [[class alloc] init];
+    [self.navigationController pushViewController:enrollmentViewController animated:YES];
+    [enrollmentViewController release];
+
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)sender
-{
-    // Switch the indicator when more than 50% of the previous/next page is visible
-    CGFloat pageWidth = _scrollView.frame.size.width;
-    int page = floor((_scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    if (page != _pageControl.currentPage) {
-        _pageControl.currentPage = page;
-        if (page == 1) {
-            [_pageControl setPageIndicatorTintColor:[UIColor grayColor]];
-            [_pageControl setCurrentPageIndicatorTintColor:BaseColor];
-        } else {
-            [_pageControl setCurrentPageIndicatorTintColor:[UIColor whiteColor]];
-            [_pageControl setPageIndicatorTintColor:nil];
-        }
-        if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
-            [self setNeedsStatusBarAppearanceUpdate];
-        }
-    }
-}
-
-#pragma mark - Notification
 - (void)presentEnrollmentOrLoginViewController:(NSNotification *)notification {
     id class = objc_getClass("UPFirstPageLoginOrEnrollViewController");
     id enrollmentViewController = [[class alloc] init];
@@ -158,7 +160,7 @@
     temporaryBarButtonItem.action = @selector(back:);
     self.navigationItem.backBarButtonItem = temporaryBarButtonItem;
     [temporaryBarButtonItem release];
-        
+    
     id class = objc_getClass("UPEvaluateViewController");
     id enrollmentViewController = [[class alloc] init];
     CATransition* transition = [CATransition animation];
@@ -171,6 +173,50 @@
     [self.navigationController pushViewController:enrollmentViewController animated:YES];
     [enrollmentViewController release];
 }
+
+
+
+- (void)loadScrollViewWithPage:(int)page {
+    if (page < 0 || page >= _maxPages) {
+        return;
+    }
+    UIView *viewArrayObject = [[[objc_getClass([[_viewArray objectAtIndex:page] UTF8String]) alloc] init] autorelease];
+    
+    if (viewArrayObject.superview == nil) {
+        CGRect frame = _scrollView.frame;
+        frame.origin.x = frame.size.width * page;
+        frame.origin.y = 0;
+        (viewArrayObject).frame = frame;
+        [_scrollView addSubview:viewArrayObject];
+    }
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)sender
+{
+    // Switch the indicator when more than 50% of the previous/next page is visible
+    CGFloat pageWidth = _scrollView.frame.size.width;
+    int page = floor((_scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    if (page != _pageControl.currentPage) {
+        _pageControl.currentPage = page;
+        if (page == 1) {
+            [_pageControl setPageIndicatorTintColor:GrayColor];
+            [_pageControl setCurrentPageIndicatorTintColor:BaseColor];
+        } else {
+            [_pageControl setCurrentPageIndicatorTintColor:WhiteColor];
+            [_pageControl setPageIndicatorTintColor:nil];
+        }
+        if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+            [self setNeedsStatusBarAppearanceUpdate];
+        }
+    }
+}
+
 
 
 - (void)back:(id)sender {

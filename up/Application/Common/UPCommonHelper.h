@@ -11,4 +11,6 @@
 @interface UPCommonHelper : NSObject
 + (BOOL)isIOS7;
 + (BOOL)isValidateEmail:(NSString *)email;
++ (BOOL)isLongScreen;
+
 @end

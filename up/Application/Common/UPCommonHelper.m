@@ -22,4 +22,11 @@
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     return [emailTest evaluateWithObject:email];
 }
+
++ (BOOL)isLongScreen {
+    if ([UIScreen mainScreen].bounds.size.height < 568.0f) {
+        return NO;
+    }
+    return YES;
+}
 @end

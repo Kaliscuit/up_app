@@ -14,4 +14,8 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import "CommonURL.h"
+    #import "CommonDefine.h"
+    #import "UPCommonHelper.h"
+    #import "CommonNotification.h"
+    #import "CommonKey.h"
 #endif

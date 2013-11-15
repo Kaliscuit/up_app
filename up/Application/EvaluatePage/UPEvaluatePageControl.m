@@ -23,10 +23,7 @@
         NSArray *array = [NSArray arrayWithArray:self.subviews];
         NSLog(@"array ;%@", array);
         NSLog(@"self.subviews : %@", self.subviews);
-//        UIImage *image = [UIImage imageNamed:@"icn_user_default_highlight"];
-//        object_setInstanceVariable(self, "_currentPageImage", (void*)image);
-//        self.inputView.backgroundColor = [UIColor redColor];
-//        _label = [UILabel alloc] initWithFrame:, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>
+
     }
     return self;
 }

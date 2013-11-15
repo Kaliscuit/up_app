@@ -17,10 +17,13 @@
 #define Tag_Search_Suggest 7777716
 #define Tag_Search_Position 7777717
 #define Tag_Search_Hot 7777718
+#define Tag_Position_Profile 7777719
+
 @protocol UPNetworkHelperDelegate <NSObject>
 
 - (void)requestSuccess:(NSDictionary *)responseObject withTag:(NSNumber *)tag;
 - (void)requestFail:(NSError *)error withTag:(NSNumber *)tag;
+- (void)requestSuccessWithFailMessage:(NSString *)message withTag:(NSNumber *)tag;
 @end
 @interface UPNetworkHelper : NSObject {
     AFHTTPRequestOperationManager *_manager;
@@ -38,5 +41,6 @@
 - (void)postSearchSuggestWithDictionary:(NSDictionary *)dict;
 - (void)postSearchPositionWithDictionary:(NSDictionary *)dict;
 - (void)postSearchHot;
+- (void)postPositionProfileWithDictionary:(NSDictionary *)dict;
 
 @end

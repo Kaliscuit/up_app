@@ -20,7 +20,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = ClearColor;
         [self setImage:[UIImage imageNamed:@"icn_check_white.png"] forState:UIControlStateSelected];
         [self setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 15)];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

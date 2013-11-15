@@ -7,7 +7,6 @@
 //
 
 #import "UPAppDelegate.h"
-#import "UPSearchViewController.h"
 #import "UPIndexScrollViewController.h"
 #import "UPCommonHelper.h"
 @implementation UPAppDelegate
