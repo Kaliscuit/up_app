@@ -29,7 +29,7 @@
     _indexScrollNavigationController = [[UINavigationController alloc] initWithRootViewController:_indexScrollViewController];
     [_indexScrollNavigationController setNavigationBarHidden:YES];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = [_indexScrollNavigationController retain];
+    self.window.rootViewController = _indexScrollNavigationController;
     [self.window makeKeyAndVisible];
 
 //    [self requestChange]; // 是否要拉取

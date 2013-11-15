@@ -40,8 +40,10 @@
         [self addSubview:_questionTitleLable];
         
         UPQuestionSectionButton *sectionButton = [[UPQuestionSectionButton alloc] initWithFrame:CGRectMake(5, _questionTitleLable.frame.origin.y + _questionTitleLable.frame.size.height, 310, 30)];
-        [self addSubview:sectionButton];
         [sectionButton updateIndexButton:1];
+        [self addSubview:sectionButton];
+        [sectionButton release];
+        
     }
     return self;
 }

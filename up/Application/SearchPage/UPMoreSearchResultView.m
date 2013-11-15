@@ -42,7 +42,7 @@
         
         UIView *segmentedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
         [segmentedBackgroundView setBackgroundColor:RGBCOLOR(235.0f, 235.0f, 241.0f)];
-        [self addSubview:segmentedBackgroundView];
+        
 
         NSArray *segmentedArray = [[NSArray alloc] initWithObjects:@"Top 10",@"所有职业", nil];
         _segmentedControl = [[UISegmentedControl alloc] initWithItems:segmentedArray];
@@ -57,6 +57,8 @@
 //        [self addSubview:_segmentedControl];
         //    [_segmentedControl release];
         [segmentedBackgroundView addSubview:_segmentedControl];
+        [self addSubview:segmentedBackgroundView];
+        [segmentedBackgroundView release];
         
         _searchView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, 320, 40)];
         [_searchView setBackgroundColor:RGBCOLOR(189.0f, 189.0f, 195.0f)];
