@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "UPTextField.h"
 
+#define Tag_TextField_Name 1111
+#define Tag_TextField_Password 2222
 @interface UPLoginOrEnrollViewControllerBase : UIViewController<UITextFieldDelegate>
 
 @property (nonatomic, retain) UPTextField *textFieldName;

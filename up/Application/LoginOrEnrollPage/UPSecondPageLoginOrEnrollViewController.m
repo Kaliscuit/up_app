@@ -10,8 +10,12 @@
 #import "CommonDefine.h"
 #import "UPNetworkHelper.h"
 #import "UPUserItem.h"
+#import "UPAlertTipLabel.h"
 
-@interface UPSecondPageLoginOrEnrollViewController ()<UPNetworkHelperDelegate>
+@interface UPSecondPageLoginOrEnrollViewController ()<UPNetworkHelperDelegate> {
+    NSString *_alertMessageUserName;
+    NSString *_alertMessagePassword;
+}
 
 @end
 
@@ -31,15 +35,32 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO];
     self.navigationItem.backBarButtonItem.title = @"返回";
-
+    
+    UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icn_errorinfo.png"]];
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAlertMessage:)];
+    [image addGestureRecognizer:gesture];
+    [gesture release];
+    [image setUserInteractionEnabled:YES];
+    self.textFieldName.rightView = image;
+    [image release];
+    
     if (self.isEnrollProcess) {
         [self.textFieldName setPlaceholder:@"用户名"];
         self.textFieldName.secureTextEntry = NO;
         [self.textFieldPassword setPlaceholder:@"密码"];
+        
         self.textFieldPassword.secureTextEntry = YES;
         self.title = @"注册";
         [self.nextStepButton setTitle:@"创建账户" forState:UIControlStateNormal];
     
+        UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icn_errorinfo.png"]];
+        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAlertMessage:)];
+        [image addGestureRecognizer:gesture];
+        [gesture release];
+        [image setUserInteractionEnabled:YES];
+        self.textFieldPassword.rightView = image;
+        [image release];
+        
         NSString *string = [NSString stringWithFormat:@"用%@创建新的账户",self.emailStr];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string];
         NSRange range=[string rangeOfString:self.emailStr];
@@ -49,6 +70,7 @@
     } else {
         [self.textFieldName setPlaceholder:@"密码"];
         self.textFieldName.secureTextEntry = YES;
+        
         
         self.title = @"登录";
         [self.nextStepButton setTitle:@"登录" forState:UIControlStateNormal];
@@ -60,6 +82,35 @@
         [self.messageLabel setAttributedText:attributedString];
         [attributedString release];
     }
+}
+
+- (void)showAlertMessage:(UITapGestureRecognizer *)gesture {
+    NSInteger viewTag = gesture.view.superview.tag;
+    CGFloat pointX = gesture.view.superview.frame.origin.x + gesture.view.superview.frame.size.width - 20;
+    CGFloat pointY = gesture.view.superview.frame.origin.y + 15;
+    if (viewTag == Tag_TextField_Name) { // self.textFieldName
+        [self _showAlertMessage:CGPointMake(pointX, pointY) title:_alertMessageUserName isAssignBottom:YES];
+    } else if (viewTag == Tag_TextField_Password) { // self.textFieldPassword
+        if (self.isEnrollProcess) {
+            pointY = gesture.view.superview.frame.origin.y + 45;
+        }
+        [self _showAlertMessage:CGPointMake(pointX, pointY) title:_alertMessagePassword isAssignBottom:NO];
+    }
+    
+}
+
+- (void)_showAlertMessage:(CGPoint)point title:(NSString *)title isAssignBottom:(BOOL)isAssignBottom {
+    if (isAssignBottom) {
+        _alertMessageUserName = title;
+    } else {
+        _alertMessagePassword = title;
+    }
+    
+    UPAlertTipLabel *alert = [[UPAlertTipLabel alloc] initWithFrame:CGRectMake(10, 30, 300, 100)];
+    [alert updateTitle:title Point:point isAssignBottom:isAssignBottom];
+    [self.view addSubview:alert];
+    [alert release];
+
 }
 
 - (void)viewDidLoad
@@ -76,18 +127,33 @@
 }
 
 - (void)onClickNextStepButton:(id)sender {
-    if (![self isValidPassword]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"密码位数小于8位" message:@"小于8位" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-        [alert show];
-        [alert release];
+    if (![self isValidUsername]) {
+        self.textFieldName.layer.borderColor = [[UIColor redColor] CGColor];
+        self.textFieldName.rightViewMode = UITextFieldViewModeAlways;
+        [self _showAlertMessage:CGPointMake(300, 95) title:@"用户名不能为空" isAssignBottom:YES];
+        [self.textFieldName becomeFirstResponder];
         return;
     }
+    if (![self isValidPassword]) {
+        if (self.isEnrollProcess) {
+            self.textFieldPassword.layer.borderColor = [[UIColor redColor] CGColor];
+            self.textFieldPassword.rightViewMode = UITextFieldViewModeAlways;
+            [self _showAlertMessage:CGPointMake(300, 165) title:@"密码位数不能小于8位" isAssignBottom:NO];
+        } else {
+            self.textFieldName.rightViewMode = UITextFieldViewModeAlways;
+            self.textFieldName.layer.borderColor = [[UIColor redColor] CGColor];
+            [self _showAlertMessage:CGPointMake(300, 95) title:@"密码位数不能小于8位" isAssignBottom:YES];
+        }
+        [self.textFieldPassword becomeFirstResponder];
+        
+        return;
+    }
+    
     if (self.isEnrollProcess) {
         NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.emailStr,@"email",self.textFieldName.text,@"name",self.textFieldPassword,@"password", nil];
         [[UPNetworkHelper sharedInstance] postEnrollWithDictionary:dict];
         [dict release];
     } else {
-
         NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.emailStr,@"email",self.textFieldName.text,@"password", nil];
         [[UPNetworkHelper sharedInstance] postLoginWithDictionary:dict];
         [dict release];
@@ -103,7 +169,37 @@
     return NO;
 }
 
+- (BOOL)isValidUsername {
+    if (self.isEnrollProcess) {
+        if (self.textFieldName.text.length > 0) {
+            return YES;
+        } else {
+            return NO;
+        }
+    } else {
+        return YES;
+    }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (self.textFieldName.rightViewMode == UITextFieldViewModeAlways) {
+        self.textFieldName.layer.borderColor = [RGBCOLOR(200.0f, 199.0f, 204.0f) CGColor];
+        self.textFieldName.rightViewMode = UITextFieldViewModeNever;
+    }
+    if (self.textFieldPassword.rightViewMode == UITextFieldViewModeAlways) {
+        self.textFieldPassword.layer.borderColor = [RGBCOLOR(200.0f, 199.0f, 204.0f) CGColor];
+        self.textFieldPassword.rightViewMode = UITextFieldViewModeNever;
+    }
+    return YES;
+}
+
 - (void)requestSuccess:(NSDictionary *)responseObject withTag:(NSNumber *)tag{
+    if([[responseObject objectForKey:@"c"] integerValue] == 403) {
+        self.textFieldName.layer.borderColor = [[UIColor redColor] CGColor];
+        self.textFieldName.rightViewMode = UITextFieldViewModeAlways;
+        [self _showAlertMessage:CGPointMake(300, 95) title:@"邮箱或密码错误" isAssignBottom:YES];
+        return;
+    }
     NSDictionary *userProfile = [[responseObject objectForKey:@"d"] objectForKey:@"profile"];
     
     UPUserItem *user = [UPUserItem sharedInstance];
@@ -143,7 +239,7 @@
 }
 
 - (void)requestSuccessWithFailMessage:(NSString *)message withTag:(NSNumber *)tag {
-    
+    NSLog(@"messge : %@", message);
 }
 
 @end

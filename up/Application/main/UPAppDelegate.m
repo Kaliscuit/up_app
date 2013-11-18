@@ -31,8 +31,6 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = _indexScrollNavigationController;
     [self.window makeKeyAndVisible];
-
-//    [self requestChange]; // 是否要拉取
     
     return YES;
 }

@@ -43,4 +43,14 @@
     }
     return CGRectInset(bounds, 10, 0);
 }
+
+- (CGRect)rightViewRectForBounds:(CGRect)bounds {
+    CGRect rightBounds = CGRectMake(bounds.origin.x + bounds.size.width - 30, (bounds.size.height - 20) / 2, 20, 20);
+    return rightBounds ;
+}
+
+- (CGRect)clearButtonRectForBounds:(CGRect)bounds {
+    CGRect clearBounds = CGRectMake(bounds.origin.x + bounds.size.width - 30, (bounds.size.height - 20) / 2, 20, 20);
+    return clearBounds ;
+}
 @end

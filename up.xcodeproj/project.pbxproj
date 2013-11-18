@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A8065B7D1835CA9E00AFE71E /* UPAlertTipLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A8065B7C1835CA9E00AFE71E /* UPAlertTipLabel.m */; };
 		A8065B811835E28E00AFE71E /* UPIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8065B801835E28E00AFE71E /* UPIndexView.m */; };
 		A8065B841835E76100AFE71E /* UPMoreSearchResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8065B831835E76100AFE71E /* UPMoreSearchResultView.m */; };
 		A8065B871836336A00AFE71E /* UPSearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A8065B861836336A00AFE71E /* UPSearchTableViewCell.m */; };
 		A8065B8A183659A400AFE71E /* UPJobTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8065B89183659A400AFE71E /* UPJobTypeViewController.m */; };
 		A8065B8D18365E3300AFE71E /* UPDetailJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8065B8C18365E3300AFE71E /* UPDetailJobViewController.m */; };
 		A83C9BED182C07A200D8F644 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A83C9BEC182C07A200D8F644 /* QuartzCore.framework */; };
+		A84169CE1837480600A0C5E7 /* UPAlertTipLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A84169CD1837480600A0C5E7 /* UPAlertTipLabel.m */; };
 		A84C4690183132E2004A71B0 /* UPEvaluateProcessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C468F183132E2004A71B0 /* UPEvaluateProcessViewController.m */; };
 		A84C469618313A36004A71B0 /* UPEvaluatePageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C469518313A36004A71B0 /* UPEvaluatePageControl.m */; };
 		A868318F18281BE0005D4375 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A868319118281BE0005D4375 /* Localizable.strings */; };
@@ -71,8 +71,6 @@
 
 /* Begin PBXFileReference section */
 		A8065B781835BC7B00AFE71E /* CommonKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonKey.h; sourceTree = "<group>"; };
-		A8065B7B1835CA9E00AFE71E /* UPAlertTipLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPAlertTipLabel.h; sourceTree = "<group>"; };
-		A8065B7C1835CA9E00AFE71E /* UPAlertTipLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPAlertTipLabel.m; sourceTree = "<group>"; };
 		A8065B7F1835E28E00AFE71E /* UPIndexView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPIndexView.h; path = ../HomePage/UPIndexView.h; sourceTree = "<group>"; };
 		A8065B801835E28E00AFE71E /* UPIndexView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UPIndexView.m; path = ../HomePage/UPIndexView.m; sourceTree = "<group>"; };
 		A8065B821835E76100AFE71E /* UPMoreSearchResultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPMoreSearchResultView.h; sourceTree = "<group>"; };
@@ -84,6 +82,8 @@
 		A8065B8B18365E3300AFE71E /* UPDetailJobViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPDetailJobViewController.h; sourceTree = "<group>"; };
 		A8065B8C18365E3300AFE71E /* UPDetailJobViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPDetailJobViewController.m; sourceTree = "<group>"; };
 		A83C9BEC182C07A200D8F644 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		A84169CC1837480600A0C5E7 /* UPAlertTipLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPAlertTipLabel.h; sourceTree = "<group>"; };
+		A84169CD1837480600A0C5E7 /* UPAlertTipLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPAlertTipLabel.m; sourceTree = "<group>"; };
 		A84C468E183132E2004A71B0 /* UPEvaluateProcessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPEvaluateProcessViewController.h; sourceTree = "<group>"; };
 		A84C468F183132E2004A71B0 /* UPEvaluateProcessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPEvaluateProcessViewController.m; sourceTree = "<group>"; };
 		A84C469418313A36004A71B0 /* UPEvaluatePageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPEvaluatePageControl.h; sourceTree = "<group>"; };
@@ -281,8 +281,8 @@
 				A87B093E182F63380064A8E9 /* UPSearchBar.m */,
 				A87B093F182F63380064A8E9 /* UPTextField.h */,
 				A87B0940182F63380064A8E9 /* UPTextField.m */,
-				A8065B7B1835CA9E00AFE71E /* UPAlertTipLabel.h */,
-				A8065B7C1835CA9E00AFE71E /* UPAlertTipLabel.m */,
+				A84169CC1837480600A0C5E7 /* UPAlertTipLabel.h */,
+				A84169CD1837480600A0C5E7 /* UPAlertTipLabel.m */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -572,6 +572,7 @@
 				A87B098C182F63380064A8E9 /* AFNetworkReachabilityManager.m in Sources */,
 				A87B0989182F63380064A8E9 /* AFHTTPRequestOperation.m in Sources */,
 				A87B098F182F63380064A8E9 /* AFURLRequestSerialization.m in Sources */,
+				A84169CE1837480600A0C5E7 /* UPAlertTipLabel.m in Sources */,
 				A87B098E182F63380064A8E9 /* AFURLConnectionOperation.m in Sources */,
 				A87B0991182F63380064A8E9 /* AFURLSessionManager.m in Sources */,
 				A87B0998182F63380064A8E9 /* FMResultSet.m in Sources */,
@@ -579,7 +580,6 @@
 				A87B0992182F63380064A8E9 /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
 				A87B097E182F63380064A8E9 /* UPTextField.m in Sources */,
 				A87B097F182F63380064A8E9 /* UPFirstPageLoginOrEnrollViewController.m in Sources */,
-				A8065B7D1835CA9E00AFE71E /* UPAlertTipLabel.m in Sources */,
 				A87B09A1182FA9850064A8E9 /* UPQuestionSectionButton.m in Sources */,
 				A87B0993182F63380064A8E9 /* FMDatabase.m in Sources */,
 				A87B0985182F63380064A8E9 /* UPIndexScrollViewController.m in Sources */,

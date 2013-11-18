@@ -33,9 +33,14 @@
             NSLog(@"请求成功，但是返回值为空");
         }
         NSLog(@"返回值 responseObject: %@", responseObject);
-        
-        if ([self.delegate respondsToSelector:@selector(requestSuccess:withTag:)]) {
-            [self.delegate performSelector:@selector(requestSuccess:withTag:) withObject:(NSDictionary *)responseObject withObject:[NSNumber numberWithInteger:tag]];
+        if ([self isRequestSuccessWithFailCode:responseObject]) {
+            if ([self.delegate respondsToSelector:@selector(requestSuccessWithFailMessage:withTag:)]) {
+                [self.delegate performSelector:@selector(requestSuccessWithFailMessage:withTag:) withObject:[responseObject objectForKey:@"m"] withObject:[NSNumber numberWithInteger:tag]];
+            }
+        } else {
+            if ([self.delegate respondsToSelector:@selector(requestSuccess:withTag:)]) {
+                [self.delegate performSelector:@selector(requestSuccess:withTag:) withObject:(NSDictionary *)responseObject withObject:[NSNumber numberWithInteger:tag]];
+            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if ([self.delegate respondsToSelector:@selector(requestFail:withTag:)]) {
@@ -78,8 +83,6 @@
     
     [operator setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"返回值：%@", operation.responseString);
-//        [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:URLString parameters:parameters];
-////        AFJSONResponseSerializer *json =
         if ([self isRequestSuccessWithFailCode:responseObject]) {
             NSString *failMessage = [responseObject objectForKey:@"m"];
             if ([self.delegate respondsToSelector:@selector(requestSuccessWithFailMessage:withTag:)]) {
@@ -114,6 +117,11 @@
 
 - (BOOL)isRequestSuccessWithFailCode:(id)responseObject {
     return NO;
+    if ([[responseObject objectForKey:@"c"] integerValue] == 200) {
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 @end

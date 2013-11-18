@@ -41,6 +41,7 @@
    
     _textFieldName = [[UPTextField alloc] initWithFrame:CGRectMake(0, 57, 320, 40)];
     [_textFieldName setBackgroundColor:WhiteColor];
+    _textFieldName.tag = Tag_TextField_Name;
     _textFieldName.layer.borderWidth = 0.5f;
     _textFieldName.layer.borderColor = [RGBCOLOR(200.0f, 199.0f, 204.0f) CGColor];
     _textFieldName.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -73,6 +74,7 @@
         _textFieldPassword = [[UPTextField alloc] initWithFrame:CGRectMake(0.0f, 96.5f, 320.0f, 40.0f)];
         [_textFieldPassword setBackgroundColor:WhiteColor];
         _textFieldPassword.layer.borderWidth = 0.5f;
+        _textFieldPassword.tag = Tag_TextField_Password;
         _textFieldPassword.layer.borderColor = [RGBCOLOR(200.0f, 199.0f, 204.0f) CGColor];
         _textFieldPassword.clearButtonMode = UITextFieldViewModeWhileEditing;
         _textFieldPassword.autocapitalizationType = NO;
@@ -81,7 +83,7 @@
         [self.view addSubview:_textFieldPassword];
         
         if ([UPCommonHelper isLongScreen]) {
-            [_textFieldPassword setFrame:CGRectMake(0, 119.5f, 320.0f, 40.0f)];
+            [_textFieldPassword setFrame:CGRectMake(0, 120.0f, 320.0f, 40.0f)];
         }
     } else {
         if (![UPCommonHelper isLongScreen]) {

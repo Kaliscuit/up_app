@@ -27,7 +27,6 @@
     
     UILabel *_searchBarTipLabel;
     UIButton *_accountButton;
-    UISearchDisplayController *_displayController;
     
     NSInteger _positionCount;
     NSMutableArray *_searchResultArray;
@@ -72,39 +71,16 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    SAFE_RELEASE(_searchBar);
-    //    SAFE_RELEASE(_searchBarTipLabel);
+    _searchBar = nil;
+    _searchBarTipLabel = nil;
+    _keySearchResultTableView  = nil;
+    _searchResultTableView = nil;
+    SAFE_RELEASE(_keySearchResultArray);
     SAFE_RELEASE(_searchResultArray);
     SAFE_RELEASE(_searchKeywords);
-    SAFE_RELEASE(_displayController);
     [super dealloc];
 }
 
-- (void)updateUserName:(NSNotification *)notify {
-    [self _updateUserName:[[notify userInfo] objectForKey:@"Nickname"]];
-}
-
-- (void)_updateUserName:(NSString *)userName {
-    if (userName.length > 0) {
-        [_accountButton setImage:[UIImage imageNamed:@"icn_user_default_highlight.png"] forState:UIControlStateNormal];
-        [_accountButton setTitle:userName forState:UIControlStateNormal];
-        [_accountButton setTitleColor:RGBCOLOR(10.0f, 95.0f, 255.0f) forState:UIControlStateNormal];
-        [_accountButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
-    } else {
-        [_accountButton setTitleColor:ColorWithWhite(179.0f) forState:UIControlStateNormal];
-        [_accountButton setTitle:@"未登录" forState:UIControlStateNormal];
-        [_accountButton setImage:[UIImage imageNamed:@"icn_user_default.png"] forState:UIControlStateNormal];
-        [_accountButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
-        
-    }
-    
-}
-
-- (void)onClickAccountButton:(UIButton *)sender {
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"UserName"] == nil) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPopEnrollmentOrLoginViewController object:nil];
-    }
-}
 
 - (void)initUI {
     _searchBarTipLabel = [[UILabel alloc] init];
@@ -162,12 +138,42 @@
     _keySearchResultTableView.delegate = self;
     _keySearchResultTableView.dataSource =self;
     [self addSubview:_keySearchResultTableView];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldValueChanged:) name:UITextFieldTextDidChangeNotification object:_searchBar];
     
     _keySearchCount = 0;
 }
 
+
+
+#pragma mark - 注册登陆之后如果没有选择职位则回到首页
+- (void)updateUserName:(NSNotification *)notify {
+    [self _updateUserName:[[notify userInfo] objectForKey:@"Nickname"]];
+}
+
+- (void)_updateUserName:(NSString *)userName {
+    if (userName.length > 0) {
+        [_accountButton setImage:[UIImage imageNamed:@"icn_user_default_highlight.png"] forState:UIControlStateNormal];
+        [_accountButton setTitle:userName forState:UIControlStateNormal];
+        [_accountButton setTitleColor:RGBCOLOR(10.0f, 95.0f, 255.0f) forState:UIControlStateNormal];
+        [_accountButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
+    } else {
+        [_accountButton setTitleColor:ColorWithWhite(179.0f) forState:UIControlStateNormal];
+        [_accountButton setTitle:@"未登录" forState:UIControlStateNormal];
+        [_accountButton setImage:[UIImage imageNamed:@"icn_user_default.png"] forState:UIControlStateNormal];
+        [_accountButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
+        
+    }
+    
+}
+
+- (void)onClickAccountButton:(UIButton *)sender {
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"UserName"] == nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPopEnrollmentOrLoginViewController object:nil];
+    }
+}
+
+#pragma mark - 开始搜索
 - (void)textFieldValueChanged:(NSNotification *)notify {
     if (_searchBar.text.length == 0) {
         [_searchResultArray removeAllObjects];
@@ -219,8 +225,9 @@
     [_keySearchResultTableView setHidden:NO];
     return YES;
 }
+
+#pragma mark - 网络请求
 - (void)requestSuccess:(NSDictionary *)responseObject withTag:(NSNumber *)tag {
-    NSLog(@"search response : %@", responseObject);
     if ([tag integerValue] == Tag_Search_Suggest) {
         if ([_searchResultArray count] > 0) {
             [_searchResultArray removeAllObjects];
@@ -257,6 +264,7 @@
     
 }
 
+#pragma mark - TableViewDelegate & TableViewDataSource
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([tableView isEqual:_searchResultTableView]) {
         UITableViewCell *cell = [_searchResultTableView cellForRowAtIndexPath:indexPath];
@@ -325,21 +333,22 @@
             [label release];
         }
         if (_hadNext && indexPath.row == (_keySearchCount - 5)) {
-            NSLog(@"ffff-->text : %@", _searchBar.text);
-            NSLog(@"ffff-->currentPage；%d", _currentPage);
             NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:_searchBar.text,@"keyword",[NSNumber numberWithInteger:(_currentPage + 1)],@"page" ,nil];
             [UPNetworkHelper sharedInstance].delegate = self;
             [[UPNetworkHelper sharedInstance] postSearchPositionWithDictionary:dict];
             [dict release];
         }
         if ([_keySearchResultArray objectAtIndex:indexPath.row]) {
+//            ((UILabel *)[cell viewWithTag:17888]).attributedText = [self getSearchResultAttributedString:[[_keySearchResultArray objectAtIndex:indexPath.row] objectForKey:@"position"]];
             ((UILabel *)[cell viewWithTag:17888]).text = [[_keySearchResultArray objectAtIndex:indexPath.row] objectForKey:@"position"];
+            NSLog(@"dddddd---->%@", ((UILabel *)[cell viewWithTag:17888]).text);
         }
         
         return cell;
     }
     return nil;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
