@@ -246,7 +246,7 @@
         [_keySearchResultTableView reloadData];
     } else if ([tag integerValue] == Tag_Position_Profile) {
         NSDictionary *responseDict = [[responseObject objectForKey:@"d"] objectForKey:@"profile"];
-        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[responseDict objectForKey:@"position"],@"positionTitle",[responseDict objectForKey:@"position_desc"],@"positionDesc", nil];
+        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[responseDict objectForKey:@"position"],@"positionTitle",[responseDict objectForKey:@"position_desc"],@"position_desc",[responseDict objectForKey:@"rank"],@"rank",[responseDict objectForKey:@"hot"],@"isShowHotImage", nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DetailJob" object:nil userInfo:dict];
         [dict release];
     }
@@ -306,6 +306,8 @@
             
             [cell addSubview:label];
             [label release];
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         if ([_searchResultArray objectAtIndex:indexPath.row]) {
             ((UILabel *)[cell viewWithTag:17888]).text = [_searchResultArray objectAtIndex:indexPath.row];
@@ -331,6 +333,8 @@
             
             [cell addSubview:label];
             [label release];
+            
+             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         if (_hadNext && indexPath.row == (_keySearchCount - 5)) {
             NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:_searchBar.text,@"keyword",[NSNumber numberWithInteger:(_currentPage + 1)],@"page" ,nil];

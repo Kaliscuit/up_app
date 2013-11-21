@@ -10,10 +10,10 @@
 
 @interface UPDetailJobViewController : UIViewController
 
-- (void)updateInformation:(NSString *)title introduce:(NSString *)introduceStr requireAbility:(NSString *)requireAblityStr JobRankNumber:(NSNumber *)jobRankNumber;
-
 @property (nonatomic, copy) NSString *positionTitle;
 @property (nonatomic, copy) NSString *positionDescription;
 @property (nonatomic) NSInteger rankNumber;
 @property (nonatomic, copy) NSString *positiionRequire;
+@property (nonatomic, assign) BOOL isShowHotImage;
+
 @end

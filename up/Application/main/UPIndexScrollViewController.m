@@ -107,9 +107,10 @@
 - (void)presentDetailJobViewController:(NSNotification *)notify {
     NSDictionary *dict = [notify userInfo];
     UPDetailJobViewController *detailJobViewController = [[UPDetailJobViewController alloc] init];
+    detailJobViewController.isShowHotImage = [[dict objectForKey:@"isShowHotImage"] boolValue];
     detailJobViewController.positionTitle = [dict objectForKey:@"positionTitle"];
-    detailJobViewController.positionDescription = [dict objectForKey:@"positionDesc"];
-    detailJobViewController.rankNumber = 1;
+    detailJobViewController.positionDescription = [dict objectForKey:@"position_desc"];
+    detailJobViewController.rankNumber = [[dict objectForKey:@"rank"] integerValue];
     
     UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
     temporaryBarButtonItem.title = @"返回";

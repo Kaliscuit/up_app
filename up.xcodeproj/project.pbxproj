@@ -16,6 +16,8 @@
 		A84169CE1837480600A0C5E7 /* UPAlertTipLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A84169CD1837480600A0C5E7 /* UPAlertTipLabel.m */; };
 		A84C4690183132E2004A71B0 /* UPEvaluateProcessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C468F183132E2004A71B0 /* UPEvaluateProcessViewController.m */; };
 		A84C469618313A36004A71B0 /* UPEvaluatePageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C469518313A36004A71B0 /* UPEvaluatePageControl.m */; };
+		A856225A183BA5BA0000A8EE /* UPRotatePieView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8562259183BA5BA0000A8EE /* UPRotatePieView.m */; };
+		A856225D183BC2510000A8EE /* UILabel+VerticalAlign.m in Sources */ = {isa = PBXBuildFile; fileRef = A856225C183BC2510000A8EE /* UILabel+VerticalAlign.m */; };
 		A868318F18281BE0005D4375 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A868319118281BE0005D4375 /* Localizable.strings */; };
 		A87B097A182F63380064A8E9 /* UPCommonHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B0937182F63380064A8E9 /* UPCommonHelper.m */; };
 		A87B097C182F63380064A8E9 /* UPNetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B093B182F63380064A8E9 /* UPNetworkHelper.m */; };
@@ -88,6 +90,10 @@
 		A84C468F183132E2004A71B0 /* UPEvaluateProcessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPEvaluateProcessViewController.m; sourceTree = "<group>"; };
 		A84C469418313A36004A71B0 /* UPEvaluatePageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPEvaluatePageControl.h; sourceTree = "<group>"; };
 		A84C469518313A36004A71B0 /* UPEvaluatePageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPEvaluatePageControl.m; sourceTree = "<group>"; };
+		A8562258183BA5BA0000A8EE /* UPRotatePieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPRotatePieView.h; sourceTree = "<group>"; };
+		A8562259183BA5BA0000A8EE /* UPRotatePieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPRotatePieView.m; sourceTree = "<group>"; };
+		A856225B183BC2510000A8EE /* UILabel+VerticalAlign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+VerticalAlign.h"; sourceTree = "<group>"; };
+		A856225C183BC2510000A8EE /* UILabel+VerticalAlign.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+VerticalAlign.m"; sourceTree = "<group>"; };
 		A868319018281BE0005D4375 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A868319218281C3F005D4375 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A868319318281C3F005D4375 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -270,6 +276,8 @@
 				A87B093A182F63380064A8E9 /* UPNetworkHelper.h */,
 				A87B093B182F63380064A8E9 /* UPNetworkHelper.m */,
 				A8065B781835BC7B00AFE71E /* CommonKey.h */,
+				A856225B183BC2510000A8EE /* UILabel+VerticalAlign.h */,
+				A856225C183BC2510000A8EE /* UILabel+VerticalAlign.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -283,6 +291,8 @@
 				A87B0940182F63380064A8E9 /* UPTextField.m */,
 				A84169CC1837480600A0C5E7 /* UPAlertTipLabel.h */,
 				A84169CD1837480600A0C5E7 /* UPAlertTipLabel.m */,
+				A8562258183BA5BA0000A8EE /* UPRotatePieView.h */,
+				A8562259183BA5BA0000A8EE /* UPRotatePieView.m */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -575,6 +585,7 @@
 				A84169CE1837480600A0C5E7 /* UPAlertTipLabel.m in Sources */,
 				A87B098E182F63380064A8E9 /* AFURLConnectionOperation.m in Sources */,
 				A87B0991182F63380064A8E9 /* AFURLSessionManager.m in Sources */,
+				A856225D183BC2510000A8EE /* UILabel+VerticalAlign.m in Sources */,
 				A87B0998182F63380064A8E9 /* FMResultSet.m in Sources */,
 				A8065B8D18365E3300AFE71E /* UPDetailJobViewController.m in Sources */,
 				A87B0992182F63380064A8E9 /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
@@ -588,6 +599,7 @@
 				A87B097A182F63380064A8E9 /* UPCommonHelper.m in Sources */,
 				A87B0980182F63380064A8E9 /* UPLoginOrEnrollViewControllerBase.m in Sources */,
 				A87B0984182F63380064A8E9 /* UPAppDelegate.m in Sources */,
+				A856225A183BA5BA0000A8EE /* UPRotatePieView.m in Sources */,
 				A87B098D182F63380064A8E9 /* AFSecurityPolicy.m in Sources */,
 				A8065B841835E76100AFE71E /* UPMoreSearchResultView.m in Sources */,
 				A87B0994182F63380064A8E9 /* FMDatabaseAdditions.m in Sources */,

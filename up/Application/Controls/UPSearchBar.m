@@ -62,7 +62,6 @@
     } else {
         
     }
-    
 }
 
 - (CGRect)leftViewRectForBounds:(CGRect)bounds {

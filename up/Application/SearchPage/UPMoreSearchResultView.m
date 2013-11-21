@@ -153,7 +153,7 @@
     } else if ([tag integerValue] == Tag_Position_Profile) {
         NSLog(@"response : %@", responseObject);
         NSDictionary *responseDict = [[responseObject objectForKey:@"d"] objectForKey:@"profile"];
-        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[responseDict objectForKey:@"position"],@"positionTitle",[responseDict objectForKey:@"requirements"],@"positionDesc", nil];
+        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[responseDict objectForKey:@"position"],@"positionTitle",[responseDict objectForKey:@"requirements"],@"requirements", nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DetailJob" object:nil userInfo:dict];
         [dict release];
         
