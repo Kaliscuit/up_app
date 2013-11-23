@@ -241,7 +241,6 @@
         _keySearchCount += [[dict objectForKey:@"count"] integerValue];
         _currentPage = [[dict objectForKey:@"page"] integerValue];
         _hadNext = [[dict objectForKey:@"next"] boolValue];
-        NSLog(@"count : %d", _keySearchCount);
         
         [_keySearchResultTableView reloadData];
     } else if ([tag integerValue] == Tag_Position_Profile) {

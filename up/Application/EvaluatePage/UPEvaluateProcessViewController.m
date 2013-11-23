@@ -9,10 +9,11 @@
 #import "UPEvaluateProcessViewController.h"
 #import "CommonDefine.h"
 #import "UPEvaluatePageView.h"
-#import "UPEvaluatePageControl.h"
+#import "SMPageControl.h"
+
 @interface UPEvaluateProcessViewController ()<UIScrollViewDelegate> {
     UIScrollView *_scrollView;
-    UPEvaluatePageControl *_pageControl;
+    SMPageControl *_pageControl;
 }
 
 @end
@@ -39,11 +40,11 @@
     [self.view addSubview:_scrollView];
     _scrollView.delegate = self;
     
-     _pageControl = [[UPEvaluatePageControl alloc] initWithFrame:CGRectMake(0, 280, 320, 40)];
-    [self.view addSubview:_pageControl];
+     _pageControl = [[SMPageControl alloc] initWithFrame:CGRectMake(0, 280, 320, 40)];
     [_pageControl setNumberOfPages:10];
     [_pageControl setCurrentPage:1];
-    
+    [_pageControl setCurrentPageIndicatorImage:[UIImage imageNamed:@"icn_indicator_active.png"]];
+    [self.view addSubview:_pageControl];
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 100, 320, 50)];
     [button setBackgroundColor:[UIColor whiteColor]];

@@ -200,21 +200,24 @@ static SMPageControlStyleDefaults _defaultStyleForSystemVersion;
 			CGContextFillEllipseInRect(context, indicatorRect);
 		}
 		
-//        _label = [[UILabel alloc] initWithFrame:indicatorRect];
-//        [_label setTag:i];
-//        if (_currentPage == i) {
-//            [_label setText:[NSString stringWithFormat:@"%d", i]];
-//        }
-//        [_label setTextColor:[UIColor blackColor]];
-//        [_label setBackgroundColor:[UIColor clearColor]];
-//        [_label setHidden:YES];
-//        [self addSubview:_label];
+        _label = [[UILabel alloc] initWithFrame:CGRectMake(indicatorRect.origin.x + 1, indicatorRect.origin.y - 1, indicatorRect.size.width + 2, indicatorRect.size.height + 2)];
+        if (i == 1) {
+            [_label setFrame:CGRectMake(indicatorRect.origin.x + 3, indicatorRect.origin.y - 1, indicatorRect.size.width + 2, indicatorRect.size.height + 2)];
+        }
+        [_label setTag:(888+i)];
+        [_label setFont:[UIFont systemFontOfSize:11]];
+        [_label setText:[NSString stringWithFormat:@"%lu", (unsigned long)(i+1)]];
+        [_label setTextColor:BaseColor];
+        [_label setBackgroundColor:[UIColor clearColor]];
+        [_label setHidden:YES];
+        [self addSubview:_label];
         
         [pageRects addObject:[NSValue valueWithCGRect:indicatorRect]];
 		maskingImage = NULL;
 		xOffset += _measuredIndicatorWidth + _indicatorMargin;
 	}
 	
+    [self viewWithTag:(888 + _currentPage)].hidden = NO;
 	self.pageRects = pageRects;
 	
 }
@@ -422,7 +425,7 @@ static SMPageControlStyleDefaults _defaultStyleForSystemVersion;
 {
 	size_t pixelsWide = image.size.width * image.scale;
 	size_t pixelsHigh = image.size.height * image.scale;
-	int bitmapBytesPerRow = (pixelsWide * 1);
+	NSInteger bitmapBytesPerRow = (pixelsWide * 1);
 	CGContextRef context = CGBitmapContextCreate(NULL, pixelsWide, pixelsHigh, CGImageGetBitsPerComponent(image.CGImage), bitmapBytesPerRow, NULL, (CGBitmapInfo)kCGImageAlphaOnly);
 	CGContextTranslateCTM(context, 0.f, pixelsHigh);
 	CGContextScaleCTM(context, 1.0f, -1.0f);
@@ -531,6 +534,7 @@ static SMPageControlStyleDefaults _defaultStyleForSystemVersion;
 		return;
 	}
 	
+    
 	_indicatorMargin = indicatorMargin;
 	[self setNeedsDisplay];
 }
@@ -557,10 +561,19 @@ static SMPageControlStyleDefaults _defaultStyleForSystemVersion;
 - (void)setCurrentPage:(NSInteger)currentPage sendEvent:(BOOL)sendEvent canDefer:(BOOL)defer
 {
 	_currentPage = MIN(MAX(0, currentPage), _numberOfPages - 1);
-//    NSLog(@"%d", _currentPage);
-//    NSLog(@"fffff-->tag : %@", ((UILabel *)[self viewWithTag:_currentPage]));
-//    ((UILabel *)[self viewWithTag:_currentPage]).hidden = NO;
-//    ((UILabel *)[self viewWithTag:_currentPage]).text = [NSString stringWithFormat:@"%d", _currentPage];
+    
+    if (currentPage == 0) {
+        [self viewWithTag:(888 + self.numberOfPages)].hidden = YES;
+        [self viewWithTag:889].hidden = YES;
+    } else if (currentPage == self.numberOfPages - 1) {
+        [self viewWithTag:888].hidden = YES;
+        [self viewWithTag:(888 + currentPage - 1)].hidden = YES;
+    } else {
+        [self viewWithTag:(888 + currentPage - 1)].hidden = YES;
+        [self viewWithTag:(888 + currentPage + 1)].hidden = YES;
+    }
+    [self viewWithTag:(888+currentPage)].hidden = NO;
+    
 	self.accessibilityPageControl.currentPage = self.currentPage;
 	
 	[self updateAccessibilityValue];

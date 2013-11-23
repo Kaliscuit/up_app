@@ -47,7 +47,7 @@
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    int count = [_itemArray count];
+    NSInteger count = [_itemArray count];
     float sum = 0.0f;
     for (int i = 0; i < count; i++) {
         sum += [[[_itemArray objectAtIndex:i] objectForKey:@"Value"] floatValue];

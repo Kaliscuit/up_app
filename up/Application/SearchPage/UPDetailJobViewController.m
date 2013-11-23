@@ -92,7 +92,7 @@
     _rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0f, _titleLabel.frame.origin.y + _titleLabel.frame.size.height + 10.0f, 290.0f, 15.0f)];
     [_rankLabel setTextColor:RGBCOLOR(126.0f, 210.0f, 236.0f)];
     [_rankLabel setFont:[UIFont systemFontOfSize:11.0f]];
-    _rankLabel.text = [NSString stringWithFormat:@"当前排名: %d", self.rankNumber];
+    _rankLabel.text = [NSString stringWithFormat:@"当前排名: %ld", (long)self.rankNumber];
     [_rankLabel setBackgroundColor:ClearColor];
     [self.view addSubview:_rankLabel];
     

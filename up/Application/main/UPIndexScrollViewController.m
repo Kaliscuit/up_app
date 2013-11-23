@@ -109,7 +109,9 @@
     UPDetailJobViewController *detailJobViewController = [[UPDetailJobViewController alloc] init];
     detailJobViewController.isShowHotImage = [[dict objectForKey:@"isShowHotImage"] boolValue];
     detailJobViewController.positionTitle = [dict objectForKey:@"positionTitle"];
-    detailJobViewController.positionDescription = [dict objectForKey:@"position_desc"];
+    NSString *description = [dict objectForKey:@"position_desc"];
+    description = [description stringByReplacingOccurrencesOfString:@"-" withString:@"\u25cf "];
+    detailJobViewController.positionDescription = description;
     detailJobViewController.rankNumber = [[dict objectForKey:@"rank"] integerValue];
     
     UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
