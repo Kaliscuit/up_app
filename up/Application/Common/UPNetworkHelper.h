@@ -29,7 +29,7 @@
     AFHTTPRequestOperationManager *_manager;
 }
 
-@property (nonatomic, retain) id<UPNetworkHelperDelegate> delegate;
+@property (nonatomic, weak) id<UPNetworkHelperDelegate> delegate;
 
 + (UPNetworkHelper *)sharedInstance;
 
@@ -38,9 +38,11 @@
 - (void)postEnrollWithDictionary:(NSDictionary *)dict;
 - (void)postNicknameWithDictionary:(NSDictionary *)dict;
 - (void)postProfileWithDictionary:(NSDictionary *)dict;
-- (void)postSearchSuggestWithDictionary:(NSDictionary *)dict;
-- (void)postSearchPositionWithDictionary:(NSDictionary *)dict;
+
+
 - (void)postSearchHot;
 - (void)postPositionProfileWithDictionary:(NSDictionary *)dict;
 
+- (void)postSearchPositionWithKeyword:(NSString *)keyword WithPage:(NSInteger)page;
+- (void)postSearchSuggestWithKeyword:(NSString *)keyword;
 @end

@@ -114,22 +114,17 @@
 }
 
 - (void)dealloc {
-    [_messageLabel release];
+   
     _messageLabel = nil;
-    
-    [_textFieldName release];
+
     _textFieldName = nil;
     
-    [_textFieldPassword release];
     _textFieldPassword = nil;
     
-    [_nextStepButton release];
     _nextStepButton = nil;
     
-    [_indicatorView release];
     _indicatorView = nil;
     
     _isEnrollProcess = NO;
-    [super dealloc];
 }
 @end

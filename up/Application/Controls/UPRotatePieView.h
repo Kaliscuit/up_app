@@ -20,10 +20,10 @@
     NSTimer            *mDecelerateTimer;
 }
 
-@property (nonatomic, retain) NSMutableArray *itemArray;
+@property (nonatomic, weak) NSMutableArray *itemArray;
 @property (nonatomic) float mZeroAngle;
-@property (nonatomic, retain) NSMutableArray *mThetaArray;
+@property (nonatomic, strong) NSMutableArray *mThetaArray;
 @property (nonatomic) BOOL isAutoRotation;
-@property (nonatomic, retain) UITextView     *mInfoTextView;
+@property (nonatomic, strong) UITextView     *mInfoTextView;
 @end
 

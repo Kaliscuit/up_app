@@ -76,16 +76,13 @@
 }
 
 - (void)dealloc {
-    [_mThetaArray release];
+  
     _mThetaArray = nil;
     
-    [_colorArray release];
     _colorArray = nil;
     
-    [_itemArray release];
     _itemArray = nil;
     
-    [super dealloc];
 }
 
 - (float)thetaForX:(float)x andY:(float)y {
@@ -227,7 +224,7 @@
     // 计算相对偏转角度
     mRelativeTheta   = [self thetaForTouch:touch onView:self];
     
-    mDragBeforeDate  = [[NSDate date] retain];
+    mDragBeforeDate  = [NSDate date];
     mDragBeforeTheta = 0.0f;
     return;
 }
@@ -269,7 +266,7 @@
     isAnimating = NO;
     
     mDragBeforeTheta = mAbsoluteTheta;
-    mDragBeforeDate = [[NSDate date] retain];
+    mDragBeforeDate = [NSDate date];
     
     return;
 }

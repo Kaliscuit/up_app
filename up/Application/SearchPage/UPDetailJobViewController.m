@@ -81,7 +81,8 @@
         titleWithBlank = self.positionTitle;
     }
     
-    CGSize titleSize = [titleWithBlank sizeWithFont:_titleLabel.font constrainedToSize:CGSizeMake(_titleLabel.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByCharWrapping];
+    CGSize titleSize = [titleWithBlank boundingRectWithSize:CGSizeMake(_titleLabel.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesFontLeading attributes:[NSDictionary dictionaryWithObjectsAndKeys:NSFontAttributeName,_titleLabel.font, nil] context:nil].size;
+    
     if (titleSize.height > _titleLabel.frame.size.height) {
         CGRect rect = _titleLabel.frame;
         rect.size.height = 50.0f;
@@ -121,8 +122,6 @@
     [positionRequireTipLabel setFont:[UIFont systemFontOfSize:12.0f]];
     [positionRequireView addSubview:positionRequireTipLabel];
     [self.view addSubview:positionRequireView];
-    [positionRequireTipLabel release];
-    [positionRequireView release];
     
     UIView *rotateView = [[UIView alloc] initWithFrame:CGRectMake(0, positionRequireView.frame.origin.y + positionRequireView.frame.size.height, 320.0f, 300.0f)];
     UPRotatePieView* pieView = [[UPRotatePieView alloc] initWithFrame:CGRectMake(70.0f, 40.0f, 180.0f, 180.0f)];
@@ -161,10 +160,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)dealloc {
-    [super dealloc];
 }
 
 - (void)onClickSelectJobButton:(UIButton *)sender {

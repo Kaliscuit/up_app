@@ -13,10 +13,10 @@
 #define Tag_TextField_Password 2222
 @interface UPLoginOrEnrollViewControllerBase : UIViewController<UITextFieldDelegate>
 
-@property (nonatomic, retain) UPTextField *textFieldName;
-@property (nonatomic, retain) UIActivityIndicatorView *indicatorView;
-@property (nonatomic, retain) UILabel *messageLabel;
-@property (nonatomic, retain) UIButton *nextStepButton;
-@property (nonatomic, retain) UPTextField *textFieldPassword;
+@property (nonatomic, strong) UPTextField *textFieldName;
+@property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
+@property (nonatomic, strong) UILabel *messageLabel;
+@property (nonatomic, weak) UIButton *nextStepButton;
+@property (nonatomic, strong) UPTextField *textFieldPassword;
 @property (nonatomic) BOOL isEnrollProcess;
 @end

@@ -20,10 +20,6 @@
 @end
 @implementation UPEvaluatePageView
 
-- (void)dealloc {
-    [super dealloc];
-}
-
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -42,7 +38,6 @@
         UPQuestionSectionButton *sectionButton = [[UPQuestionSectionButton alloc] initWithFrame:CGRectMake(5, _questionTitleLable.frame.origin.y + _questionTitleLable.frame.size.height, 310, 30)];
         [sectionButton updateIndexButton:1];
         [self addSubview:sectionButton];
-        [sectionButton release];
         
     }
     return self;

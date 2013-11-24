@@ -14,12 +14,9 @@
 @synthesize indexScrollNavigationController = _indexScrollNavigationController;
 
 - (void)dealloc {
-    [_window release];
-    [_indexScrollNavigationController release];
     _indexScrollNavigationController = nil;
-    [_indexScrollViewController release];
+   
     _indexScrollViewController = nil;
-    [super dealloc];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

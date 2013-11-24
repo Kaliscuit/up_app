@@ -46,19 +46,18 @@
 
         NSArray *segmentedArray = [[NSArray alloc] initWithObjects:@"Top 10",@"所有职业", nil];
         _segmentedControl = [[UISegmentedControl alloc] initWithItems:segmentedArray];
-        [segmentedArray release];
+        
         [_segmentedControl setFrame:CGRectMake(50, 25, 220, 30)];
         [_segmentedControl setTintColor:BaseColor];
         [_segmentedControl addTarget:self action:@selector(changeTable:) forControlEvents:UIControlEventValueChanged];
         _segmentedControl.selectedSegmentIndex = 2;
         [_segmentedControl setSelectedSegmentIndex:0];
-        [_segmentedControl setSegmentedControlStyle:UISegmentedControlStyleBordered];
+//        [_segmentedControl setSegmentedControlStyle:UISegmentedControlStyleBordered];
         [_segmentedControl setBackgroundColor:RGBCOLOR(235.0f, 235.0f, 241.0f)];
 //        [self addSubview:_segmentedControl];
         //    [_segmentedControl release];
         [segmentedBackgroundView addSubview:_segmentedControl];
         [self addSubview:segmentedBackgroundView];
-        [segmentedBackgroundView release];
         
         _searchView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, 320, 40)];
         [_searchView setBackgroundColor:RGBCOLOR(189.0f, 189.0f, 195.0f)];
@@ -112,9 +111,10 @@
 }
 
 - (void)requestSearchPositionWithPage:(NSInteger)page {
-    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInteger:page],@"page", nil];
-    [[UPNetworkHelper sharedInstance] postSearchPositionWithDictionary:dict];
-    [dict release];
+    [[UPNetworkHelper sharedInstance] postSearchPositionWithKeyword:nil WithPage:page];
+//    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInteger:page],@"page", nil];
+//    [[UPNetworkHelper sharedInstance] postSearchPositionWithDictionary:dict];
+//    [dict release];
 }
 
 - (BOOL)isAllPositionShow {
@@ -155,7 +155,6 @@
         NSDictionary *responseDict = [[responseObject objectForKey:@"d"] objectForKey:@"profile"];
         NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[responseDict objectForKey:@"position"],@"positionTitle",[responseDict objectForKey:@"requirements"],@"requirements", nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DetailJob" object:nil userInfo:dict];
-        [dict release];
         
     }
 }
@@ -179,12 +178,12 @@
     [UPNetworkHelper sharedInstance].delegate = self;
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[objectDict objectForKey:@"id"],@"pid", nil];
     [[UPNetworkHelper sharedInstance] postPositionProfileWithDictionary:dict];
-    [dict release];
+
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AllPositionsCell"];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"AllPositionsCell"] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"AllPositionsCell"];
         [cell.textLabel setFont:[UIFont systemFontOfSize:13]];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;

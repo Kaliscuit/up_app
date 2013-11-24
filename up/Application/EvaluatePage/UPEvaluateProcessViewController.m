@@ -52,14 +52,12 @@
     [button setTitleColor:BlackColor forState:UIControlStateNormal];
     [button addTarget:self action:@selector(onClickButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
-    [button release];
     
 }
 
 - (void)onClickButton:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"探索之路结束了" message:@"你看到的这个屏都没做呢\n不要再看了，嘿，说你哟" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alert show];
-    [alert release];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

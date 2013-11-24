@@ -99,14 +99,36 @@
     [operator start];
 }
 
-- (void)postSearchSuggestWithDictionary:(NSDictionary *)dict {
+- (void)_postSearchSuggestWithDictionary:(NSDictionary *)dict {
     [self _postURLWithTag:Url_Search_Suggest_Post tag:Tag_Search_Suggest Dictionary:dict];
 }
 
-- (void)postSearchPositionWithDictionary:(NSDictionary *)dict {
+- (void)postSearchSuggestWithKeyword:(NSString *)keyword {
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:keyword,Parameter_Search_Post_Keyword, nil];
+    [self _postSearchSuggestWithDictionary:dict];
+}
+
+- (void)_postSearchPositionWithDictionary:(NSDictionary *)dict {
     [self _postURLWithTag:Url_Search_Position_Post tag:Tag_Search_Position Dictionary:dict];
 }
 
+- (void)postSearchPositionWithKeyword:(NSString *)keyword WithPage:(NSInteger)page{
+    NSDictionary *dict = nil;
+    if (keyword.length == 0) {
+        if (page != 0) {
+            dict = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInteger:page],@"page", nil];
+        } else {
+            return;
+        }
+    } else {
+        if (page != 0) {
+            dict = [[NSDictionary alloc] initWithObjectsAndKeys:keyword,Parameter_Search_Post_Keyword,[NSNumber numberWithInteger:page],@"page", nil];
+        } else {
+            dict = [[NSDictionary alloc] initWithObjectsAndKeys:keyword,Parameter_Search_Post_Keyword, nil];
+        }
+    }
+    [self _postSearchPositionWithDictionary:dict];
+}
 - (void)postSearchHot {
     [self _postURLWithTag:Url_Search_Hot_Post tag:Tag_Search_Hot Dictionary:nil];
 }

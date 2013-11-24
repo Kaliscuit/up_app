@@ -31,7 +31,7 @@
     if (![UPCommonHelper isIOS7]) {
         return CGRectMake(25, 5, bounds.size.width, bounds.size.height);
     }
-    return CGRectInset(bounds, 25, 0);
+    return CGRectInset(bounds, 25, 5);
 }
 
 - (CGRect)placeholderRectForBounds:(CGRect)bounds {
@@ -39,7 +39,7 @@
     if (![UPCommonHelper isIOS7]) {
         return CGRectMake(25, 5, bounds.size.width, bounds.size.height);
     }
-    return CGRectInset(bounds, 25, 0);
+    return CGRectInset(bounds, 25, 5);
 }
 
 - (CGRect)textRectForBounds:(CGRect)bounds {
@@ -47,17 +47,17 @@
     if (![UPCommonHelper isIOS7]) {
         return CGRectMake(25, 5, bounds.size.width, bounds.size.height);
     }
-    return CGRectInset(bounds, 25, 0);
+    return CGRectInset(bounds, 25, 5);
 }
 
 - (void)updateStatus:(UPSearchBarStatus)status {
     if (status == UPSearchBarStatusInit) {
         self.placeholder = @"";
-        [self setLeftViewMode:UITextFieldViewModeAlways];
+//        [self setLeftViewMode:UITextFieldViewModeAlways];
         [self setClearButtonMode:UITextFieldViewModeNever];
     } else if (status == UPSearchBarStatusBeginSearch) {
         self.placeholder = @"请输入感兴趣的职位";
-        [self setLeftViewMode:UITextFieldViewModeNever];
+//        [self setLeftViewMode:UITextFieldViewModeNever];
         [self setClearButtonMode:UITextFieldViewModeWhileEditing];
     } else {
         

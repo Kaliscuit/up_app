@@ -36,10 +36,6 @@
 
 - (void)dealloc {
     [self removeNotification];
-    SAFE_RELEASE(_pageControl);
-    SAFE_RELEASE(_scrollView);
-    SAFE_RELEASE(_viewArray);
-    [super dealloc];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -120,12 +116,11 @@
     temporaryBarButtonItem.target = self;
     temporaryBarButtonItem.action = @selector(back:);
     self.navigationItem.backBarButtonItem = temporaryBarButtonItem;
-    [temporaryBarButtonItem release];
     
 
     
     [self.navigationController pushViewController:detailJobViewController animated:YES];
-    [detailJobViewController release];
+   
 }
 
 - (void)presentJobTypeViewController:(NSNotification *)notification {
@@ -135,12 +130,12 @@
     temporaryBarButtonItem.target = self;
     temporaryBarButtonItem.action = @selector(back:);
     self.navigationItem.backBarButtonItem = temporaryBarButtonItem;
-    [temporaryBarButtonItem release];
+  
     
     id class = objc_getClass("UPJobTypeViewController");
     id enrollmentViewController = [[class alloc] init];
     [self.navigationController pushViewController:enrollmentViewController animated:YES];
-    [enrollmentViewController release];
+
 
 }
 
@@ -155,7 +150,6 @@
     [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];
     transition.delegate = self;
     [self.navigationController pushViewController:enrollmentViewController animated:YES];
-    [enrollmentViewController release];
 }
 
 - (void)presentEvaluateViewController:(NSNotification *)notification {
@@ -164,7 +158,6 @@
     temporaryBarButtonItem.target = self;
     temporaryBarButtonItem.action = @selector(backTo:);
     self.navigationItem.backBarButtonItem = temporaryBarButtonItem;
-    [temporaryBarButtonItem release];
     
     id class = objc_getClass("UPEvaluateViewController");
     id enrollmentViewController = [[class alloc] init];
@@ -176,7 +169,6 @@
     [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];
     transition.delegate = self;
     [self.navigationController pushViewController:enrollmentViewController animated:YES];
-    [enrollmentViewController release];
 }
 
 
@@ -185,7 +177,7 @@
     if (page < 0 || page >= _maxPages) {
         return;
     }
-    UIView *viewArrayObject = [[[objc_getClass([[_viewArray objectAtIndex:page] UTF8String]) alloc] init] autorelease];
+    UIView *viewArrayObject = [[objc_getClass([[_viewArray objectAtIndex:page] UTF8String]) alloc] init];
     
     if (viewArrayObject.superview == nil) {
         CGRect frame = _scrollView.frame;

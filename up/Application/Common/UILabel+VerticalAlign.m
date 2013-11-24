@@ -10,13 +10,13 @@
 
 @implementation UILabel (VerticalAlign)
 - (void)alignTop {
-    CGSize fontSize =[self.text sizeWithFont:self.font];
+    CGSize fontSize =[self.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:NSFontAttributeName,self.font, nil]];
     
     double finalHeight = fontSize.height *self.numberOfLines;
     
     double finalWidth =self.frame.size.width;//expected width of label
     
-    CGSize theStringSize =[self.text sizeWithFont:self.font constrainedToSize:CGSizeMake(finalWidth, finalHeight) lineBreakMode:self.lineBreakMode];
+    CGSize theStringSize = [self.text boundingRectWithSize:CGSizeMake(finalWidth, finalHeight) options:NSStringDrawingUsesFontLeading attributes:[NSDictionary dictionaryWithObjectsAndKeys:NSFontAttributeName,self.font, nil] context:nil].size;
     
     int newLinesToPad =(finalHeight - theStringSize.height)/ fontSize.height;
     
@@ -26,10 +26,11 @@
 }
 
 -(void)alignBottom {
-    CGSize fontSize =[self.text sizeWithFont:self.font];
+    CGSize fontSize =[self.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:NSFontAttributeName,self.font, nil]];
     double finalHeight = fontSize.height *self.numberOfLines;
     double finalWidth =self.frame.size.width;//expected width of label
-    CGSize theStringSize =[self.text sizeWithFont:self.font constrainedToSize:CGSizeMake(finalWidth, finalHeight) lineBreakMode:self.lineBreakMode];
+    CGSize theStringSize = [self.text boundingRectWithSize:CGSizeMake(finalWidth, finalHeight) options:NSStringDrawingUsesFontLeading attributes:[NSDictionary dictionaryWithObjectsAndKeys:NSFontAttributeName,self.font, nil] context:nil].size;
+    
     int newLinesToPad =(finalHeight - theStringSize.height)/ fontSize.height;
     for(int i=0; i<newLinesToPad; i++) {
         self.text =[NSString stringWithFormat:@" \n%@",self.text];

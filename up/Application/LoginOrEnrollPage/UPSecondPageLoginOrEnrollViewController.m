@@ -39,10 +39,8 @@
     UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icn_errorinfo.png"]];
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAlertMessage:)];
     [image addGestureRecognizer:gesture];
-    [gesture release];
     [image setUserInteractionEnabled:YES];
     self.textFieldName.rightView = image;
-    [image release];
     
     if (self.isEnrollProcess) {
         [self.textFieldName setPlaceholder:@"用户名"];
@@ -56,17 +54,14 @@
         UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icn_errorinfo.png"]];
         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAlertMessage:)];
         [image addGestureRecognizer:gesture];
-        [gesture release];
         [image setUserInteractionEnabled:YES];
         self.textFieldPassword.rightView = image;
-        [image release];
         
         NSString *string = [NSString stringWithFormat:@"用%@创建新的账户",self.emailStr];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string];
         NSRange range=[string rangeOfString:self.emailStr];
         [attributedString addAttribute:NSForegroundColorAttributeName value:BaseColor range:range];
         [self.messageLabel setAttributedText:attributedString];
-        [attributedString release];
     } else {
         [self.textFieldName setPlaceholder:@"密码"];
         self.textFieldName.secureTextEntry = YES;
@@ -80,7 +75,6 @@
         NSRange range=[string rangeOfString:self.emailStr];
         [attributedString addAttribute:NSForegroundColorAttributeName value:BaseColor range:range];
         [self.messageLabel setAttributedText:attributedString];
-        [attributedString release];
     }
 }
 
@@ -109,7 +103,6 @@
     UPAlertTipLabel *alert = [[UPAlertTipLabel alloc] initWithFrame:CGRectMake(10, 30, 300, 100)];
     [alert updateTitle:title Point:point isAssignBottom:isAssignBottom];
     [self.view addSubview:alert];
-    [alert release];
 
 }
 
@@ -152,11 +145,9 @@
     if (self.isEnrollProcess) {
         NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.emailStr,@"email",self.textFieldName.text,@"name",self.textFieldPassword,@"password", nil];
         [[UPNetworkHelper sharedInstance] postEnrollWithDictionary:dict];
-        [dict release];
     } else {
         NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.emailStr,@"email",self.textFieldName.text,@"password", nil];
         [[UPNetworkHelper sharedInstance] postLoginWithDictionary:dict];
-        [dict release];
     }
 }
 
@@ -215,7 +206,6 @@
     if ([tag integerValue]== Tag_Login) { // 登录成功
         NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[userProfile objectForKey:@"name"],@"Nickname", nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"Nickname" object:nil userInfo:dict];
-        [dict release];
     
         [self.navigationController popToRootViewControllerAnimated:YES];
     } else if ([tag integerValue]== Tag_Enroll){ // 注册成功

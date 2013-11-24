@@ -11,7 +11,7 @@
 
 @interface UPAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (retain, nonatomic) UIWindow *window;
-@property (nonatomic, retain) UPIndexScrollViewController *indexScrollViewController;
-@property (nonatomic, retain) UINavigationController *indexScrollNavigationController;
+@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) UPIndexScrollViewController *indexScrollViewController;
+@property (nonatomic, strong) UINavigationController *indexScrollNavigationController;
 @end

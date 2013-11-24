@@ -43,10 +43,10 @@
     UIImageView *rightImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icn_errorinfo.png"]];
     [rightImageView setUserInteractionEnabled:YES];
     [self.textFieldName setRightView:rightImageView];
-    [rightImageView release];
+  
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAlertTip:)];
     [self.textFieldName.rightView addGestureRecognizer:gesture];
-    [gesture release];
+    
     [self.nextStepButton setTitle:@"下一步" forState:UIControlStateNormal];
     
 }
@@ -60,7 +60,6 @@
     UPAlertTipLabel *alert = [[UPAlertTipLabel alloc] initWithFrame:CGRectMake(10, 100, 300, 100)];
     [alert updateTitle:_alertMessage Point:point isAssignBottom:YES];
     [self.view addSubview:alert];
-    [alert release];
 }
 - (void)viewDidLoad
 {
@@ -99,7 +98,6 @@
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:emailStr,@"email", nil];
     [UPNetworkHelper sharedInstance].delegate = self;
     [[UPNetworkHelper sharedInstance] postEmailCheckWithDictionary:dict];
-    [dict release];
     
 }
 
@@ -128,7 +126,6 @@
         // 格式不对
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"邮箱格式错误" message:@"格式错误" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
         [alert show];
-        [alert release];
     } else {
         UPSecondPageLoginOrEnrollViewController *nextController = [[UPSecondPageLoginOrEnrollViewController alloc] init];
         nextController.emailStr = self.textFieldName.text;
@@ -138,7 +135,7 @@
             nextController.isEnrollProcess = NO;
         }
         [self.navigationController pushViewController:nextController animated:YES];
-        [nextController release];
+       
     }
 
 }

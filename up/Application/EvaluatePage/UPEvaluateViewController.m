@@ -26,11 +26,6 @@
     return self;
 }
 
-- (void)dealloc {
-    [_titleLabel release];
-    [super dealloc];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -49,7 +44,6 @@
     [titleTipLabel setBackgroundColor:ClearColor];
     [titleTipLabel setTextColor:GrayColor];
     [self.view addSubview:titleTipLabel];
-    [titleTipLabel release];
     
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 35, 280, 30)];
     [_titleLabel setFont:[UIFont systemFontOfSize:18]];
@@ -61,7 +55,6 @@
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(20, 80, 280, 0.5)];
     [lineView setBackgroundColor:GrayColor];
     [self.view addSubview:lineView];
-    [lineView release];
     
     UILabel *nextTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 100, 100, 20)];
     [nextTipLabel setText:@"下一步"];
@@ -69,7 +62,6 @@
     [nextTipLabel setBackgroundColor:ClearColor];
     [nextTipLabel setTextColor:GrayColor];
     [self.view addSubview:nextTipLabel];
-    [nextTipLabel release];
     
     UILabel *nextDetailLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 120, 280, 80)];
     [nextDetailLabel setText:@"接下来我们会推荐一些课程给你学习以及巩固一下领域的知识，所以，先来完成一个简单的能力评估吧"];
@@ -77,7 +69,6 @@
     [nextDetailLabel setBackgroundColor:ClearColor];
     [nextDetailLabel setTextColor:BlackColor];
     [self.view addSubview:nextDetailLabel];
-    [nextDetailLabel release];
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 140) / 2, nextDetailLabel.frame.origin.y + nextDetailLabel.frame.size.height + 60, 140, 60)];
     [button setBackgroundColor:BaseColor];
@@ -87,7 +78,6 @@
     [button setTitleColor:WhiteColor forState:UIControlStateNormal];
     [button addTarget:self action:@selector(onClickBeginEvaluateButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
-    [button release];
 }
 
 - (void)onClickBeginEvaluateButton:(id)sender {
@@ -97,12 +87,11 @@
     temporaryBarButtonItem.target = self;
     temporaryBarButtonItem.action = @selector(backEvaluateBeginController);
     self.navigationItem.backBarButtonItem = temporaryBarButtonItem;
-    [temporaryBarButtonItem release];
+   
     
     self.navigationController.navigationBar.translucent = NO;
     UPEvaluateProcessViewController *evaluateProcessViewController = [[UPEvaluateProcessViewController alloc] init];
     [self.navigationController pushViewController:evaluateProcessViewController animated:YES];
-    [evaluateProcessViewController release];
 }
 
 - (void)backEvaluateBeginController {

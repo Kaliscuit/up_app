@@ -102,7 +102,7 @@
 
 - (void)updateTitle:(NSString *)title Point:(CGPoint)point isAssignBottom:(BOOL)isAssignBottom {
     if (title.length > 0) {
-        CGSize titleSize = [title sizeWithFont:_label.font constrainedToSize:CGSizeMake(self.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByCharWrapping];
+        CGSize titleSize = [title boundingRectWithSize:CGSizeMake(self.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesFontLeading attributes:[NSDictionary dictionaryWithObjectsAndKeys:NSFontAttributeName,_label.font, nil] context:nil].size;
         [_label setText:title];
         self.point = point;
         self.title = title;
