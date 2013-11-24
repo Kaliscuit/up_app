@@ -7,3 +7,11 @@
 //
 
 #define NotificationPopEnrollmentOrLoginViewController @"PopEnrollmentOrLoginViewController"
+
+#define NotificationPopEvaluateViewController @"PopEvaluateViewController"
+
+#define NotificationPopDetailJobViewController @"PopDetailJobViewController"
+
+#define NotificationPopJobTypeViewController @"PopJobTypeViewController"
+
+#define NotificationUpdateUsername @"UpdateUserName"

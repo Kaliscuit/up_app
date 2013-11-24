@@ -7,6 +7,8 @@
 //
 
 #import "UPNetworkHelper.h"
+#import <Foundation/Foundation.h>
+
 @implementation UPNetworkHelper
 
 + (UPNetworkHelper *)sharedInstance {
@@ -26,8 +28,15 @@
     return self;
 }
 
-- (void)_postURLWithTag:(NSString *)url tag:(int)tag Dictionary:(NSDictionary *)dict{
-    [_manager POST:url parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+- (void)_postURLWithTag:(NSString *)url tag:(int)tag Dictionary:(NSDictionary *)parametersDict{
+    
+    NSMutableURLRequest *request = [_manager.requestSerializer requestWithMethod:@"POST" URLString:[[NSURL URLWithString:url relativeToURL: _manager.baseURL] absoluteString] parameters:parametersDict];
+    
+    NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]];
+    
+    [request setAllHTTPHeaderFields:headers];
+    
+    AFHTTPRequestOperation *operation = [_manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Class : %@", [responseObject class]);
         if (responseObject == nil) {
             NSLog(@"请求成功，但是返回值为空");
@@ -43,10 +52,10 @@
             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if ([self.delegate respondsToSelector:@selector(requestFail:withTag:)]) {
-            [self.delegate performSelector:@selector(requestFail:withTag:) withObject:error withObject:[NSNumber numberWithInteger:tag]];
-        }
+        
     }];
+    
+    [_manager.operationQueue addOperation:operation];
 }
 
 - (void)postEmailCheckWithDictionary:(NSDictionary *)dict {
@@ -65,42 +74,11 @@
     [self _postURLWithTag:Url_Nickname_Post tag:Tag_Nickname Dictionary:dict];
 }
 
+
 - (void)postProfileWithDictionary:(NSDictionary *)dict { // 不传字典拿到的是自己的，传字典拿到的是别人的
-//    [self _postURLWithTag:Url_Profile_Post tag:Tag_Profile Dictionary:dict];
+    [self _postURLWithTag:Url_Profile_Post tag:Tag_Profile Dictionary:dict];
 
-    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    NSDictionary *cookieDict = nil;
-    cookieDict = [NSHTTPCookie requestHeaderFieldsWithCookies:[cookieJar cookies]];
-    NSLog(@"pppppppppppppppp-->有没有注册的cookies : %@", cookieDict);
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://api.dev.v2up.me/user/profile"]];
-    [request setHTTPMethod:@"POST"];
-    [request setHTTPShouldHandleCookies:YES];
-    [request setAllHTTPHeaderFields:cookieDict];
-    [request setHTTPBody:nil];
-    
-    AFHTTPRequestOperation *operator = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    
-    [operator setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"返回值：%@", operation.responseString);
-        if ([self isRequestSuccessWithFailCode:responseObject]) {
-            NSString *failMessage = [responseObject objectForKey:@"m"];
-            if ([self.delegate respondsToSelector:@selector(requestSuccessWithFailMessage:withTag:)]) {
-                [self.delegate performSelector:@selector(requestSuccessWithFailMessage:withTag:) withObject:failMessage];
-            }
-        } else {
-            if ([self.delegate respondsToSelector:@selector(requestSuccess:withTag:)]) {
-                [self.delegate performSelector:@selector(requestSuccess:withTag:) withObject:(NSDictionary *)responseObject withObject:[NSNumber numberWithInteger:Tag_Profile]];
-            }
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
-    [operator start];
-}
-
-- (void)_postSearchSuggestWithDictionary:(NSDictionary *)dict {
-    [self _postURLWithTag:Url_Search_Suggest_Post tag:Tag_Search_Suggest Dictionary:dict];
+ 
 }
 
 - (void)postSearchSuggestWithKeyword:(NSString *)keyword {
@@ -108,9 +86,6 @@
     [self _postSearchSuggestWithDictionary:dict];
 }
 
-- (void)_postSearchPositionWithDictionary:(NSDictionary *)dict {
-    [self _postURLWithTag:Url_Search_Position_Post tag:Tag_Search_Position Dictionary:dict];
-}
 
 - (void)postSearchPositionWithKeyword:(NSString *)keyword WithPage:(NSInteger)page{
     NSDictionary *dict = nil;
@@ -136,14 +111,29 @@
 - (void)postPositionProfileWithDictionary:(NSDictionary *)dict {
     [self _postURLWithTag:Url_Position_Profile_Post tag:Tag_Position_Profile Dictionary:dict];
 }
+- (void)postPositionSelectWithID:(NSInteger)positionID {
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:positionID],@"pid", nil];
+    [self _postURLWithTag:Url_Position_Select_Post tag:Tag_Position_Select Dictionary:dict];
+}
 
 - (BOOL)isRequestSuccessWithFailCode:(id)responseObject {
     return NO;
-    if ([[responseObject objectForKey:@"c"] integerValue] == 200) {
-        return NO;
-    } else {
-        return YES;
-    }
+//    if ([[responseObject objectForKey:@"c"] integerValue] == 200) {
+//        return NO;
+//    } else {
+//        return YES;
+//    }
 }
 
+#pragma mark - private method
+- (void)_postSearchSuggestWithDictionary:(NSDictionary *)dict {
+    [self _postURLWithTag:Url_Search_Suggest_Post tag:Tag_Search_Suggest Dictionary:dict];
+}
+
+- (void)_postSearchPositionWithDictionary:(NSDictionary *)dict {
+    [self _postURLWithTag:Url_Search_Position_Post tag:Tag_Search_Position Dictionary:dict];
+}
+- (void)_postPositionSelectWithDictionary:(NSDictionary *)dict {
+    [self _postURLWithTag:Url_Position_Select_Post tag:Tag_Position_Select Dictionary:dict];
+}
 @end

@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UPCommonHelper.h"
 #import "UPDetailJobViewController.h"
+#import "UPEvaluateViewController.h"
 
 @interface UPIndexScrollViewController ()<UIScrollViewDelegate> {
     UIPageControl *_pageControl;
@@ -88,12 +89,13 @@
     
     [self addNotification];
 }
+
 #pragma mark - Notification
 - (void)addNotification {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentEnrollmentOrLoginViewController:) name:NotificationPopEnrollmentOrLoginViewController object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentEvaluateViewController:) name:@"BeginEvaluate" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentDetailJobViewController:) name:@"DetailJob" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentJobTypeViewController:) name:@"JobType" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentEvaluateViewController:) name:NotificationPopEvaluateViewController object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentDetailJobViewController:) name:NotificationPopDetailJobViewController object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentJobTypeViewController:) name:NotificationPopJobTypeViewController object:nil];
 }
 
 - (void)removeNotification {
@@ -103,12 +105,16 @@
 - (void)presentDetailJobViewController:(NSNotification *)notify {
     NSDictionary *dict = [notify userInfo];
     UPDetailJobViewController *detailJobViewController = [[UPDetailJobViewController alloc] init];
-    detailJobViewController.isShowHotImage = [[dict objectForKey:@"isShowHotImage"] boolValue];
-    detailJobViewController.positionTitle = [dict objectForKey:@"positionTitle"];
+    detailJobViewController.isShowHotImage = [[dict objectForKey:@"hot"] boolValue];
+    detailJobViewController.positionTitle = [dict objectForKey:@"position"];
+    detailJobViewController.rankNumber = [[dict objectForKey:@"rank"] integerValue];
+    detailJobViewController.requirements = [dict objectForKey:@"requirements"];
+    detailJobViewController.positionID = [[dict objectForKey:@"id"] integerValue];
+    
     NSString *description = [dict objectForKey:@"position_desc"];
     description = [description stringByReplacingOccurrencesOfString:@"-" withString:@"\u25cf "];
     detailJobViewController.positionDescription = description;
-    detailJobViewController.rankNumber = [[dict objectForKey:@"rank"] integerValue];
+    
     
     UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
     temporaryBarButtonItem.title = @"返回";
@@ -153,14 +159,17 @@
 }
 
 - (void)presentEvaluateViewController:(NSNotification *)notification {
+    
     UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
     temporaryBarButtonItem.title = @"取消评审";
     temporaryBarButtonItem.target = self;
     temporaryBarButtonItem.action = @selector(backTo:);
     self.navigationItem.backBarButtonItem = temporaryBarButtonItem;
     
-    id class = objc_getClass("UPEvaluateViewController");
-    id enrollmentViewController = [[class alloc] init];
+    NSDictionary *infoDict = [notification userInfo];
+    UPEvaluateViewController *evaluateViewController = [[UPEvaluateViewController alloc] init];
+    evaluateViewController.positionTitle = [infoDict objectForKey:@"positionTitle"];
+    evaluateViewController.positionID = [[infoDict objectForKey:@"pid"] integerValue];
     CATransition* transition = [CATransition animation];
     transition.duration = 0.5;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
@@ -168,7 +177,7 @@
     transition.subtype = kCATransitionFromTop;//可更改为其他方式
     [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];
     transition.delegate = self;
-    [self.navigationController pushViewController:enrollmentViewController animated:YES];
+    [self.navigationController pushViewController:evaluateViewController animated:YES];
 }
 
 

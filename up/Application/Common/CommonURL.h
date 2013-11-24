@@ -21,6 +21,7 @@
 #define Url_Search_Position_Post    @"position/search"
 #define Url_Search_Hot_Post         @"position/hot"
 #define Url_Position_Profile_Post   @"position/profile"
+#define Url_Position_Select_Post    @"position/select"
 
 #define Parameter_Search_Post_Keyword @"keyword"
 #endif

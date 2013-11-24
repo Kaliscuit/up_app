@@ -15,5 +15,7 @@
 @property (nonatomic) NSInteger rankNumber;
 @property (nonatomic, copy) NSString *positiionRequire;
 @property (nonatomic, assign) BOOL isShowHotImage;
+@property (nonatomic, copy) NSString *requirements;
+@property (nonatomic) NSInteger positionID;
 
 @end

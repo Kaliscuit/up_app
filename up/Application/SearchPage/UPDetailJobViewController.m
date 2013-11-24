@@ -108,8 +108,6 @@
     [_positionIntroduceLabel alignTop];
     [self.view addSubview:_positionIntroduceLabel];
     
-    //        [_positionIntroduceLabel release];
-    
     UIView *positionRequireView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, _positionIntroduceLabel.frame.origin.y + _positionIntroduceLabel.frame.size.height + 8.0f, SCREEN_WIDTH, 20.0f)];
     positionRequireView.layer.borderWidth = 0.5f;
     positionRequireView.layer.borderColor = [RGBCOLOR(200.0f, 199.0f, 204.0f) CGColor];
@@ -164,7 +162,7 @@
 
 - (void)onClickSelectJobButton:(UIButton *)sender {
     NSLog(@"应聘该职位");
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"BeginEvaluate" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPopEvaluateViewController object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:_positionID],@"pid",_positionTitle,@"positionTitle", nil]];
 }
 
 - (void)back:(id)sender {

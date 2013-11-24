@@ -107,7 +107,7 @@
 
 - (void)onClickKindButton:(UIButton *)sender {
     NSLog(@"分类");
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"JobType" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPopJobTypeViewController object:nil];
 }
 
 - (void)requestSearchPositionWithPage:(NSInteger)page {
@@ -153,8 +153,7 @@
     } else if ([tag integerValue] == Tag_Position_Profile) {
         NSLog(@"response : %@", responseObject);
         NSDictionary *responseDict = [[responseObject objectForKey:@"d"] objectForKey:@"profile"];
-        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[responseDict objectForKey:@"position"],@"positionTitle",[responseDict objectForKey:@"requirements"],@"requirements", nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"DetailJob" object:nil userInfo:dict];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPopDetailJobViewController object:nil userInfo:responseDict];
         
     }
 }

@@ -14,6 +14,6 @@
 @property (nonatomic, copy) NSString *questionStr;
 //@property (nonatomic, copy)
 
-- (void)updateQuestion:(NSString *)questionTitle atIndex:(NSInteger)index SectionA:(NSString *)sectionAString SectionB:(NSString *)sectionBString SectionC:(NSString *)sectionCString SectionD:(NSString *)sectionDString;
+//- (void)updateQuestion:(NSString *)questionTitle atIndex:(NSInteger)index SectionA:(NSString *)sectionAString SectionB:(NSString *)sectionBString SectionC:(NSString *)sectionCString SectionD:(NSString *)sectionDString;
 
 @end

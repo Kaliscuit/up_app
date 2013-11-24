@@ -11,4 +11,5 @@
 @interface UPEvaluateViewController : UIViewController
 
 @property (nonatomic, copy) NSString *positionTitle;
+@property (nonatomic) NSInteger positionID;
 @end

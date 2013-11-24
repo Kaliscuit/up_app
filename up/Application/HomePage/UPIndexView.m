@@ -76,7 +76,7 @@
 }
 
 - (void)_initNotification {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserName:) name:@"Nickname" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserName:) name:NotificationUpdateUsername object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldValueChanged:) name:UITextFieldTextDidChangeNotification object:_searchBar];
 }
 
@@ -201,6 +201,8 @@
     return NO;
 }
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+//    [[UPNetworkHelper sharedInstance] postProfileWithDictionary:nil];
+    
     if ([self isSearchBarEditStatus]) {
         [self isShowSearchPositionTableView:NO];
     } else {
@@ -269,8 +271,8 @@
         [_searchPositionResultTableView reloadData];
     } else if ([tag integerValue] == Tag_Position_Profile) {
         NSDictionary *responseDict = [[responseObject objectForKey:@"d"] objectForKey:@"profile"];
-        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[responseDict objectForKey:@"position"],@"positionTitle",[responseDict objectForKey:@"position_desc"],@"position_desc",[responseDict objectForKey:@"rank"],@"rank",[responseDict objectForKey:@"hot"],@"isShowHotImage", nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"DetailJob" object:nil userInfo:dict];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPopDetailJobViewController object:nil userInfo:responseDict];
       
     }
 }

@@ -42,7 +42,7 @@
     
      _pageControl = [[SMPageControl alloc] initWithFrame:CGRectMake(0, 280, 320, 40)];
     [_pageControl setNumberOfPages:10];
-    [_pageControl setCurrentPage:1];
+    [_pageControl setCurrentPage:0];
     [_pageControl setCurrentPageIndicatorImage:[UIImage imageNamed:@"icn_indicator_active.png"]];
     [self.view addSubview:_pageControl];
     

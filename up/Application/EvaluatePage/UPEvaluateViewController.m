@@ -9,7 +9,9 @@
 #import "UPEvaluateViewController.h"
 #import "CommonDefine.h"
 #import "UPEvaluateProcessViewController.h"
-@interface UPEvaluateViewController () {
+#import "UPNetworkHelper.h"
+
+@interface UPEvaluateViewController ()<UPNetworkHelperDelegate> {
     UILabel *_titleLabel;
 }
 
@@ -24,6 +26,13 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [UPNetworkHelper sharedInstance].delegate = self;
+    NSLog(@"fffsssssaaaa-->%d", _positionID);
+    [[UPNetworkHelper sharedInstance] postPositionSelectWithID:_positionID];
 }
 
 - (void)viewDidLoad
@@ -47,7 +56,8 @@
     
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 35, 280, 30)];
     [_titleLabel setFont:[UIFont systemFontOfSize:18]];
-    [_titleLabel setText:@"前端工程师"];
+    [_titleLabel setText:_positionTitle];
+    NSLog(@"kkk-->%@", _positionTitle);
     [_titleLabel setTextColor:BlackColor];
     [_titleLabel setBackgroundColor:ClearColor];
     [self.view addSubview:_titleLabel];
@@ -109,4 +119,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)requestSuccess:(NSDictionary *)responseObject withTag:(NSNumber *)tag {
+    if ([tag integerValue] == Tag_Position_Select) {
+        NSLog(@"fffffffssssss-->responseObject : %@", responseObject);
+    }
+}
+
+- (void)requestSuccessWithFailMessage:(NSString *)message withTag:(NSNumber *)tag {
+    
+}
+
+- (void)requestFail:(NSError *)error withTag:(NSNumber *)tag {
+    
+}
 @end

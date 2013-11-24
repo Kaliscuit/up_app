@@ -18,7 +18,7 @@
 #define Tag_Search_Position 7777717
 #define Tag_Search_Hot 7777718
 #define Tag_Position_Profile 7777719
-
+#define Tag_Position_Select 7777720
 @protocol UPNetworkHelperDelegate <NSObject>
 
 - (void)requestSuccess:(NSDictionary *)responseObject withTag:(NSNumber *)tag;
@@ -45,4 +45,5 @@
 
 - (void)postSearchPositionWithKeyword:(NSString *)keyword WithPage:(NSInteger)page;
 - (void)postSearchSuggestWithKeyword:(NSString *)keyword;
+- (void)postPositionSelectWithID:(NSInteger)positionID;
 @end
