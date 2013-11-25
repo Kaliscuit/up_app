@@ -10,5 +10,6 @@
 
 @interface UPEvaluateProcessViewController : UIViewController
 
-@property (nonatomic) NSInteger pageNumber;
+@property (nonatomic, weak) NSArray *dataArray;
+
 @end

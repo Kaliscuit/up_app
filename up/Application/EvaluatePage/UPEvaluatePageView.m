@@ -15,6 +15,7 @@
 @interface UPEvaluatePageView() {
     UILabel *_indexLabel;
     UILabel *_questionTitleLable;
+    NSDictionary *_dataDict;
 }
 
 @end
@@ -25,35 +26,71 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = BaseColor;
+        
         _indexLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 30, 10, 10)];
         [_indexLabel setBackgroundColor:ClearColor];
         [_indexLabel setTextColor:WhiteColor];
         [self addSubview: _indexLabel];
         
-        _questionTitleLable = [[UILabel alloc] initWithFrame:CGRectMake(_indexLabel.frame.origin.x + _indexLabel.frame.size.width, _indexLabel.frame.origin.y, SCREEN_WIDTH - _indexLabel.frame.origin.x * 2 - _indexLabel.frame.size.width, 80)];
+        _questionTitleLable = [[UILabel alloc] initWithFrame:CGRectMake(_indexLabel.frame.origin.x + _indexLabel.frame.size.width, _indexLabel.frame.origin.y, SCREEN_WIDTH - _indexLabel.frame.origin.x * 2 - _indexLabel.frame.size.width, 40)];
         [_questionTitleLable setBackgroundColor:ClearColor];
         [_questionTitleLable setTextColor:WhiteColor];
+       
         [self addSubview:_questionTitleLable];
         
-        UIButton *_button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_button setBackgroundColor:BaseColor];
-        [_button setFrame:CGRectMake(5, _questionTitleLable.frame.origin.y + _questionTitleLable.frame.size.height, 300, 40)];
-        [_button setImage:[UIImage imageNamed:@"icn_check_white.png"] forState:UIControlStateSelected];
-        [_button setImageEdgeInsets:UIEdgeInsetsMake(0, -5, 0, 0)];
-        [_button setTitle:@"A.我精通这个技能" forState:UIControlStateNormal];
-        [self addSubview:_button];
-
-        
-//        UPQuestionSectionButton *sectionButton = [[UPQuestionSectionButton alloc] initWithFrame:CGRectMake(5, _questionTitleLable.frame.origin.y + _questionTitleLable.frame.size.height, 310, 30)];
-//        [sectionButton updateIndexButton:1];
-//        [self addSubview:sectionButton];
         
     }
     return self;
 }
 
-//- (void)updateQuestion:(NSString *)questionTitle atIndex:(NSInteger)index SectionA:(NSString *)sectionAString SectionB:(NSString *)sectionBString SectionC:(NSString *)sectionCString SectionD:(NSString *)sectionDString {
-//    
-//}
+- (void)updateDataWithDictionary:(NSDictionary *)dict {
+    _dataDict = dict;
+    _questionTitleLable.text = [[dict objectForKey:@"question"] objectForKey:@"question"];
+    @autoreleasepool {
+        for (int i = 0; i < [[dict objectForKey:@"options"] count]; i++) {
+            NSString *index = nil;
+            switch (i) {
+                case 0:
+                    index = @"A. ";
+                    break;
+                case 1:
+                    index = @"B. ";
+                    break;
+                case 2:
+                    index = @"C. ";
+                    break;
+                case 3:
+                    index = @"D. ";
+                    break;
+                default:
+                    break;
+            }
+            NSArray *optionArr = [dict objectForKey:@"options"];
+            UIButton *_button = [UIButton buttonWithType:UIButtonTypeCustom];
+            [_button setTitleColor:WhiteColor forState:UIControlStateNormal];
+            [_button setFrame:CGRectMake(40, _questionTitleLable.frame.origin.y + _questionTitleLable.frame.size.height + i*40, 240, 40)];
+            NSLog(@"Button Frame : %@", NSStringFromCGRect(_button.frame));
+            [_button setImage:[UIImage imageNamed:@"icn_check_white.png"] forState:UIControlStateSelected];
+            [_button setTag:7777+i];
+            [_button setImageEdgeInsets:UIEdgeInsetsMake(0, -5, 0, 0)];
+            [_button setTitle:[index stringByAppendingString:[[optionArr objectAtIndex:i] objectForKey:@"option"]] forState:UIControlStateNormal];
+            [_button setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+            _button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            [_button addTarget:self action:@selector(onClickSection:) forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:_button];
+        }
+    }
+}
+
+- (void)onClickSection:(UIButton *)sender {
+    [self hideAllButtonSelectedStatus];
+    sender.selected = YES;
+}
+
+- (void)hideAllButtonSelectedStatus {
+    for (int i = 0; i < [[_dataDict objectForKey:@"options"] count]; i++) {
+        ((UIButton *)[self viewWithTag:7777+i]).selected = NO;
+    }
+}
 
 @end

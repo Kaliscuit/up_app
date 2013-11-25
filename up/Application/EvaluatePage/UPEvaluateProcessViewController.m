@@ -14,6 +14,8 @@
 @interface UPEvaluateProcessViewController ()<UIScrollViewDelegate> {
     UIScrollView *_scrollView;
     SMPageControl *_pageControl;
+    
+    NSInteger _pageNumber;
 }
 
 @end
@@ -32,32 +34,31 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = BaseColor;
-    _pageNumber = 10;
+    self.view.backgroundColor = ClearColor;
+    _pageNumber = [_dataArray count];
     
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+    _scrollView.delegate = self;
+    _scrollView.pagingEnabled = YES;
+    [_scrollView setBackgroundColor:ClearColor];
     [_scrollView setContentSize:CGSizeMake((_pageNumber * SCREEN_WIDTH), _scrollView.frame.size.height)];
     [self.view addSubview:_scrollView];
-    _scrollView.delegate = self;
+
     
-     _pageControl = [[SMPageControl alloc] initWithFrame:CGRectMake(0, 280, 320, 40)];
+    @autoreleasepool {
+        for (int i = 0; i < _pageNumber; i++) {
+            UPEvaluatePageView *pageView = [[UPEvaluatePageView alloc] initWithFrame:CGRectMake(i * SCREEN_WIDTH, self.view.frame.origin.y, SCREEN_WIDTH, self.view.frame.size.height)];
+            [pageView updateDataWithDictionary:[_dataArray objectAtIndex:i]];
+            [_scrollView addSubview:pageView];
+        }
+    }
+    
+     _pageControl = [[SMPageControl alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 66- 50, 320, 40)];
     [_pageControl setNumberOfPages:10];
     [_pageControl setCurrentPage:0];
     [_pageControl setCurrentPageIndicatorImage:[UIImage imageNamed:@"icn_indicator_active.png"]];
     [self.view addSubview:_pageControl];
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 100, 320, 50)];
-    [button setBackgroundColor:[UIColor whiteColor]];
-    [button setTitle:@"评估完成" forState:UIControlStateNormal];
-    [button setTitleColor:BlackColor forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(onClickButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];
-    
-}
-
-- (void)onClickButton:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"探索之路结束了" message:@"你看到的这个屏都没做呢\n不要再看了，嘿，说你哟" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    [alert show];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

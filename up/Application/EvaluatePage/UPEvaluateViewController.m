@@ -13,6 +13,7 @@
 
 @interface UPEvaluateViewController ()<UPNetworkHelperDelegate> {
     UILabel *_titleLabel;
+    NSArray *_surveyArray;
 }
 
 @end
@@ -38,6 +39,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
@@ -92,15 +94,21 @@
 
 - (void)onClickBeginEvaluateButton:(id)sender {
     NSLog(@"开始评估");
+    if (_surveyArray == nil) {
+        NSLog(@"没有数据不能开始评估");
+    }
+    
+    
+    
     UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
     temporaryBarButtonItem.title = @"重新选择";
     temporaryBarButtonItem.target = self;
     temporaryBarButtonItem.action = @selector(backEvaluateBeginController);
     self.navigationItem.backBarButtonItem = temporaryBarButtonItem;
-   
     
     self.navigationController.navigationBar.translucent = NO;
     UPEvaluateProcessViewController *evaluateProcessViewController = [[UPEvaluateProcessViewController alloc] init];
+    evaluateProcessViewController.dataArray = _surveyArray;
     [self.navigationController pushViewController:evaluateProcessViewController animated:YES];
 }
 
@@ -121,7 +129,8 @@
 
 - (void)requestSuccess:(NSDictionary *)responseObject withTag:(NSNumber *)tag {
     if ([tag integerValue] == Tag_Position_Select) {
-        NSLog(@"fffffffssssss-->responseObject : %@", responseObject);
+        NSLog(@"ddddssss--->%@", [[[responseObject objectForKey:@"d"] objectForKey:@"survey"] class]);
+        _surveyArray = [[NSArray alloc] initWithArray:[[responseObject objectForKey:@"d"] objectForKey:@"survey"]];
     }
 }
 
