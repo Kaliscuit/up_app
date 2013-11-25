@@ -10,6 +10,7 @@
 #import "UPIndexScrollViewController.h"
 #import "UPCommonHelper.h"
 #import "MobClick.h"
+#import "Flurry.h"
 
 @implementation UPAppDelegate
 @synthesize indexScrollViewController = _indexScrollViewController;
@@ -25,6 +26,9 @@
 {
     [MobClick startWithAppkey:UMongAppKey];
     [MobClick setLogEnabled:YES];
+    
+    [Flurry startSession:FlurryAppkey];
+    [Flurry setDebugLogEnabled:YES];
     
     _indexScrollViewController = [[UPIndexScrollViewController alloc] init];
     

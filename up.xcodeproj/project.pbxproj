@@ -20,6 +20,7 @@
 		A856225D183BC2510000A8EE /* UILabel+VerticalAlign.m in Sources */ = {isa = PBXBuildFile; fileRef = A856225C183BC2510000A8EE /* UILabel+VerticalAlign.m */; };
 		A8622B301843924200E03E86 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A8622B2F1843924200E03E86 /* libz.dylib */; };
 		A8622B321843946400E03E86 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8622B311843946400E03E86 /* libMobClickLibrary.a */; };
+		A8622B3518439BC700E03E86 /* libFlurry_4.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8622B3418439BC700E03E86 /* libFlurry_4.3.0.a */; };
 		A868318F18281BE0005D4375 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A868319118281BE0005D4375 /* Localizable.strings */; };
 		A87B097A182F63380064A8E9 /* UPCommonHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B0937182F63380064A8E9 /* UPCommonHelper.m */; };
 		A87B097C182F63380064A8E9 /* UPNetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B093B182F63380064A8E9 /* UPNetworkHelper.m */; };
@@ -98,6 +99,8 @@
 		A856225C183BC2510000A8EE /* UILabel+VerticalAlign.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+VerticalAlign.m"; sourceTree = "<group>"; };
 		A8622B2F1843924200E03E86 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		A8622B311843946400E03E86 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		A8622B3318439BC700E03E86 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Flurry.h; path = ../../../../Flurry.h; sourceTree = "<group>"; };
+		A8622B3418439BC700E03E86 /* libFlurry_4.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_4.3.0.a; sourceTree = "<group>"; };
 		A868319018281BE0005D4375 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A868319218281C3F005D4375 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A868319318281C3F005D4375 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -193,6 +196,7 @@
 				A8906E261821938C00F0D3B8 /* libsqlite3.dylib in Frameworks */,
 				A8D113B0181EBE31001385FE /* CoreGraphics.framework in Frameworks */,
 				A8D113B2181EBE31001385FE /* UIKit.framework in Frameworks */,
+				A8622B3518439BC700E03E86 /* libFlurry_4.3.0.a in Frameworks */,
 				A8622B321843946400E03E86 /* libMobClickLibrary.a in Frameworks */,
 				A8D113AE181EBE31001385FE /* Foundation.framework in Frameworks */,
 			);
@@ -236,6 +240,14 @@
 				A81C2E80183E56E300BAA952 /* SMPageControl.m */,
 			);
 			path = SMPageControl;
+			sourceTree = "<group>";
+		};
+		A8622B3618439BEB00E03E86 /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				A8622B3318439BC700E03E86 /* Flurry.h */,
+			);
+			path = Flurry;
 			sourceTree = "<group>";
 		};
 		A868318C18281B5A005D4375 /* Resource */ = {
@@ -353,6 +365,7 @@
 		A87B0957182F63380064A8E9 /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				A8622B3618439BEB00E03E86 /* Flurry */,
 				A8E8BDA6184264A20042FF51 /* UMeng */,
 				A81C2E7E183E56E300BAA952 /* SMPageControl */,
 				A87B0958182F63380064A8E9 /* AFNetworking */,
@@ -438,6 +451,7 @@
 		A8D113AC181EBE31001385FE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A8622B3418439BC700E03E86 /* libFlurry_4.3.0.a */,
 				A8622B311843946400E03E86 /* libMobClickLibrary.a */,
 				A8622B2F1843924200E03E86 /* libz.dylib */,
 				A83C9BEC182C07A200D8F644 /* QuartzCore.framework */,
