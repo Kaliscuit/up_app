@@ -10,13 +10,12 @@
 #define up_CommonDefine_h
 
 #define BaseColor [UIColor colorWithRed:46.0f/255.0f green:204.0f/255.0f blue:113.0f/255.0f alpha:1.0]
+
 #define ClearColor [UIColor clearColor]
 #define WhiteColor [UIColor whiteColor]
 #define GrayColor [UIColor grayColor]
 #define BlackColor [UIColor blackColor]
 #define BlueColor [UIColor blueColor]
-
-#define SAFE_RELEASE(x) {[x release]; x = nil; }
 
 #define isIPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 

@@ -18,6 +18,8 @@
 		A84C4690183132E2004A71B0 /* UPEvaluateProcessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C468F183132E2004A71B0 /* UPEvaluateProcessViewController.m */; };
 		A856225A183BA5BA0000A8EE /* UPRotatePieView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8562259183BA5BA0000A8EE /* UPRotatePieView.m */; };
 		A856225D183BC2510000A8EE /* UILabel+VerticalAlign.m in Sources */ = {isa = PBXBuildFile; fileRef = A856225C183BC2510000A8EE /* UILabel+VerticalAlign.m */; };
+		A8622B301843924200E03E86 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A8622B2F1843924200E03E86 /* libz.dylib */; };
+		A8622B321843946400E03E86 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8622B311843946400E03E86 /* libMobClickLibrary.a */; };
 		A868318F18281BE0005D4375 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A868319118281BE0005D4375 /* Localizable.strings */; };
 		A87B097A182F63380064A8E9 /* UPCommonHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B0937182F63380064A8E9 /* UPCommonHelper.m */; };
 		A87B097C182F63380064A8E9 /* UPNetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B093B182F63380064A8E9 /* UPNetworkHelper.m */; };
@@ -94,6 +96,8 @@
 		A8562259183BA5BA0000A8EE /* UPRotatePieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPRotatePieView.m; sourceTree = "<group>"; };
 		A856225B183BC2510000A8EE /* UILabel+VerticalAlign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+VerticalAlign.h"; sourceTree = "<group>"; };
 		A856225C183BC2510000A8EE /* UILabel+VerticalAlign.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+VerticalAlign.m"; sourceTree = "<group>"; };
+		A8622B2F1843924200E03E86 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		A8622B311843946400E03E86 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		A868319018281BE0005D4375 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A868319218281C3F005D4375 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A868319318281C3F005D4375 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -176,6 +180,7 @@
 		A8D113D7181EBE31001385FE /* upTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "upTests-Info.plist"; sourceTree = "<group>"; };
 		A8D113D9181EBE31001385FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A8D113DB181EBE31001385FE /* upTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = upTests.m; sourceTree = "<group>"; };
+		A8E8BDA3184264760042FF51 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MobClick.h; path = ../../../../MobClick.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,10 +188,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8622B301843924200E03E86 /* libz.dylib in Frameworks */,
 				A83C9BED182C07A200D8F644 /* QuartzCore.framework in Frameworks */,
 				A8906E261821938C00F0D3B8 /* libsqlite3.dylib in Frameworks */,
 				A8D113B0181EBE31001385FE /* CoreGraphics.framework in Frameworks */,
 				A8D113B2181EBE31001385FE /* UIKit.framework in Frameworks */,
+				A8622B321843946400E03E86 /* libMobClickLibrary.a in Frameworks */,
 				A8D113AE181EBE31001385FE /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -346,6 +353,7 @@
 		A87B0957182F63380064A8E9 /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				A8E8BDA6184264A20042FF51 /* UMeng */,
 				A81C2E7E183E56E300BAA952 /* SMPageControl */,
 				A87B0958182F63380064A8E9 /* AFNetworking */,
 				A87B096C182F63380064A8E9 /* FMDB */,
@@ -430,6 +438,8 @@
 		A8D113AC181EBE31001385FE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A8622B311843946400E03E86 /* libMobClickLibrary.a */,
+				A8622B2F1843924200E03E86 /* libz.dylib */,
 				A83C9BEC182C07A200D8F644 /* QuartzCore.framework */,
 				A8906E251821938C00F0D3B8 /* libsqlite3.dylib */,
 				A8906E231821916A00F0D3B8 /* libsqlite3.0.dylib */,
@@ -477,6 +487,14 @@
 				A8D113D8181EBE31001385FE /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A8E8BDA6184264A20042FF51 /* UMeng */ = {
+			isa = PBXGroup;
+			children = (
+				A8E8BDA3184264760042FF51 /* MobClick.h */,
+			);
+			path = UMeng;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -768,6 +786,10 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				INFOPLIST_FILE = "up/up-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/joy/Developer/Github/up_app,
+				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -798,6 +820,10 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				INFOPLIST_FILE = "up/up-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/joy/Developer/Github/up_app,
+				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

@@ -9,6 +9,8 @@
 #import "UPAppDelegate.h"
 #import "UPIndexScrollViewController.h"
 #import "UPCommonHelper.h"
+#import "MobClick.h"
+
 @implementation UPAppDelegate
 @synthesize indexScrollViewController = _indexScrollViewController;
 @synthesize indexScrollNavigationController = _indexScrollNavigationController;
@@ -21,6 +23,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [MobClick startWithAppkey:UMongAppKey];
+    [MobClick setLogEnabled:YES];
+    
     _indexScrollViewController = [[UPIndexScrollViewController alloc] init];
     
     _indexScrollNavigationController = [[UINavigationController alloc] initWithRootViewController:_indexScrollViewController];

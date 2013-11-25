@@ -9,6 +9,6 @@
 #ifndef up_CommonKey_h
 #define up_CommonKey_h
 
-
+#define UMongAppKey @"52922c5356240b69f5183d58"
 
 #endif
