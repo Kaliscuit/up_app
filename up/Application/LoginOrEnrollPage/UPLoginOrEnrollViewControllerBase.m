@@ -105,7 +105,7 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self onClickNextStepButton:nil];
+    [self performSelector:@selector(onClickNextStepButton:) withObject:nil];
     return YES;
 }
 

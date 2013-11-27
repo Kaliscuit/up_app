@@ -162,8 +162,15 @@
 
 - (void)onClickSelectJobButton:(UIButton *)sender {
     NSLog(@"应聘该职位");
-    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPopEvaluateViewController object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:_positionID],@"pid",_positionTitle,@"positionTitle", nil]];
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"UserID"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPopEvaluateViewController object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:_positionID],@"pid",_positionTitle,@"positionTitle", nil]];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"没登陆" message:@"没登陆" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:Nil, nil];
+        [alert show];
+    }
 }
+
+
 
 - (void)back:(id)sender {
     NSLog(@"1111");

@@ -20,6 +20,7 @@
         _label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         [_label setBackgroundColor:[UIColor clearColor]];
         [_label setFont:[UIFont systemFontOfSize:14]];
+        [_label setLineBreakMode:NSLineBreakByCharWrapping];
         [_label setTextAlignment:NSTextAlignmentCenter];
         [_label setTextColor:WhiteColor];
         [self addSubview:_label];

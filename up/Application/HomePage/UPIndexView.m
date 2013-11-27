@@ -15,7 +15,7 @@
 #define SearchBarHeight (50.0f)
 
 
-#define SearchBarInitFrame CGRectMake(35, 250, 248, 30)
+#define SearchBarInitFrame CGRectMake(35, 250, 248, 40)
 #define SearchBarEditFrame CGRectMake(10, 24, 248, 30)
 
 #define isClassEqual(x, y) ([[x class] isEqual:[y class]])?YES:NO
@@ -49,6 +49,7 @@
         NSLog(@"%s", __PRETTY_FUNCTION__);
         
         self.backgroundColor = BaseColor;
+//        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icn_user_default.png"]];
         [UPNetworkHelper sharedInstance].delegate = self;
         
         [self _initData];
@@ -96,6 +97,7 @@
     } else {
         [self _updateUserName:nil];
     }
+    [_accountButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [_accountButton setBackgroundColor:WhiteColor];
     [_accountButton addTarget:self action:@selector(onClickAccountButton:) forControlEvents:UIControlEventTouchUpInside];
     _accountButton.layer.masksToBounds = YES;
@@ -148,10 +150,11 @@
     if (userName.length > 0) {
         [_accountButton setImage:[UIImage imageNamed:@"icn_user_default_highlight.png"] forState:UIControlStateNormal];
         [_accountButton setTitle:userName forState:UIControlStateNormal];
-        [_accountButton setTitleColor:RGBCOLOR(10.0f, 95.0f, 255.0f) forState:UIControlStateNormal];
+        [_accountButton setTitleColor:RGBCOLOR(46.0f, 204.0f, 113.0f) forState:UIControlStateNormal];
         [_accountButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
     } else {
         [_accountButton setTitleColor:ColorWithWhite(179.0f) forState:UIControlStateNormal];
+
         [_accountButton setTitle:@"未登录" forState:UIControlStateNormal];
         [_accountButton setImage:[UIImage imageNamed:@"icn_user_default.png"] forState:UIControlStateNormal];
         [_accountButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];

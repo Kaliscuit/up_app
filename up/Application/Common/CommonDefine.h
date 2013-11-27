@@ -9,7 +9,7 @@
 #ifndef up_CommonDefine_h
 #define up_CommonDefine_h
 
-#define BaseColor [UIColor colorWithRed:46.0f/255.0f green:204.0f/255.0f blue:113.0f/255.0f alpha:1.0]
+#define BaseColor [UIColor colorWithRed:41.0f/255.0f green:128.0f/255.0f blue:185.0f/255.0f alpha:1.0]
 
 #define ClearColor [UIColor clearColor]
 #define WhiteColor [UIColor whiteColor]

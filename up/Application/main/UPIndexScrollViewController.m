@@ -160,12 +160,6 @@
 
 - (void)presentEvaluateViewController:(NSNotification *)notification {
     
-    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
-    temporaryBarButtonItem.title = @"取消评审";
-    temporaryBarButtonItem.target = self;
-    temporaryBarButtonItem.action = @selector(backTo:);
-    self.navigationItem.backBarButtonItem = temporaryBarButtonItem;
-    
     NSDictionary *infoDict = [notification userInfo];
     UPEvaluateViewController *evaluateViewController = [[UPEvaluateViewController alloc] init];
     evaluateViewController.positionTitle = [infoDict objectForKey:@"positionTitle"];

@@ -52,6 +52,7 @@
 		A87B09A1182FA9850064A8E9 /* UPQuestionSectionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B09A0182FA9850064A8E9 /* UPQuestionSectionButton.m */; };
 		A8812A881833E4B4006EAA1E /* UPUserItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A8812A871833E4B4006EAA1E /* UPUserItem.m */; };
 		A8906E261821938C00F0D3B8 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A8906E251821938C00F0D3B8 /* libsqlite3.dylib */; };
+		A892561B1846654600A195EF /* UPTopPositionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A892561A1846654600A195EF /* UPTopPositionTableViewCell.m */; };
 		A8D113AE181EBE31001385FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D113AD181EBE31001385FE /* Foundation.framework */; };
 		A8D113B0181EBE31001385FE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D113AF181EBE31001385FE /* CoreGraphics.framework */; };
 		A8D113B2181EBE31001385FE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D113B1181EBE31001385FE /* UIKit.framework */; };
@@ -170,6 +171,8 @@
 		A8812A871833E4B4006EAA1E /* UPUserItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPUserItem.m; sourceTree = "<group>"; };
 		A8906E231821916A00F0D3B8 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		A8906E251821938C00F0D3B8 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		A89256191846654600A195EF /* UPTopPositionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPTopPositionTableViewCell.h; sourceTree = "<group>"; };
+		A892561A1846654600A195EF /* UPTopPositionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPTopPositionTableViewCell.m; sourceTree = "<group>"; };
 		A8D113AA181EBE31001385FE /* up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = up.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8D113AD181EBE31001385FE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A8D113AF181EBE31001385FE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -358,6 +361,8 @@
 				A8065B861836336A00AFE71E /* UPSearchTableViewCell.m */,
 				A8065B88183659A400AFE71E /* UPJobTypeViewController.h */,
 				A8065B89183659A400AFE71E /* UPJobTypeViewController.m */,
+				A89256191846654600A195EF /* UPTopPositionTableViewCell.h */,
+				A892561A1846654600A195EF /* UPTopPositionTableViewCell.m */,
 			);
 			path = SearchPage;
 			sourceTree = "<group>";
@@ -561,6 +566,11 @@
 				TargetAttributes = {
 					A8D113A9181EBE31001385FE = {
 						DevelopmentTeam = D2NUVPE727;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					A8D113CD181EBE31001385FE = {
 						TestTargetID = A8D113A9181EBE31001385FE;
@@ -652,6 +662,7 @@
 				A87B099B182F65210064A8E9 /* UPEvaluateViewController.m in Sources */,
 				A8812A881833E4B4006EAA1E /* UPUserItem.m in Sources */,
 				A87B0996182F63380064A8E9 /* FMDatabaseQueue.m in Sources */,
+				A892561B1846654600A195EF /* UPTopPositionTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

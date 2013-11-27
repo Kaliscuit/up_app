@@ -209,18 +209,18 @@
     if ([tag integerValue]== Tag_Login) { // 登录成功
         NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[userProfile objectForKey:@"name"],@"Nickname", nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:NotificationUpdateUsername object:nil userInfo:dict];
-    
-        [self.navigationController popToRootViewControllerAnimated:YES];
     } else if ([tag integerValue]== Tag_Enroll){ // 注册成功
         [[NSNotificationCenter defaultCenter] postNotificationName:NotificationUpdateUsername object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.textFieldName.text,@"Nickname", nil]];
-        [self.navigationController popToRootViewControllerAnimated:YES];
     } else {
         NSLog(@"登陆注册第二阶段出错");
+        return;
     }
     
     [[NSUserDefaults standardUserDefaults] setValue:user.userid forKey:@"UserID"];
     [[NSUserDefaults standardUserDefaults] setValue:user.name forKey:@"UserName"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)requestFail:(NSError *)error withTag:(NSNumber *)tag{

@@ -32,7 +32,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [UPNetworkHelper sharedInstance].delegate = self;
-    NSLog(@"fffsssssaaaa-->%d", _positionID);
+    NSLog(@"fffsssssaaaa-->%ld", (long)_positionID);
     [[UPNetworkHelper sharedInstance] postPositionSelectWithID:_positionID];
 }
 
