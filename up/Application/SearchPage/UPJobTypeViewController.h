@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UPJobTypeViewController : UIViewController
+@interface UPJobTypeViewController : UITableViewController
 
 @end

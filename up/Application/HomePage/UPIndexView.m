@@ -276,8 +276,8 @@
         NSDictionary *responseDict = [[responseObject objectForKey:@"d"] objectForKey:@"profile"];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPopDetailJobViewController object:nil userInfo:responseDict];
-      
     }
+    [[UIApplication sharedApplication] performSelector:@selector(endIgnoringInteractionEvents) withObject:nil afterDelay:0.5];
 }
 
 - (void)requestFail:(NSError *)error withTag:(NSNumber *)tag {
@@ -286,6 +286,7 @@
     } else if ([tag integerValue] == Tag_Search_Position) {
         
     }
+    [[UIApplication sharedApplication] performSelector:@selector(endIgnoringInteractionEvents) withObject:nil afterDelay:0.5];
 }
 
 - (void)requestSuccessWithFailMessage:(NSString *)message withTag:(NSNumber *)tag {
@@ -294,6 +295,7 @@
 
 #pragma mark - TableViewDelegate & TableViewDataSource
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     if ([tableView isEqual:_searchSuggestResultTableView]) {
         UITableViewCell *cell = [_searchSuggestResultTableView cellForRowAtIndexPath:indexPath];
         NSString *str = ((UILabel *)[cell viewWithTag:17888]).text;
@@ -302,13 +304,15 @@
         }
         NSLog(@"点击搜索职位 ：%@", str);
         _searchBar.text = str;
+//        if ([_searchPositionResultArray count] > 0) {
+//            [_searchPositionResultArray removeAllObjects];
+//        }
         [[UPNetworkHelper sharedInstance] postSearchSuggestWithKeyword:_searchBar.text];
         [[UPNetworkHelper sharedInstance] postSearchPositionWithKeyword:_searchBar.text WithPage:0];
         [_searchBar resignFirstResponder];
         
         [self isShowSearchPositionTableView:YES];
     } else if ([tableView isEqual:_searchPositionResultTableView]) {
-        
         [UPNetworkHelper sharedInstance].delegate = self;
         NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[[_searchPositionResultArray objectAtIndex:indexPath.row] objectForKey:@"id"],@"pid", nil];
         [[UPNetworkHelper sharedInstance] postPositionProfileWithDictionary:dict];

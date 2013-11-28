@@ -130,19 +130,9 @@
 }
 
 - (void)presentJobTypeViewController:(NSNotification *)notification {
-    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
-    temporaryBarButtonItem.title = @"返回";
-    temporaryBarButtonItem.tintColor = [UIColor redColor];
-    temporaryBarButtonItem.target = self;
-    temporaryBarButtonItem.action = @selector(back:);
-    self.navigationItem.backBarButtonItem = temporaryBarButtonItem;
-  
-    
     id class = objc_getClass("UPJobTypeViewController");
     id enrollmentViewController = [[class alloc] init];
     [self.navigationController pushViewController:enrollmentViewController animated:YES];
-
-
 }
 
 - (void)presentEnrollmentOrLoginViewController:(NSNotification *)notification {

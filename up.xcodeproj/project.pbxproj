@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		A8065B811835E28E00AFE71E /* UPIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8065B801835E28E00AFE71E /* UPIndexView.m */; };
 		A8065B841835E76100AFE71E /* UPMoreSearchResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8065B831835E76100AFE71E /* UPMoreSearchResultView.m */; };
-		A8065B871836336A00AFE71E /* UPSearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A8065B861836336A00AFE71E /* UPSearchTableViewCell.m */; };
 		A8065B8A183659A400AFE71E /* UPJobTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8065B89183659A400AFE71E /* UPJobTypeViewController.m */; };
 		A8065B8D18365E3300AFE71E /* UPDetailJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8065B8C18365E3300AFE71E /* UPDetailJobViewController.m */; };
+		A81B5D871847A4060058537E /* UPAllPositionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A81B5D861847A4060058537E /* UPAllPositionTableViewCell.m */; };
 		A81C2E81183E56E300BAA952 /* SMPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A81C2E80183E56E300BAA952 /* SMPageControl.m */; };
 		A83C9BED182C07A200D8F644 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A83C9BEC182C07A200D8F644 /* QuartzCore.framework */; };
 		A84169CE1837480600A0C5E7 /* UPAlertTipLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A84169CD1837480600A0C5E7 /* UPAlertTipLabel.m */; };
@@ -81,12 +81,12 @@
 		A8065B801835E28E00AFE71E /* UPIndexView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UPIndexView.m; path = ../HomePage/UPIndexView.m; sourceTree = "<group>"; };
 		A8065B821835E76100AFE71E /* UPMoreSearchResultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPMoreSearchResultView.h; sourceTree = "<group>"; };
 		A8065B831835E76100AFE71E /* UPMoreSearchResultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPMoreSearchResultView.m; sourceTree = "<group>"; };
-		A8065B851836336A00AFE71E /* UPSearchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPSearchTableViewCell.h; sourceTree = "<group>"; };
-		A8065B861836336A00AFE71E /* UPSearchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPSearchTableViewCell.m; sourceTree = "<group>"; };
 		A8065B88183659A400AFE71E /* UPJobTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPJobTypeViewController.h; sourceTree = "<group>"; };
 		A8065B89183659A400AFE71E /* UPJobTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPJobTypeViewController.m; sourceTree = "<group>"; };
 		A8065B8B18365E3300AFE71E /* UPDetailJobViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPDetailJobViewController.h; sourceTree = "<group>"; };
 		A8065B8C18365E3300AFE71E /* UPDetailJobViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPDetailJobViewController.m; sourceTree = "<group>"; };
+		A81B5D851847A4060058537E /* UPAllPositionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPAllPositionTableViewCell.h; path = ../UPAllPositionTableViewCell.h; sourceTree = "<group>"; };
+		A81B5D861847A4060058537E /* UPAllPositionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UPAllPositionTableViewCell.m; path = ../UPAllPositionTableViewCell.m; sourceTree = "<group>"; };
 		A81C2E7F183E56E300BAA952 /* SMPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPageControl.h; sourceTree = "<group>"; };
 		A81C2E80183E56E300BAA952 /* SMPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPageControl.m; sourceTree = "<group>"; };
 		A83C9BEC182C07A200D8F644 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -171,8 +171,8 @@
 		A8812A871833E4B4006EAA1E /* UPUserItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPUserItem.m; sourceTree = "<group>"; };
 		A8906E231821916A00F0D3B8 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		A8906E251821938C00F0D3B8 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		A89256191846654600A195EF /* UPTopPositionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPTopPositionTableViewCell.h; sourceTree = "<group>"; };
-		A892561A1846654600A195EF /* UPTopPositionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPTopPositionTableViewCell.m; sourceTree = "<group>"; };
+		A89256191846654600A195EF /* UPTopPositionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPTopPositionTableViewCell.h; path = ../UPTopPositionTableViewCell.h; sourceTree = "<group>"; };
+		A892561A1846654600A195EF /* UPTopPositionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UPTopPositionTableViewCell.m; path = ../UPTopPositionTableViewCell.m; sourceTree = "<group>"; };
 		A8D113AA181EBE31001385FE /* up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = up.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8D113AD181EBE31001385FE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A8D113AF181EBE31001385FE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -234,6 +234,17 @@
 				A87B094F182F63380064A8E9 /* UPIndexScrollViewController.m */,
 			);
 			path = HomePage;
+			sourceTree = "<group>";
+		};
+		A81B5D881847BB0B0058537E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A81B5D851847A4060058537E /* UPAllPositionTableViewCell.h */,
+				A81B5D861847A4060058537E /* UPAllPositionTableViewCell.m */,
+				A89256191846654600A195EF /* UPTopPositionTableViewCell.h */,
+				A892561A1846654600A195EF /* UPTopPositionTableViewCell.m */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		A81C2E7E183E56E300BAA952 /* SMPageControl */ = {
@@ -351,18 +362,15 @@
 		A87B0950182F63380064A8E9 /* SearchPage */ = {
 			isa = PBXGroup;
 			children = (
+				A81B5D881847BB0B0058537E /* Cell */,
 				A8065B7F1835E28E00AFE71E /* UPIndexView.h */,
 				A8065B801835E28E00AFE71E /* UPIndexView.m */,
 				A8065B8B18365E3300AFE71E /* UPDetailJobViewController.h */,
 				A8065B8C18365E3300AFE71E /* UPDetailJobViewController.m */,
 				A8065B821835E76100AFE71E /* UPMoreSearchResultView.h */,
 				A8065B831835E76100AFE71E /* UPMoreSearchResultView.m */,
-				A8065B851836336A00AFE71E /* UPSearchTableViewCell.h */,
-				A8065B861836336A00AFE71E /* UPSearchTableViewCell.m */,
 				A8065B88183659A400AFE71E /* UPJobTypeViewController.h */,
 				A8065B89183659A400AFE71E /* UPJobTypeViewController.m */,
-				A89256191846654600A195EF /* UPTopPositionTableViewCell.h */,
-				A892561A1846654600A195EF /* UPTopPositionTableViewCell.m */,
 			);
 			path = SearchPage;
 			sourceTree = "<group>";
@@ -644,8 +652,8 @@
 				A87B09A1182FA9850064A8E9 /* UPQuestionSectionButton.m in Sources */,
 				A87B0993182F63380064A8E9 /* FMDatabase.m in Sources */,
 				A87B0985182F63380064A8E9 /* UPIndexScrollViewController.m in Sources */,
+				A81B5D871847A4060058537E /* UPAllPositionTableViewCell.m in Sources */,
 				A8065B811835E28E00AFE71E /* UPIndexView.m in Sources */,
-				A8065B871836336A00AFE71E /* UPSearchTableViewCell.m in Sources */,
 				A87B097A182F63380064A8E9 /* UPCommonHelper.m in Sources */,
 				A87B0980182F63380064A8E9 /* UPLoginOrEnrollViewControllerBase.m in Sources */,
 				A87B0984182F63380064A8E9 /* UPAppDelegate.m in Sources */,

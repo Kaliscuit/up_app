@@ -23,29 +23,42 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationItem.hidesBackButton = YES;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
+    self.edgesForExtendedLayout = UIRectEdgeNone;
 
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(onClickYesBarItem:)];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(onClickCancelBarItem:)];
     self.navigationItem.rightBarButtonItem =item;
+    self.navigationItem.rightBarButtonItem.tintColor = GrayColor;
     
     self.title = @"类别";
     [self.navigationController setNavigationBarHidden:NO];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-	// Do any additional setup after loading the view.
+	
 }
 
-- (void)onClickYesBarItem:(id)sender {
-    NSLog(@"确定");
+- (void)onClickCancelBarItem:(id)sender {
+    [self.navigationController popViewControllerAnimated:NO];
 }
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"JobTypeCell"];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"JobTypeCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        UIImageView *iconView = [[UIImageView alloc] initWithFrame:CGRectMake(10.0f, (cell.frame.size.height - 30.0f) / 2 , 30.0f, 30.0f)];
+        
+    }
+    return cell;
 }
 
 @end

@@ -11,6 +11,7 @@
 #import "UPSearchBar.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UPTopPositionTableViewCell.h"
+#import "UPAllPositionTableViewCell.h"
 
 @interface UPMoreSearchResultView ()<UITableViewDataSource, UITableViewDelegate, UPNetworkHelperDelegate> {
     NSInteger _allPositionCount;
@@ -47,6 +48,7 @@
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, segmentedBackgroundView.frame.size.height - 0.5f, 320.0f, 0.5f)];
         [lineView setBackgroundColor:GrayColor];
         [segmentedBackgroundView addSubview:lineView];
+        
 
         NSArray *segmentedArray = [[NSArray alloc] initWithObjects:@"Top 10",@"所有职业", nil];
         _segmentedControl = [[UISegmentedControl alloc] initWithItems:segmentedArray];
@@ -56,21 +58,18 @@
         [_segmentedControl addTarget:self action:@selector(changeTable:) forControlEvents:UIControlEventValueChanged];
         _segmentedControl.selectedSegmentIndex = 2;
         [_segmentedControl setSelectedSegmentIndex:0];
-//        [_segmentedControl setSegmentedControlStyle:UISegmentedControlStyleBordered];
         [_segmentedControl setBackgroundColor:RGBCOLOR(235.0f, 235.0f, 241.0f)];
-//        [self addSubview:_segmentedControl];
-        //    [_segmentedControl release];
         [segmentedBackgroundView addSubview:_segmentedControl];
         [self addSubview:segmentedBackgroundView];
         
-        _searchView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, 320, 40)];
+        _searchView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, 320, 50)];
         [_searchView setBackgroundColor:RGBCOLOR(189.0f, 189.0f, 195.0f)];
-        _searchBar = [[UPSearchBar alloc] initWithFrame:CGRectMake(10, 5, 250, 30)];
+        _searchBar = [[UPSearchBar alloc] initWithFrame:CGRectMake(10, 10, 250, 30)];
         [_searchView addSubview:_searchBar];
         [_searchBar setBackgroundColor:WhiteColor];
         [_searchBar setPlaceholder:@"搜索你感兴趣的职位"];
-        _kindButton = [[UIButton alloc] initWithFrame:CGRectMake(260, 0, 60, 40)];
-        [_kindButton setTitle:@"分类" forState:UIControlStateNormal];
+        _kindButton = [[UIButton alloc] initWithFrame:CGRectMake(260, 0, 60, 50)];
+        [_kindButton setTitle:@"类别" forState:UIControlStateNormal];
         [_kindButton addTarget:self action:@selector(onClickKindButton:) forControlEvents:UIControlEventTouchUpInside];
         [_kindButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
         [_searchView addSubview:_kindButton];
@@ -94,7 +93,7 @@
 - (void)changeTable:(UISegmentedControl *)sender {
     if (sender.selectedSegmentIndex == 0) {
         CGRect rect = _tableView.frame;
-        rect.origin.y -= 40;
+        rect.origin.y -= 50;
         _tableView.frame = rect;
     } else {
         if (_allPositionCount == 0) {
@@ -102,7 +101,7 @@
             [self requestSearchPositionWithPage:2];
         }
         CGRect rect = _tableView.frame;
-        rect.origin.y += 40;
+        rect.origin.y += 50;
         _tableView.frame = rect;
         [_searchView setHidden:NO];
     }
@@ -185,12 +184,9 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self isAllPositionShow]) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AllPositionsCell"];
+        UPAllPositionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AllPositionsCell"];
         if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"AllPositionsCell"];
-            [cell.textLabel setFont:[UIFont systemFontOfSize:13]];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell = [[UPAllPositionTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"AllPositionsCell"];
         }
         if ([self isAllPositionShow] && indexPath.row == _allPositionCount - 6) {
             if (_isExistNextPage) {
@@ -199,7 +195,8 @@
         }
         if ([_allPositions count] > 0) {
             NSString *text = [[_allPositions objectAtIndex:indexPath.row] objectForKey:@"position"];
-            cell.textLabel.text = text;
+            cell.title = text;
+            cell.isHot = [[[_allPositions objectAtIndex:indexPath.row] objectForKey:@"hot"] boolValue];
         }
         return cell;
     } else {
@@ -209,7 +206,7 @@
         }
         if ([_hotPositions count] > 0) {
             cell.title = [[_hotPositions objectAtIndex:indexPath.row] objectForKey:@"position"];
-            cell.hotNumberStr = [NSString stringWithFormat:@"%d", (indexPath.row+1)];
+            cell.hotNumberStr = [NSString stringWithFormat:@"%ld", (long)(indexPath.row+1)];
         }
         return cell;
     }
@@ -219,7 +216,7 @@
     if ([self isAllPositionShow]) {
         return _allPositionCount; // 最后一行放加载更多的cell
     } else {
-        NSLog(@"fffff-->%d", _hotPositionCount);
+        NSLog(@"fffff-->%ld", (long)_hotPositionCount);
         return _hotPositionCount;
     }
 }

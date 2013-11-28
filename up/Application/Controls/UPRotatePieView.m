@@ -61,7 +61,7 @@
     int centerY = rect.size.height / 2.0;
     int radius  = (centerX > centerY ? centerX : centerY);
     
-    float startAngle = _mZeroAngle;
+    float startAngle;
     float endAngle   = _mZeroAngle;
     for (int i = 0; i < count; ++i) {
         startAngle = endAngle;

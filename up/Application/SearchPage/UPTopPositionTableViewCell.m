@@ -59,10 +59,12 @@
 }
 
 - (void)setHotNumberStr:(NSString *)hotNumberStr {
+    _hotNumberStr = hotNumberStr;
     ((UILabel *)[self viewWithTag:88887]).text = hotNumberStr;
 }
 
 - (void)setTitle:(NSString *)title {
+    _title = title;
     ((UILabel *)[self viewWithTag:88888]).text = title;
 }
 @end

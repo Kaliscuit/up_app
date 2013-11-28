@@ -65,7 +65,6 @@
         // Fill & stroke the path
         // CGContextDrawPath(context, kCGPathFillStroke);
         // CGContextStrokePath(context);
-        CGContextClip(context);
         
     } else {
         
@@ -82,9 +81,9 @@
         // Fill & stroke the path
         // CGContextDrawPath(context, kCGPathFillStroke);
         // CGContextStrokePath(context);
-        CGContextClip(context);
         
     }
+    CGContextClip(context);
     
 	CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
 	CGFloat colors[] =
@@ -97,6 +96,7 @@
     CGGradientRef gradient = CGGradientCreateWithColorComponents(rgb, colors, NULL, sizeof(colors)/(sizeof(colors[0])*4));
 	CGColorSpaceRelease(rgb);
 	CGContextDrawLinearGradient(context, gradient,CGPointMake(0.0,0.0) ,CGPointMake(0.0,self.frame.size.height), kCGGradientDrawsBeforeStartLocation);
+    CGGradientRelease(gradient);
 	
 	CGContextFillPath(context);
 }
