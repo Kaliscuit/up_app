@@ -52,7 +52,7 @@
     
     _nextStepButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_nextStepButton setFrame:CGRectMake(0, 147, 320, 50)];
-    [_nextStepButton setBackgroundColor:BaseColor];
+    [_nextStepButton setBackgroundColor:BaseGreenColor];
     [_nextStepButton setTitleColor:WhiteColor forState:UIControlStateNormal];
     [_nextStepButton addTarget:self action:@selector(onClickNextStepButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_nextStepButton];

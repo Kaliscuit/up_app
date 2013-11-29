@@ -60,7 +60,7 @@
         NSString *string = [NSString stringWithFormat:@"用%@创建新的账户",self.emailStr];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string];
         NSRange range=[string rangeOfString:self.emailStr];
-        [attributedString addAttribute:NSForegroundColorAttributeName value:BaseColor range:range];
+        [attributedString addAttribute:NSForegroundColorAttributeName value:BaseGreenColor range:range];
         [self.messageLabel setAttributedText:attributedString];
     } else {
         [self.textFieldName setPlaceholder:@"密码"];
@@ -73,7 +73,7 @@
         NSString *string = [NSString stringWithFormat:@"你正在以%@登录",self.emailStr];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string];
         NSRange range=[string rangeOfString:self.emailStr];
-        [attributedString addAttribute:NSForegroundColorAttributeName value:BaseColor range:range];
+        [attributedString addAttribute:NSForegroundColorAttributeName value:BaseGreenColor range:range];
         [self.messageLabel setAttributedText:attributedString];
     }
 }
