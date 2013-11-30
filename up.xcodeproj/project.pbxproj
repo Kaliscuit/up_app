@@ -31,7 +31,6 @@
 		A87B0982182F63380064A8E9 /* UPSecondPageLoginOrEnrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B0949182F63380064A8E9 /* UPSecondPageLoginOrEnrollViewController.m */; };
 		A87B0983182F63380064A8E9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B094B182F63380064A8E9 /* main.m */; };
 		A87B0984182F63380064A8E9 /* UPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B094D182F63380064A8E9 /* UPAppDelegate.m */; };
-		A87B0985182F63380064A8E9 /* UPIndexScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B094F182F63380064A8E9 /* UPIndexScrollViewController.m */; };
 		A87B0989182F63380064A8E9 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B095A182F63380064A8E9 /* AFHTTPRequestOperation.m */; };
 		A87B098A182F63380064A8E9 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B095C182F63380064A8E9 /* AFHTTPRequestOperationManager.m */; };
 		A87B098B182F63380064A8E9 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B095E182F63380064A8E9 /* AFHTTPSessionManager.m */; };
@@ -51,8 +50,12 @@
 		A87B099E182F98350064A8E9 /* UPEvaluatePageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B099D182F98350064A8E9 /* UPEvaluatePageView.m */; };
 		A87B09A1182FA9850064A8E9 /* UPQuestionSectionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A87B09A0182FA9850064A8E9 /* UPQuestionSectionButton.m */; };
 		A8812A881833E4B4006EAA1E /* UPUserItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A8812A871833E4B4006EAA1E /* UPUserItem.m */; };
+		A890244D184A0D9D00774AFF /* UPHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A890244C184A0D9D00774AFF /* UPHomeViewController.m */; };
+		A8902455184A1B2D00774AFF /* UPSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8902452184A145300774AFF /* UPSearchView.m */; };
 		A8906E261821938C00F0D3B8 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A8906E251821938C00F0D3B8 /* libsqlite3.dylib */; };
 		A892561B1846654600A195EF /* UPTopPositionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A892561A1846654600A195EF /* UPTopPositionTableViewCell.m */; };
+		A8AC40791849D7FB00F7C5D7 /* UPEvaluateResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8AC40781849D7FB00F7C5D7 /* UPEvaluateResultView.m */; };
+		A8AC407C1849DAF600F7C5D7 /* UPLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8AC407B1849DAF600F7C5D7 /* UPLineView.m */; };
 		A8D113AE181EBE31001385FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D113AD181EBE31001385FE /* Foundation.framework */; };
 		A8D113B0181EBE31001385FE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D113AF181EBE31001385FE /* CoreGraphics.framework */; };
 		A8D113B2181EBE31001385FE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D113B1181EBE31001385FE /* UIKit.framework */; };
@@ -127,8 +130,6 @@
 		A87B094B182F63380064A8E9 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A87B094C182F63380064A8E9 /* UPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPAppDelegate.h; sourceTree = "<group>"; };
 		A87B094D182F63380064A8E9 /* UPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPAppDelegate.m; sourceTree = "<group>"; };
-		A87B094E182F63380064A8E9 /* UPIndexScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPIndexScrollViewController.h; path = ../main/UPIndexScrollViewController.h; sourceTree = "<group>"; };
-		A87B094F182F63380064A8E9 /* UPIndexScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UPIndexScrollViewController.m; path = ../main/UPIndexScrollViewController.m; sourceTree = "<group>"; };
 		A87B0959182F63380064A8E9 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		A87B095A182F63380064A8E9 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		A87B095B182F63380064A8E9 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -169,10 +170,18 @@
 		A87B09A0182FA9850064A8E9 /* UPQuestionSectionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPQuestionSectionButton.m; sourceTree = "<group>"; };
 		A8812A861833E4B4006EAA1E /* UPUserItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPUserItem.h; sourceTree = "<group>"; };
 		A8812A871833E4B4006EAA1E /* UPUserItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPUserItem.m; sourceTree = "<group>"; };
+		A890244B184A0D9D00774AFF /* UPHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPHomeViewController.h; sourceTree = "<group>"; };
+		A890244C184A0D9D00774AFF /* UPHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPHomeViewController.m; sourceTree = "<group>"; };
+		A8902451184A145300774AFF /* UPSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPSearchView.h; sourceTree = "<group>"; };
+		A8902452184A145300774AFF /* UPSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPSearchView.m; sourceTree = "<group>"; };
 		A8906E231821916A00F0D3B8 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		A8906E251821938C00F0D3B8 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		A89256191846654600A195EF /* UPTopPositionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPTopPositionTableViewCell.h; path = ../UPTopPositionTableViewCell.h; sourceTree = "<group>"; };
 		A892561A1846654600A195EF /* UPTopPositionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UPTopPositionTableViewCell.m; path = ../UPTopPositionTableViewCell.m; sourceTree = "<group>"; };
+		A8AC40771849D7FB00F7C5D7 /* UPEvaluateResultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPEvaluateResultView.h; sourceTree = "<group>"; };
+		A8AC40781849D7FB00F7C5D7 /* UPEvaluateResultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPEvaluateResultView.m; sourceTree = "<group>"; };
+		A8AC407A1849DAF600F7C5D7 /* UPLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPLineView.h; sourceTree = "<group>"; };
+		A8AC407B1849DAF600F7C5D7 /* UPLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPLineView.m; sourceTree = "<group>"; };
 		A8D113AA181EBE31001385FE /* up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = up.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8D113AD181EBE31001385FE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A8D113AF181EBE31001385FE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -230,8 +239,10 @@
 		A8065B7E1835E1B600AFE71E /* HomePage */ = {
 			isa = PBXGroup;
 			children = (
-				A87B094E182F63380064A8E9 /* UPIndexScrollViewController.h */,
-				A87B094F182F63380064A8E9 /* UPIndexScrollViewController.m */,
+				A890244B184A0D9D00774AFF /* UPHomeViewController.h */,
+				A890244C184A0D9D00774AFF /* UPHomeViewController.m */,
+				A8902451184A145300774AFF /* UPSearchView.h */,
+				A8902452184A145300774AFF /* UPSearchView.m */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -276,13 +287,13 @@
 		A87B092F182F62C20064A8E9 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				A87B094A182F63380064A8E9 /* main */,
 				A8065B7E1835E1B600AFE71E /* HomePage */,
 				A8812A851833E491006EAA1E /* Model */,
 				A87B0930182F62C20064A8E9 /* EvaluatePage */,
 				A87B0931182F63380064A8E9 /* Common */,
 				A87B093C182F63380064A8E9 /* Controls */,
 				A87B0941182F63380064A8E9 /* LoginOrEnrollPage */,
-				A87B094A182F63380064A8E9 /* main */,
 				A87B0950182F63380064A8E9 /* SearchPage */,
 				A87B0957182F63380064A8E9 /* ThirdPart */,
 			);
@@ -300,6 +311,10 @@
 				A87B099D182F98350064A8E9 /* UPEvaluatePageView.m */,
 				A87B099F182FA9850064A8E9 /* UPQuestionSectionButton.h */,
 				A87B09A0182FA9850064A8E9 /* UPQuestionSectionButton.m */,
+				A8AC40771849D7FB00F7C5D7 /* UPEvaluateResultView.h */,
+				A8AC40781849D7FB00F7C5D7 /* UPEvaluateResultView.m */,
+				A8AC407A1849DAF600F7C5D7 /* UPLineView.h */,
+				A8AC407B1849DAF600F7C5D7 /* UPLineView.m */,
 			);
 			path = EvaluatePage;
 			sourceTree = "<group>";
@@ -634,15 +649,18 @@
 				A87B0983182F63380064A8E9 /* main.m in Sources */,
 				A87B0982182F63380064A8E9 /* UPSecondPageLoginOrEnrollViewController.m in Sources */,
 				A87B099E182F98350064A8E9 /* UPEvaluatePageView.m in Sources */,
+				A8902455184A1B2D00774AFF /* UPSearchView.m in Sources */,
 				A87B098B182F63380064A8E9 /* AFHTTPSessionManager.m in Sources */,
 				A87B097D182F63380064A8E9 /* UPSearchBar.m in Sources */,
 				A81C2E81183E56E300BAA952 /* SMPageControl.m in Sources */,
 				A87B098C182F63380064A8E9 /* AFNetworkReachabilityManager.m in Sources */,
 				A87B0989182F63380064A8E9 /* AFHTTPRequestOperation.m in Sources */,
 				A87B098F182F63380064A8E9 /* AFURLRequestSerialization.m in Sources */,
+				A8AC407C1849DAF600F7C5D7 /* UPLineView.m in Sources */,
 				A84169CE1837480600A0C5E7 /* UPAlertTipLabel.m in Sources */,
 				A87B098E182F63380064A8E9 /* AFURLConnectionOperation.m in Sources */,
 				A87B0991182F63380064A8E9 /* AFURLSessionManager.m in Sources */,
+				A890244D184A0D9D00774AFF /* UPHomeViewController.m in Sources */,
 				A856225D183BC2510000A8EE /* UILabel+VerticalAlign.m in Sources */,
 				A87B0998182F63380064A8E9 /* FMResultSet.m in Sources */,
 				A8065B8D18365E3300AFE71E /* UPDetailJobViewController.m in Sources */,
@@ -651,7 +669,6 @@
 				A87B097F182F63380064A8E9 /* UPFirstPageLoginOrEnrollViewController.m in Sources */,
 				A87B09A1182FA9850064A8E9 /* UPQuestionSectionButton.m in Sources */,
 				A87B0993182F63380064A8E9 /* FMDatabase.m in Sources */,
-				A87B0985182F63380064A8E9 /* UPIndexScrollViewController.m in Sources */,
 				A81B5D871847A4060058537E /* UPAllPositionTableViewCell.m in Sources */,
 				A8065B811835E28E00AFE71E /* UPIndexView.m in Sources */,
 				A87B097A182F63380064A8E9 /* UPCommonHelper.m in Sources */,
@@ -664,6 +681,7 @@
 				A87B098A182F63380064A8E9 /* AFHTTPRequestOperationManager.m in Sources */,
 				A84C4690183132E2004A71B0 /* UPEvaluateProcessViewController.m in Sources */,
 				A87B0995182F63380064A8E9 /* FMDatabasePool.m in Sources */,
+				A8AC40791849D7FB00F7C5D7 /* UPEvaluateResultView.m in Sources */,
 				A87B097C182F63380064A8E9 /* UPNetworkHelper.m in Sources */,
 				A8065B8A183659A400AFE71E /* UPJobTypeViewController.m in Sources */,
 				A87B0990182F63380064A8E9 /* AFURLResponseSerialization.m in Sources */,

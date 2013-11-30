@@ -7,19 +7,19 @@
 //
 
 #import "UPAppDelegate.h"
-#import "UPIndexScrollViewController.h"
+#import "UPHomeViewController.h"
 #import "UPCommonHelper.h"
 #import "MobClick.h"
 #import "Flurry.h"
 
 @implementation UPAppDelegate
-@synthesize indexScrollViewController = _indexScrollViewController;
-@synthesize indexScrollNavigationController = _indexScrollNavigationController;
+@synthesize homeViewController = _homeViewController;
+@synthesize homeNavigationController = _homeNavigationController;
 
 - (void)dealloc {
-    _indexScrollNavigationController = nil;
+    _homeNavigationController = nil;
    
-    _indexScrollViewController = nil;
+    _homeViewController = nil;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -30,13 +30,14 @@
     [Flurry startSession:FlurryAppkey];
     [Flurry setDebugLogEnabled:YES];
     
-    _indexScrollViewController = [[UPIndexScrollViewController alloc] init];
+    _homeViewController = [[UPHomeViewController alloc] init];
     
-    _indexScrollNavigationController = [[UINavigationController alloc] initWithRootViewController:_indexScrollViewController];
-    [_indexScrollNavigationController setNavigationBarHidden:YES];
+    _homeNavigationController = [[UINavigationController alloc] initWithRootViewController:_homeViewController];
+    [_homeNavigationController setNavigationBarHidden:YES];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = _indexScrollNavigationController;
+    self.window.rootViewController = _homeNavigationController;
     [self.window makeKeyAndVisible];
+    
     
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert| UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound)];
     return YES;

@@ -43,7 +43,7 @@
         self.backgroundColor = WhiteColor;
         
         UIView *segmentedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
-        [segmentedBackgroundView setBackgroundColor:RGBCOLOR(235.0f, 235.0f, 241.0f)];
+        [segmentedBackgroundView setBackgroundColor:RGBCOLOR(248.0f, 248.0f, 248.0f)];
         
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, segmentedBackgroundView.frame.size.height - 0.5f, 320.0f, 0.5f)];
         [lineView setBackgroundColor:GrayColor];
@@ -86,17 +86,20 @@
         [self addSubview:_tableView];
         _cellCount = 10;
         [[UPNetworkHelper sharedInstance] postSearchHot]; // 完全不需要传值
+        
     }
     return self;
 }
 
 - (void)changeTable:(UISegmentedControl *)sender {
     if (sender.selectedSegmentIndex == 0) {
+        [_searchBar resignFirstResponder];
         CGRect rect = _tableView.frame;
         rect.origin.y -= 50;
         _tableView.frame = rect;
     } else {
         if (_allPositionCount == 0) {
+            [UPNetworkHelper sharedInstance].delegate = self;
             [self requestSearchPositionWithPage:1];
             [self requestSearchPositionWithPage:2];
         }

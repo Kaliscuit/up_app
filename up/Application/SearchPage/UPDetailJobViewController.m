@@ -146,7 +146,7 @@
     [self.view addSubview:pieView.mInfoTextView];
     
     _button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_button setBackgroundColor:BaseColor];
+    [_button setBackgroundColor:BaseGreenColor];
     [_button setTitle:@"应聘此职位" forState:UIControlStateNormal];
     [_button addTarget:self action:@selector(onClickSelectJobButton:) forControlEvents:UIControlEventTouchUpInside];
     [_button setTitleColor:WhiteColor forState:UIControlStateNormal];

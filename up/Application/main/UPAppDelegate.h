@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UPIndexScrollViewController.h"
+#import "UPHomeViewController.h"
 
 @interface UPAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, strong) UPIndexScrollViewController *indexScrollViewController;
-@property (nonatomic, strong) UINavigationController *indexScrollNavigationController;
+@property (nonatomic, strong) UPHomeViewController *homeViewController;
+@property (nonatomic, strong) UINavigationController *homeNavigationController;
 @end
