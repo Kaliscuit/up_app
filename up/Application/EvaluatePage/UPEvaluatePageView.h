@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol UPEvaluatePageResultDelegate <NSObject>
+- (void)evaluatePageResult:(NSString *)questionID AnswerID:(NSString *)answerIDStr;
+@end
+
 @interface UPEvaluatePageView : UIView
+
+@property (nonatomic, weak) id<UPEvaluatePageResultDelegate> delegate;
 
 - (void)updateDataWithDictionary:(NSDictionary *)dict;
 

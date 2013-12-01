@@ -9,13 +9,15 @@
 #import "UPEvaluatePageView.h"
 #import "CommonDefine.h"
 #import <QuartzCore/QuartzCore.h>
-#import "UPQuestionSectionButton.h"
-#import "CommonDefine.h"
+#import "UPAnswerSectionView.h"
+
 #define Show_View_Width 260.0f
 @interface UPEvaluatePageView() {
-    UILabel *_indexLabel;
+    UITextView *_questionTitleView;
     UILabel *_questionTitleLable;
     NSDictionary *_dataDict;
+    
+    NSString *_questionIDStr;
 }
 
 @end
@@ -26,26 +28,21 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = BaseColor;
-        
-        _indexLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 30, 10, 10)];
-        [_indexLabel setBackgroundColor:ClearColor];
-        [_indexLabel setTextColor:WhiteColor];
-        [self addSubview: _indexLabel];
-        
-        _questionTitleLable = [[UILabel alloc] initWithFrame:CGRectMake(_indexLabel.frame.origin.x + _indexLabel.frame.size.width, _indexLabel.frame.origin.y, SCREEN_WIDTH - _indexLabel.frame.origin.x * 2 - _indexLabel.frame.size.width, 40)];
-        [_questionTitleLable setBackgroundColor:ClearColor];
-        [_questionTitleLable setTextColor:WhiteColor];
-       
-        [self addSubview:_questionTitleLable];
-        
-        
+        _questionTitleView = [[UITextView alloc] initWithFrame:CGRectMake(40.0f, 0.0f, 240.0f, 120.0f)];
+        [_questionTitleView setTextAlignment:NSTextAlignmentLeft];
+        [_questionTitleView setBackgroundColor:ClearColor];
+        [_questionTitleView setTextColor:WhiteColor];
+        [_questionTitleView setFont:[UIFont systemFontOfSize:20]];
+        [_questionTitleView setUserInteractionEnabled:NO];
+        [self addSubview:_questionTitleView];
     }
     return self;
 }
 
 - (void)updateDataWithDictionary:(NSDictionary *)dict {
     _dataDict = dict;
-    _questionTitleLable.text = [[dict objectForKey:@"question"] objectForKey:@"question"];
+    _questionTitleView.text = [[dict objectForKey:@"question"] objectForKey:@"question"];
+    _questionIDStr = [[dict objectForKey:@"question"] objectForKey:@"id"];
     @autoreleasepool {
         for (int i = 0; i < [[dict objectForKey:@"options"] count]; i++) {
             NSString *index = nil;
@@ -66,30 +63,28 @@
                     break;
             }
             NSArray *optionArr = [dict objectForKey:@"options"];
-            UIButton *_button = [UIButton buttonWithType:UIButtonTypeCustom];
-            [_button setTitleColor:WhiteColor forState:UIControlStateNormal];
-            [_button setFrame:CGRectMake(40, _questionTitleLable.frame.origin.y + _questionTitleLable.frame.size.height + i*40, 240, 40)];
-            NSLog(@"Button Frame : %@", NSStringFromCGRect(_button.frame));
-            [_button setImage:[UIImage imageNamed:@"icn_check_white.png"] forState:UIControlStateSelected];
-            [_button setTag:7777+i];
-            [_button setImageEdgeInsets:UIEdgeInsetsMake(0, -5, 0, 0)];
-            [_button setTitle:[index stringByAppendingString:[[optionArr objectAtIndex:i] objectForKey:@"option"]] forState:UIControlStateNormal];
-            [_button setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-            _button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            [_button addTarget:self action:@selector(onClickSection:) forControlEvents:UIControlEventTouchUpInside];
-            [self addSubview:_button];
+            UPAnswerSectionView *answerSectionView = [[UPAnswerSectionView alloc] initWithFrame:CGRectMake(0.0f, _questionTitleView.frame.origin.y + _questionTitleView.frame.size.height + 70.0f * i, 320.0f, 70.0f)];
+            [answerSectionView setTag:(7656 + i)];
+            [answerSectionView addTarget:self action:@selector(onClickAnswerSectionView:) forControlEvents:UIControlEventTouchUpInside];
+            [answerSectionView setTitle:[index stringByAppendingString:[[optionArr objectAtIndex:i] objectForKey:@"option"]]];
+            [answerSectionView setAnswerIDStr:[[optionArr objectAtIndex:i] objectForKey:@"qid"]];
+            [self addSubview:answerSectionView];
+            
         }
     }
 }
 
-- (void)onClickSection:(UIButton *)sender {
+- (void)onClickAnswerSectionView:(UPAnswerSectionView *)sender {
     [self hideAllButtonSelectedStatus];
     sender.selected = YES;
+    if ([self.delegate respondsToSelector:@selector(evaluatePageResult:AnswerID:)]) {
+        [self.delegate performSelector:@selector(evaluatePageResult:AnswerID:) withObject:_questionIDStr withObject:sender.answerIDStr];
+    }
 }
 
 - (void)hideAllButtonSelectedStatus {
     for (int i = 0; i < [[_dataDict objectForKey:@"options"] count]; i++) {
-        ((UIButton *)[self viewWithTag:7777+i]).selected = NO;
+        ((UPAnswerSectionView *)[self viewWithTag:7656+i]).selected = NO;
     }
 }
 

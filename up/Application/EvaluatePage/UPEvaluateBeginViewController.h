@@ -1,5 +1,6 @@
+
 //
-//  UPEvaluateViewController.h
+//  UPEvaluateBeginViewController.h
 //  up
 //
 //  Created by joy.long on 13-11-10.
@@ -8,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UPEvaluateViewController : UIViewController
+@interface UPEvaluateBeginViewController : UIViewController
 
 @property (nonatomic, copy) NSString *positionTitle;
 @property (nonatomic) NSInteger positionID;

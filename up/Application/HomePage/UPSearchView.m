@@ -44,9 +44,11 @@
         [_searchBar.layer setMasksToBounds:YES];
         [_searchBar.layer setCornerRadius:5.0f];
         _searchBar.delegate = self;
+//        _searchBar.keyboardType = UIKeyboardTypeWebSearch;
+        _searchBar.returnKeyType = UIReturnKeySearch;
         _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
         [_searchBar setBackgroundColor:WhiteColor];
-        [_searchBar becomeFirstResponder];
+//        [_searchBar becomeFirstResponder];
         [self addSubview:_searchBar];
         
         _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -58,8 +60,8 @@
         [_cancelButton addTarget:self action:@selector(onClickCancelSearchButton:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_cancelButton];
         
-        _searchSuggestResultTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT - 60 - 116)];
-        [_searchSuggestResultTableView setBackgroundColor:ColorWithWhiteAlpha(255.0f, 0.5)];
+        _searchSuggestResultTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        [_searchSuggestResultTableView setBackgroundColor:ColorWithWhiteAlpha(255.0f, 1.0)];
 //        [_searchSuggestResultTableView setHidden:YES];
         _searchSuggestResultTableView.delegate = self;
         _searchSuggestResultTableView.bounces = NO;
@@ -67,7 +69,7 @@
         [self addSubview:_searchSuggestResultTableView];
         
         _searchPositionResultTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT - 60)];
-        [_searchPositionResultTableView setBackgroundColor:ColorWithWhiteAlpha(255.0f, 0.5)];
+        [_searchPositionResultTableView setBackgroundColor:ColorWithWhiteAlpha(255.0f, 1.0)];
         [_searchPositionResultTableView setHidden:YES];
         _searchPositionResultTableView.delegate = self;
         _searchPositionResultTableView.dataSource =self;
@@ -145,6 +147,7 @@
         NSDictionary *responseDict = [[responseObject objectForKey:@"d"] objectForKey:@"profile"];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPopDetailJobViewController object:nil userInfo:responseDict];
+        [self removeFromSuperview];
     }
 }
 
@@ -164,6 +167,18 @@
 #pragma mark - TableViewDelegate & TableViewDataSource
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([tableView isEqual:_searchSuggestResultTableView]) {
+        if (_searchBar.text.length == 0) {
+            UPTopPositionTableViewCell *cell = (UPTopPositionTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+            NSString *str = cell.title;
+            if (str.length == 0) {
+                return;
+            }
+            NSDictionary *objectDict = [_top10Array objectAtIndex:indexPath.row];
+            [UPNetworkHelper sharedInstance].delegate = self;
+            NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[objectDict objectForKey:@"id"],@"pid", nil];
+            [[UPNetworkHelper sharedInstance] postPositionProfileWithDictionary:dict];
+            return;
+        }
         UITableViewCell *cell = [_searchSuggestResultTableView cellForRowAtIndexPath:indexPath];
         NSString *str = ((UILabel *)[cell viewWithTag:17888]).text;
         if (str.length == 0) {
@@ -174,11 +189,12 @@
         //        if ([_searchPositionResultArray count] > 0) {
         //            [_searchPositionResultArray removeAllObjects];
         //        }
-        [[UPNetworkHelper sharedInstance] postSearchSuggestWithKeyword:_searchBar.text];
+//        [[UPNetworkHelper sharedInstance] postSearchSuggestWithKeyword:_searchBar.text];
+        [self isShowSearchPositionTableView:YES];
         [[UPNetworkHelper sharedInstance] postSearchPositionWithKeyword:_searchBar.text WithPage:0];
         [_searchBar resignFirstResponder];
         
-        [self isShowSearchPositionTableView:YES];
+       
     } else if ([tableView isEqual:_searchPositionResultTableView]) {
         [UPNetworkHelper sharedInstance].delegate = self;
         NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[[_searchPositionResultArray objectAtIndex:indexPath.row] objectForKey:@"id"],@"pid", nil];
@@ -195,7 +211,7 @@
             if (cell == nil) {
                 cell = [[UPTopPositionTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TopPositionsCell"];
             }
-            if ([_top10Array count] > 0) {
+            if ([_top10Array count] > indexPath.row) {
                 cell.title = [[_top10Array objectAtIndex:indexPath.row] objectForKey:@"position"];
                 cell.hotNumberStr = [NSString stringWithFormat:@"%ld", (long)(indexPath.row+1)];
             }
@@ -265,16 +281,43 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([tableView isEqual:_searchSuggestResultTableView]) {
-        if ([_searchSuggestResultArray count] > 12) {
+        if ([_searchSuggestResultArray count] > 10) {
             return 10;
         }
-        return 12;
+        return 10;
 
     } else if ([tableView isEqual:_searchPositionResultTableView]) {
         return _searchPositionCount;
        
     }
     return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (_searchBar.text.length > 0) {
+        return nil;
+    }
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SCREEN_WIDTH, 20.0f)];
+    [view setBackgroundColor:RGBCOLOR(248.0f, 248.0f, 248.0f)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 0.0f, SCREEN_WIDTH- 20.0f, 20.0f)];
+    [label setFont:[UIFont systemFontOfSize:14.0f]];
+    [label setBackgroundColor:ClearColor];
+    label.text = @"热门职位";
+    [view addSubview:label];
+    return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (_searchBar.text.length > 0) {
+        return 0.0f;
+    }
+    return 20.0f;
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if ([scrollView isEqual:_searchSuggestResultTableView] && [_searchBar isFirstResponder]) {
+        [_searchBar resignFirstResponder];
+    }
 }
 
 @end

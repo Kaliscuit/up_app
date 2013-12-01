@@ -16,4 +16,6 @@
 @property (nonatomic) BOOL isHorizonal; // default is NO
 @property (nonatomic) BOOL isFillFromRight; // default is NO, when isHorizonal is NO, this property is unused
 @property (nonatomic) BOOL isFillFromTop; // default is NO, when isHorizonal is YES, this property is unused
+
+- (void)refreshLineView;
 @end

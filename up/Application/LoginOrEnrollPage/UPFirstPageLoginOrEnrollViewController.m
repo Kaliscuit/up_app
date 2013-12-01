@@ -56,7 +56,7 @@
     [self _showAlertTip:CGPointMake(300, 95) title:_alertMessage];
 }
 - (void)_showAlertTip:(CGPoint)point title:(NSString *)title {
-    _alertMessage = title;
+    _alertMessage = [NSString stringWithFormat:@"%@%@%@", @"  ",title,@"  "];
     UPAlertTipLabel *alert = [[UPAlertTipLabel alloc] initWithFrame:CGRectMake(10, 100, 300, 100)];
     [alert updateTitle:_alertMessage Point:point isAssignBottom:YES];
     [self.view addSubview:alert];

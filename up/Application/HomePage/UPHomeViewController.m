@@ -11,7 +11,7 @@
 #import "UPSearchBar.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UPDetailJobViewController.h"
-#import "UPEvaluateViewController.h"
+#import "UPEvaluateBeginViewController.h"
 #import <objc/runtime.h>
 
 #import "UPSearchView.h"
@@ -46,6 +46,10 @@
     return UIStatusBarStyleLightContent;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -95,19 +99,25 @@
     
     _accountButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_accountButton setFrame:CGRectMake(36.0f, (SCREEN_HEIGHT - 90.0f), 100.0f, 40.0f)];
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"UserName"]) {
-        [self _updateUserName:[[NSUserDefaults standardUserDefaults] valueForKey:@"UserName"]];
-    } else {
-        [self _updateUserName:nil];
-    }
+    
+    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icn_user_default.png"]];
+    [icon setTag:33566];
+    [icon setFrame:CGRectMake(10.0f, (_accountButton.frame.size.height - 25) / 2, 25.0f, 25.0f)];
+    [_accountButton addSubview:icon];
     
     [_accountButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [_accountButton setBackgroundColor:WhiteColor];
     [_accountButton addTarget:self action:@selector(onClickAccountButton:) forControlEvents:UIControlEventTouchUpInside];
     _accountButton.layer.masksToBounds = YES;
     _accountButton.layer.cornerRadius = 20.0f;
-    [_accountButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+    [_accountButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
     [self.view addSubview:_accountButton];
+    
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"UserName"]) {
+        [self _updateUserName:[[NSUserDefaults standardUserDefaults] valueForKey:@"UserName"]];
+    } else {
+        [self _updateUserName:nil];
+    }
     
     _searchBar = [[UPSearchBar alloc] initWithFrame:SearchBarInitFrame];
     [_searchBar.layer setMasksToBounds:YES];
@@ -182,16 +192,9 @@
 - (void)presentEvaluateViewController:(NSNotification *)notification {
     
     NSDictionary *infoDict = [notification userInfo];
-    UPEvaluateViewController *evaluateViewController = [[UPEvaluateViewController alloc] init];
+    UPEvaluateBeginViewController *evaluateViewController = [[UPEvaluateBeginViewController alloc] init];
     evaluateViewController.positionTitle = [infoDict objectForKey:@"positionTitle"];
     evaluateViewController.positionID = [[infoDict objectForKey:@"pid"] integerValue];
-    CATransition* transition = [CATransition animation];
-    transition.duration = 0.5;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.type = kCATransitionMoveIn;//可更改为其他方式
-    transition.subtype = kCATransitionFromTop;//可更改为其他方式
-    [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];
-    transition.delegate = self;
     [self.navigationController pushViewController:evaluateViewController animated:YES];
 }
 
@@ -202,16 +205,14 @@
 
 - (void)_updateUserName:(NSString *)userName {
     if (userName.length > 0) {
-        [_accountButton setImage:[UIImage imageNamed:@"icn_user_default_highlight.png"] forState:UIControlStateNormal];
+        [((UIImageView *)[_accountButton viewWithTag:33566]) setImage:[UIImage imageNamed:@"icn_user_default_highlight.png"]];
         [_accountButton setTitle:userName forState:UIControlStateNormal];
         [_accountButton setTitleColor:RGBCOLOR(46.0f, 204.0f, 113.0f) forState:UIControlStateNormal];
-        [_accountButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
+        [_accountButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
     } else {
         [_accountButton setTitleColor:ColorWithWhite(179.0f) forState:UIControlStateNormal];
-        
+        [((UIImageView *)[_accountButton viewWithTag:33566]) setImage:[UIImage imageNamed:@"icn_user_default.png"]];
         [_accountButton setTitle:@"未登录" forState:UIControlStateNormal];
-        [_accountButton setImage:[UIImage imageNamed:@"icn_user_default.png"] forState:UIControlStateNormal];
-        [_accountButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
     }
 }
 

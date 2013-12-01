@@ -25,19 +25,16 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationItem.hidesBackButton = YES;
+    self.navigationController.navigationBarHidden = YES;
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+//    self.edgesForExtendedLayout = UIRectEdgeNone;
 
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(onClickCancelBarItem:)];
-    self.navigationItem.rightBarButtonItem =item;
-    self.navigationItem.rightBarButtonItem.tintColor = GrayColor;
     
     self.title = @"类别";
-    [self.navigationController setNavigationBarHidden:NO];
+//    [self.navigationController setNavigationBarHidden:NO];
     [self.view setBackgroundColor:[UIColor whiteColor]];
 	
 }

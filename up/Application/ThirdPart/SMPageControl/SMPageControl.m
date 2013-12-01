@@ -205,9 +205,9 @@ static SMPageControlStyleDefaults _defaultStyleForSystemVersion;
             [_label setFrame:CGRectMake(indicatorRect.origin.x + 3, indicatorRect.origin.y - 1, indicatorRect.size.width + 2, indicatorRect.size.height + 2)];
         }
         [_label setTag:(888+i)];
-        [_label setFont:[UIFont systemFontOfSize:11]];
+        [_label setFont:[UIFont systemFontOfSize:10 ]];
         [_label setText:[NSString stringWithFormat:@"%lu", (unsigned long)(i+1)]];
-        [_label setTextColor:BaseColor];
+        [_label setTextColor:BaseGreenColor];
         [_label setBackgroundColor:[UIColor clearColor]];
         [_label setHidden:YES];
         [self addSubview:_label];

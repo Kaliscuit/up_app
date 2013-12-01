@@ -44,6 +44,7 @@
 	//CGContextSetFillPattern(context, uncoloredPattern, color1);
 	
 	CGRect rrect = _label.frame;
+    
 	CGFloat radius = 2.0f;
     
 	CGFloat minx = CGRectGetMinX(rrect), midx = CGRectGetMidX(rrect), maxx = CGRectGetMaxX(rrect);
@@ -118,6 +119,7 @@
         }
         if (isAssignBottom) {
             _label.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height-10);
+            
         } else {
             _label.frame = CGRectMake(0, 10, self.frame.size.width, self.frame.size.height-10);
         }

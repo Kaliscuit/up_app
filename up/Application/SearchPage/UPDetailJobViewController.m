@@ -38,27 +38,48 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
     
-    self.title = @"职位详情";
-    [self.navigationController setNavigationBarHidden:NO];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    _scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+    UIView *navigationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
+    [navigationView setBackgroundColor:RGBCOLOR(248.0f, 248.0f, 248.0f)];
+    
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setFrame:CGRectMake(0, 20, 44, 44)];
+    [backButton setImage:[UIImage imageNamed:@"icn_back.png"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(onClickBackButton:) forControlEvents:UIControlEventTouchUpInside];
+    [navigationView addSubview:backButton];
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(44, 20, 232, 44)];
+    [titleLabel setText:@"职位详情"];
+    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setTextColor:BlackColor];
+    [titleLabel setBackgroundColor:ClearColor];
+    [navigationView addSubview:titleLabel];
+    
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 63.5, 320.0f, 0.5)];
+    [lineView setBackgroundColor:GrayColor];
+    [navigationView addSubview:lineView];
+    [self.view addSubview:navigationView];
+    
+    
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, 320, SCREEN_HEIGHT - 64)];
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_scrollView];
     
-    _hotImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15.0f, 10.0f, 25.0f, 25.0f)];
+    _hotImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15.0f, 74.0f, 25.0f, 25.0f)];
     [_hotImageView setBackgroundColor:RGBCOLOR(251.0f, 114.0f, 80.0f)];
     [_hotImageView setHidden:!self.isShowHotImage];
     
-    UILabel *hotLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, _hotImageView.frame.size.width, _hotImageView.frame.size.height)];
+    UILabel *hotLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 74.0f, _hotImageView.frame.size.width, _hotImageView.frame.size.height)];
     [hotLabel setBackgroundColor:ClearColor];
     [hotLabel setTextColor:WhiteColor];
     [hotLabel setText:@"热"];
@@ -67,7 +88,7 @@
     [self.view addSubview:_hotImageView];
     
 
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0f, 10.0f, 290.0f, 25.0f)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0f, 74.0f, 290.0f, 25.0f)];
     [_titleLabel setBackgroundColor:ClearColor];
     [_titleLabel setTextColor:RGBCOLOR(40.0f, 56.0f, 64.0f)];
     [_titleLabel setFont:[UIFont boldSystemFontOfSize:20.0f]];
@@ -150,8 +171,12 @@
     [_button setTitle:@"应聘此职位" forState:UIControlStateNormal];
     [_button addTarget:self action:@selector(onClickSelectJobButton:) forControlEvents:UIControlEventTouchUpInside];
     [_button setTitleColor:WhiteColor forState:UIControlStateNormal];
-    [_button setFrame:CGRectMake(0, self.view.frame.size.height - 64 - 50, self.view.frame.size.width, 50)];
+    [_button setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
     [self.view addSubview:_button];
+}
+
+- (void)onClickBackButton:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning

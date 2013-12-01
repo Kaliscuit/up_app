@@ -14,6 +14,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        [self setBackgroundColor:[UIColor greenColor]];
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
         [imageView setTag:7385];
         [self addSubview:imageView];

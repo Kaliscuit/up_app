@@ -28,26 +28,21 @@
 
 - (CGRect)editingRectForBounds:(CGRect)bounds {
     [super editingRectForBounds:bounds];
-    if (![UPCommonHelper isIOS7]) {
-        return CGRectMake(25, 5, bounds.size.width, bounds.size.height);
-    }
-    return CGRectInset(bounds, 25, 5);
+    return CGRectInset(bounds, 30, 5);
 }
 
 - (CGRect)placeholderRectForBounds:(CGRect)bounds {
     [super placeholderRectForBounds:bounds];
-    if (![UPCommonHelper isIOS7]) {
-        return CGRectMake(25, 5, bounds.size.width, bounds.size.height);
-    }
-    return CGRectInset(bounds, 25, 5);
+    return CGRectInset(bounds, 30, 8);
 }
 
 - (CGRect)textRectForBounds:(CGRect)bounds {
     [super textRectForBounds:bounds];
-    if (![UPCommonHelper isIOS7]) {
-        return CGRectMake(25, 5, bounds.size.width, bounds.size.height);
-    }
-    return CGRectInset(bounds, 25, 5);
+    return CGRectInset(bounds, 30, 5);
+}
+
+- (void)drawPlaceholderInRect:(CGRect)rect {
+    [[self placeholder] drawInRect:rect withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14.0f],NSFontAttributeName, nil]];
 }
 
 - (void)updateStatus:(UPSearchBarStatus)status {

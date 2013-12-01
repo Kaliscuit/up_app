@@ -18,25 +18,21 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(20.0f, (self.frame.size.height - Image_Frame_Height) / 2, Image_Frame_Width, Image_Frame_Height)];
-        [image setBackgroundColor:RGBCOLOR(243.0f, 156.0f, 18.0f)];
-        image.layer.masksToBounds = YES;
-        image.layer.cornerRadius = 13.0f;
-        [self addSubview:image];
         
-        UILabel *label = [[UILabel alloc] initWithFrame:image.frame];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(23.0f, (self.frame.size.height - Image_Frame_Height) / 2, Image_Frame_Width, Image_Frame_Height)];
         [label setTag:88887];
         [label setBackgroundColor:ClearColor];
-        [label setTextColor:WhiteColor];
+        [label setTextColor:BaseColor];
         label.textAlignment = NSTextAlignmentCenter;
-        [label setFont:[UIFont systemFontOfSize:12.0f]];
+        
+        [label setFont:[UIFont fontWithName:HelveticaNeueUltraLight size:16.0f]];
         [label setAdjustsFontSizeToFitWidth:YES];
         [self addSubview:label];
         
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        UILabel *titlelabel = [[UILabel alloc] initWithFrame:CGRectMake(image.frame.origin.x + image.frame.size.width + 10, 0, 240.0f, self.frame.size.height)];
+        UILabel *titlelabel = [[UILabel alloc] initWithFrame:CGRectMake(label.frame.origin.x + label.frame.size.width + 10, 0, 240.0f, self.frame.size.height)];
         [titlelabel setBackgroundColor:ClearColor];
         [titlelabel setTextColor:BlackColor];
         [titlelabel setTag:88888];
@@ -44,9 +40,9 @@
         
         [self addSubview:titlelabel];
         
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(titlelabel.frame.origin.x, self.frame.size.height - 0.5, SCREEN_WIDTH - titlelabel.frame.origin.x, 0.5f)];
-        [lineView setBackgroundColor:GrayColor];
-        [self addSubview:lineView];
+//        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(titlelabel.frame.origin.x + 50, self.frame.size.height - 0.5, SCREEN_WIDTH - titlelabel.frame.origin.x, 0.5f)];
+//        [lineView setBackgroundColor:GrayColor];
+//        [self addSubview:lineView];
     }
     return self;
 }

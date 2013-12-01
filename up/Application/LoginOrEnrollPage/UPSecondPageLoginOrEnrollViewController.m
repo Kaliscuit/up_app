@@ -95,9 +95,11 @@
 
 - (void)_showAlertMessage:(CGPoint)point title:(NSString *)title isAssignBottom:(BOOL)isAssignBottom {
     if (isAssignBottom) {
-        _alertMessageUserName = title;
+        _alertMessageUserName = [NSString stringWithFormat:@"%@%@%@", @"  ",title,@"  "];
+//        _alertMessageUserName = title;
     } else {
-        _alertMessagePassword = title;
+        _alertMessagePassword = [NSString stringWithFormat:@"%@%@%@", @"  ",title,@"  "];
+//        _alertMessagePassword =   title;
     }
     
     UPAlertTipLabel *alert = [[UPAlertTipLabel alloc] initWithFrame:CGRectMake(10, 30, 300, 100)];
