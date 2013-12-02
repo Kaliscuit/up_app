@@ -17,6 +17,8 @@
     UPAlertTipLabel *_alertLabel;
     UIImageView *_image;
     NSString *_alertMessage;
+    
+    UPNetworkHelper *_networkHelper;
 }
 
 @end
@@ -48,23 +50,26 @@
     [self.textFieldName.rightView addGestureRecognizer:gesture];
     
     [self.nextStepButton setTitle:@"下一步" forState:UIControlStateNormal];
-    
 }
 
 - (void)showAlertTip:(UITapGestureRecognizer *)gesture {
     NSLog(@"%@", NSStringFromCGPoint(gesture.view.center));
     [self _showAlertTip:CGPointMake(300, 95) title:_alertMessage];
 }
+
 - (void)_showAlertTip:(CGPoint)point title:(NSString *)title {
     _alertMessage = [NSString stringWithFormat:@"%@%@%@", @"  ",title,@"  "];
     UPAlertTipLabel *alert = [[UPAlertTipLabel alloc] initWithFrame:CGRectMake(10, 100, 300, 100)];
     [alert updateTitle:_alertMessage Point:point isAssignBottom:YES];
     [self.view addSubview:alert];
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    _networkHelper = [[UPNetworkHelper alloc] init];
+    _networkHelper.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -96,8 +101,8 @@
     
     
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:emailStr,@"email", nil];
-    [UPNetworkHelper sharedInstance].delegate = self;
-    [[UPNetworkHelper sharedInstance] postEmailCheckWithDictionary:dict];
+    
+    [_networkHelper postEmailCheckWithDictionary:dict];
     
 }
 

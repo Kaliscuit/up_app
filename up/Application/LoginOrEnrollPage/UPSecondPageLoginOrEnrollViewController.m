@@ -15,6 +15,8 @@
 @interface UPSecondPageLoginOrEnrollViewController ()<UPNetworkHelperDelegate> {
     NSString *_alertMessageUserName;
     NSString *_alertMessagePassword;
+    
+    UPNetworkHelper *_networkHelper;
 }
 
 @end
@@ -112,7 +114,7 @@
 {
     [super viewDidLoad];
 	
-    [UPNetworkHelper sharedInstance].delegate = self;
+    _networkHelper = [[UPNetworkHelper alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -146,10 +148,10 @@
     
     if (self.isEnrollProcess) {
         NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.emailStr,@"email",self.textFieldName.text,@"name",self.textFieldPassword,@"password", nil];
-        [[UPNetworkHelper sharedInstance] postEnrollWithDictionary:dict];
+        [_networkHelper postEnrollWithDictionary:dict];
     } else {
         NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.emailStr,@"email",self.textFieldName.text,@"password", nil];
-        [[UPNetworkHelper sharedInstance] postLoginWithDictionary:dict];
+        [_networkHelper postLoginWithDictionary:dict];
     }
 }
 

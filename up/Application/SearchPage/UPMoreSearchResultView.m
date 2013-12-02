@@ -28,6 +28,8 @@
     UPSearchBar *_searchBar;
     UIButton *_kindButton;
     UIView *_searchView;
+    
+    UPNetworkHelper *_networdHelper;
 }
 @end
 
@@ -36,7 +38,9 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [UPNetworkHelper sharedInstance].delegate = self;
+        _networdHelper = [[UPNetworkHelper alloc] init];
+        _networdHelper.delegate = self;
+        
         _allPositions = [[NSMutableArray alloc] init];
         _hotPositions = [[NSMutableArray alloc] init];
         
@@ -85,7 +89,8 @@
         _tableView.dataSource = self;
         [self addSubview:_tableView];
         _cellCount = 10;
-        [[UPNetworkHelper sharedInstance] postSearchHot]; // 完全不需要传值
+        
+        [_networdHelper postSearchHot]; // 完全不需要传值
         
     }
     return self;
@@ -99,7 +104,7 @@
         _tableView.frame = rect;
     } else {
         if (_allPositionCount == 0) {
-            [UPNetworkHelper sharedInstance].delegate = self;
+            
             [self requestSearchPositionWithPage:1];
             [self requestSearchPositionWithPage:2];
         }
@@ -117,7 +122,7 @@
 }
 
 - (void)requestSearchPositionWithPage:(NSInteger)page {
-    [[UPNetworkHelper sharedInstance] postSearchPositionWithKeyword:nil WithPage:page];
+    [_networdHelper postSearchPositionWithKeyword:nil WithPage:page];
 //    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInteger:page],@"page", nil];
 //    [[UPNetworkHelper sharedInstance] postSearchPositionWithDictionary:dict];
 //    [dict release];
@@ -180,11 +185,11 @@
     } else {
         objectDict = [_hotPositions objectAtIndex:indexPath.row];
     }
-    [UPNetworkHelper sharedInstance].delegate = self;
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[objectDict objectForKey:@"id"],@"pid", nil];
-    [[UPNetworkHelper sharedInstance] postPositionProfileWithDictionary:dict];
+    [_networdHelper postPositionProfileWithDictionary:dict];
 
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self isAllPositionShow]) {
         UPAllPositionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AllPositionsCell"];

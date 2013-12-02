@@ -11,15 +11,6 @@
 
 @implementation UPNetworkHelper
 
-+ (UPNetworkHelper *)sharedInstance {
-    static UPNetworkHelper *_sharedInstance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _sharedInstance = [[UPNetworkHelper alloc] init];
-    });
-    return _sharedInstance;
-}
-
 - (id)init {
     self = [super init];
     if (self != nil) {

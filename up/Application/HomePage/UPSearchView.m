@@ -28,6 +28,7 @@
     NSInteger           _currentPage;                       // 搜索职位分页的当前页数
     BOOL                _hadNext;                           // 搜索职位后网络请求返回是否还有下一页
 
+    UPNetworkHelper     *_networkHelper;
 }
 @end
 
@@ -38,17 +39,18 @@
     if (self) {
         self.backgroundColor = BaseColor;
         
+        _networkHelper = [[UPNetworkHelper alloc] init];
+        _networkHelper.delegate = self;
+        
         [self _initData];
         
         _searchBar = [[UPSearchBar alloc] initWithFrame:SearchBarInitFrame];
         [_searchBar.layer setMasksToBounds:YES];
         [_searchBar.layer setCornerRadius:5.0f];
         _searchBar.delegate = self;
-//        _searchBar.keyboardType = UIKeyboardTypeWebSearch;
         _searchBar.returnKeyType = UIReturnKeySearch;
         _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
         [_searchBar setBackgroundColor:WhiteColor];
-//        [_searchBar becomeFirstResponder];
         [self addSubview:_searchBar];
         
         _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -102,10 +104,7 @@
         [_searchSuggestResultTableView reloadData];
     }
     else {
-        if ([UPNetworkHelper sharedInstance].delegate != self) {
-            [UPNetworkHelper sharedInstance].delegate = self;
-        }
-        [[UPNetworkHelper sharedInstance] postSearchSuggestWithKeyword:_searchBar.text];
+        [_networkHelper postSearchSuggestWithKeyword:_searchBar.text];
     }
 }
 
@@ -174,9 +173,8 @@
                 return;
             }
             NSDictionary *objectDict = [_top10Array objectAtIndex:indexPath.row];
-            [UPNetworkHelper sharedInstance].delegate = self;
             NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[objectDict objectForKey:@"id"],@"pid", nil];
-            [[UPNetworkHelper sharedInstance] postPositionProfileWithDictionary:dict];
+            [_networkHelper postPositionProfileWithDictionary:dict];
             return;
         }
         UITableViewCell *cell = [_searchSuggestResultTableView cellForRowAtIndexPath:indexPath];
@@ -191,14 +189,13 @@
         //        }
 //        [[UPNetworkHelper sharedInstance] postSearchSuggestWithKeyword:_searchBar.text];
         [self isShowSearchPositionTableView:YES];
-        [[UPNetworkHelper sharedInstance] postSearchPositionWithKeyword:_searchBar.text WithPage:0];
+        [_networkHelper postSearchPositionWithKeyword:_searchBar.text WithPage:0];
         [_searchBar resignFirstResponder];
         
        
     } else if ([tableView isEqual:_searchPositionResultTableView]) {
-        [UPNetworkHelper sharedInstance].delegate = self;
         NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[[_searchPositionResultArray objectAtIndex:indexPath.row] objectForKey:@"id"],@"pid", nil];
-        [[UPNetworkHelper sharedInstance] postPositionProfileWithDictionary:dict];
+        [_networkHelper postPositionProfileWithDictionary:dict];
         
     }
     //    [[UIApplication sharedApplication] performSelector:@selector(endIgnoringInteractionEvents) withObject:nil afterDelay:0.0];
@@ -261,8 +258,8 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         if (_hadNext && indexPath.row == (_searchPositionCount - 10)) {
-            [UPNetworkHelper sharedInstance].delegate = self;
-            [[UPNetworkHelper sharedInstance] postSearchPositionWithKeyword:_searchBar.text WithPage:(_currentPage + 1)];
+            
+            [_networkHelper postSearchPositionWithKeyword:_searchBar.text WithPage:(_currentPage + 1)];
             
         }
         if (indexPath.row < [_searchPositionResultArray count]) {

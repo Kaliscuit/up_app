@@ -31,8 +31,6 @@
 
 @property (nonatomic, weak) id<UPNetworkHelperDelegate> delegate;
 
-+ (UPNetworkHelper *)sharedInstance;
-
 - (void)postEmailCheckWithDictionary:(NSDictionary *)dict;
 - (void)postLoginWithDictionary:(NSDictionary *)dict;
 - (void)postEnrollWithDictionary:(NSDictionary *)dict;

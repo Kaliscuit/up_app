@@ -14,6 +14,8 @@
 @interface UPEvaluateBeginViewController ()<UPNetworkHelperDelegate> {
     UILabel *_titleLabel;
     NSArray *_surveyArray;
+    
+    UPNetworkHelper *_networkHelper;
 }
 
 @end
@@ -32,9 +34,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
-    [UPNetworkHelper sharedInstance].delegate = self;
+    
     NSLog(@"fffsssssaaaa-->%ld", (long)_positionID);
-    [[UPNetworkHelper sharedInstance] postPositionSelectWithID:_positionID];
+    [_networkHelper postPositionSelectWithID:_positionID];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -46,6 +48,9 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = BaseColor;
+    
+    _networkHelper = [[UPNetworkHelper alloc] init];
+    _networkHelper.delegate = self;
     
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setImage:[UIImage imageNamed:@"icn_back_white.png"] forState:UIControlStateNormal];
@@ -114,15 +119,6 @@
         NSLog(@"没有数据不能开始评估");
     }
     
-    
-    
-    //    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
-    //    temporaryBarButtonItem.title = @"重新选择";
-    //    temporaryBarButtonItem.target = self;
-    //    temporaryBarButtonItem.action = @selector(backEvaluateBeginController);
-    //    self.navigationItem.backBarButtonItem = temporaryBarButtonItem;
-    //
-    //    self.navigationController.navigationBar.translucent = NO;
     UPEvaluateProcessViewController *evaluateProcessViewController = [[UPEvaluateProcessViewController alloc] init];
     evaluateProcessViewController.dataArray = _surveyArray;
     [self.navigationController pushViewController:evaluateProcessViewController animated:YES];
