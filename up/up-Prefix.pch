@@ -18,4 +18,5 @@
     #import "UPCommonHelper.h"
     #import "CommonNotification.h"
     #import "CommonKey.h"
+    #import "UPNetworkHelper.h"
 #endif

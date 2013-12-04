@@ -8,9 +8,9 @@
 
 #import "UPSecondPageLoginOrEnrollViewController.h"
 #import "CommonDefine.h"
-#import "UPNetworkHelper.h"
 #import "UPUserItem.h"
 #import "UPAlertTipLabel.h"
+#import "UPNavigationBar.h"
 
 @interface UPSecondPageLoginOrEnrollViewController ()<UPNetworkHelperDelegate> {
     NSString *_alertMessageUserName;
@@ -35,8 +35,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO];
-    self.navigationItem.backBarButtonItem.title = @"返回";
     
     UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icn_errorinfo.png"]];
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAlertMessage:)];
@@ -45,12 +43,14 @@
     self.textFieldName.rightView = image;
     
     if (self.isEnrollProcess) {
+        [UPNavigationBar NavigationBarConfig:self title:@"注册" leftImage:[UIImage imageNamed:@"icn_back.png"] leftTitle:nil leftSelector:@selector(onClickBackButton:) rightImage:nil rightTitle:nil rightSelector:nil];
+        
         [self.textFieldName setPlaceholder:@"用户名"];
         self.textFieldName.secureTextEntry = NO;
         [self.textFieldPassword setPlaceholder:@"密码"];
         
         self.textFieldPassword.secureTextEntry = YES;
-        self.title = @"注册";
+        
         [self.nextStepButton setTitle:@"创建账户" forState:UIControlStateNormal];
     
         UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icn_errorinfo.png"]];
@@ -68,9 +68,9 @@
         [self.textFieldName setPlaceholder:@"密码"];
         self.textFieldName.secureTextEntry = YES;
         
+        [UPNavigationBar NavigationBarConfig:self title:@"注册" leftImage:[UIImage imageNamed:@"icn_back.png"] leftTitle:nil leftSelector:@selector(onClickBackButton:) rightImage:nil rightTitle:nil rightSelector:nil];
         
-        self.title = @"登录";
-        [self.nextStepButton setTitle:@"登录" forState:UIControlStateNormal];
+          [self.nextStepButton setTitle:@"登录" forState:UIControlStateNormal];
         
         NSString *string = [NSString stringWithFormat:@"你正在以%@登录",self.emailStr];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string];
@@ -78,6 +78,9 @@
         [attributedString addAttribute:NSForegroundColorAttributeName value:BaseGreenColor range:range];
         [self.messageLabel setAttributedText:attributedString];
     }
+}
+- (void)onClickBackButton:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)showAlertMessage:(UITapGestureRecognizer *)gesture {
@@ -115,6 +118,7 @@
     [super viewDidLoad];
 	
     _networkHelper = [[UPNetworkHelper alloc] init];
+    _networkHelper.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -147,7 +151,8 @@
     }
     
     if (self.isEnrollProcess) {
-        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.emailStr,@"email",self.textFieldName.text,@"name",self.textFieldPassword,@"password", nil];
+        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.emailStr,@"email",self.textFieldName.text,@"name",self.textFieldPassword.text,@"password", nil];
+        NSLog(@"dict : %@", dict);
         [_networkHelper postEnrollWithDictionary:dict];
     } else {
         NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:self.emailStr,@"email",self.textFieldName.text,@"password", nil];
@@ -195,7 +200,7 @@
         [self _showAlertMessage:CGPointMake(300, 95) title:@"邮箱或密码错误" isAssignBottom:YES];
         return;
     }
-    NSDictionary *userProfile = [[responseObject objectForKey:@"d"] objectForKey:@"profile"];
+    NSDictionary *userProfile = [responseObject objectForKey:@"d"];
     
     UPUserItem *user = [UPUserItem sharedInstance];
     user.name = [userProfile objectForKey:@"name"];
@@ -208,22 +213,25 @@
     user.updateDate = [userProfile objectForKey:@"update_at"];
     
     NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    
     NSLog(@"登陆或注册-->cookieJar : %@", [cookieJar cookies]);
     
-    if ([tag integerValue]== Tag_Login) { // 登录成功
-        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[userProfile objectForKey:@"name"],@"Nickname", nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:NotificationUpdateUsername object:nil userInfo:dict];
-    } else if ([tag integerValue]== Tag_Enroll){ // 注册成功
-        [[NSNotificationCenter defaultCenter] postNotificationName:NotificationUpdateUsername object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.textFieldName.text,@"Nickname", nil]];
-    } else {
+    if ([tag integerValue] != Tag_Login && [tag integerValue] != Tag_Enroll) {
         NSLog(@"登陆注册第二阶段出错");
         return;
     }
     
     [[NSUserDefaults standardUserDefaults] setValue:user.userid forKey:@"UserID"];
-    [[NSUserDefaults standardUserDefaults] setValue:user.name forKey:@"UserName"];
+    [[NSUserDefaults standardUserDefaults] setValue:user.name forKey:UserDefault_UserName];
     [[NSUserDefaults standardUserDefaults] synchronize];
 
+    if ([tag integerValue]== Tag_Login) { // 登录成功
+        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[userProfile objectForKey:@"name"],@"Nickname", nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NotificationUpdateUsername object:nil userInfo:dict];
+    } else if ([tag integerValue]== Tag_Enroll){ // 注册成功
+        [[NSNotificationCenter defaultCenter] postNotificationName:NotificationUpdateUsername object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.textFieldName.text,@"Nickname", nil]];
+    }
+    
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 

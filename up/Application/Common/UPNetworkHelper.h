@@ -29,9 +29,10 @@
     AFHTTPRequestOperationManager *_manager;
 }
 
-@property (nonatomic, weak) id<UPNetworkHelperDelegate> delegate;
+@property (nonatomic, assign) id<UPNetworkHelperDelegate> delegate;
 
-- (void)postEmailCheckWithDictionary:(NSDictionary *)dict;
++ (BOOL)isHaveNetwork;
+
 - (void)postLoginWithDictionary:(NSDictionary *)dict;
 - (void)postEnrollWithDictionary:(NSDictionary *)dict;
 - (void)postNicknameWithDictionary:(NSDictionary *)dict;
@@ -41,6 +42,7 @@
 - (void)postSearchHot;
 - (void)postPositionProfileWithDictionary:(NSDictionary *)dict;
 
+- (void)postEmailCheckWithString:(NSString *)email;
 - (void)postSearchPositionWithKeyword:(NSString *)keyword WithPage:(NSInteger)page;
 - (void)postSearchSuggestWithKeyword:(NSString *)keyword;
 - (void)postPositionSelectWithID:(NSInteger)positionID;

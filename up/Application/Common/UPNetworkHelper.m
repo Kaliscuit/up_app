@@ -6,9 +6,8 @@
 //  Copyright (c) 2013年 me.v2up. All rights reserved.
 //
 
-#import "UPNetworkHelper.h"
 #import <Foundation/Foundation.h>
-
+#import "AFNetworkReachabilityManager.h"
 @implementation UPNetworkHelper
 
 - (id)init {
@@ -17,6 +16,10 @@
         _manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:Url_Server_base]];
     }
     return self;
+}
+
++ (BOOL)isHaveNetwork {
+    return [[AFNetworkReachabilityManager sharedManager] isReachable];
 }
 
 - (void)_postURLWithTag:(NSString *)url tag:(int)tag Dictionary:(NSDictionary *)parametersDict{
@@ -49,10 +52,13 @@
     [_manager.operationQueue addOperation:operation];
 }
 
-- (void)postEmailCheckWithDictionary:(NSDictionary *)dict {
+- (void)_postEmailCheckWithDictionary:(NSDictionary *)dict {
     [self _postURLWithTag:Url_Email_Check_Post tag:Tag_Email_Check Dictionary:dict];
 }
 
+- (void)postEmailCheckWithString:(NSString *)email {
+    [self _postEmailCheckWithDictionary:[NSDictionary dictionaryWithObjectsAndKeys:email,@"email", nil]];
+}
 - (void)postLoginWithDictionary:(NSDictionary *)dict {
     [self _postURLWithTag:Url_Login_Post tag:Tag_Login Dictionary:dict];
 }

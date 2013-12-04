@@ -7,7 +7,7 @@
 //
 
 #import "UPHomeViewController.h"
-#import "UPNetworkHelper.h"
+
 #import "UPSearchBar.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UPDetailJobViewController.h"
@@ -27,8 +27,12 @@
     UILabel             *_searchBarBeforeLabel;             // 搜索框上面的label
     UIButton            *_accountButton;                    // 账号按钮
     UPSearchBar         *_searchBar;                        // 搜索条
-    UPNetworkHelper     *_networkHelper;
     NSMutableArray      *_top10DataArray;                   // 预存Top 10的数据
+    UPNetworkHelper     *_networkHelper;
+    
+    UIView *_accountView;
+    UIImageView *_accountImageView;
+    UILabel *_accountLabel;
 }
 @end
 
@@ -50,6 +54,7 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -64,7 +69,6 @@
     
     [self _initUI];
     [self _initNotification]; // 有可能需要先初始化某些控件，于是在_initUI之后调用
-    
     [self addNotification];
 }
 
@@ -97,6 +101,22 @@
     [_searchBarBeforeLabel setFont:[UIFont systemFontOfSize:20]];
     [self.view addSubview:_searchBarBeforeLabel];
     
+    _accountImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icn_user_white_highlight.png"]];
+    [_accountImageView setFrame:CGRectMake(0, 0, 25, 25)];
+    _accountView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 35, 30, 25, 25)];
+    [_accountView addSubview:_accountImageView];
+    
+    _accountLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    [_accountLabel setFont:[UIFont systemFontOfSize:14.0f]];
+    [_accountLabel setBackgroundColor:ClearColor];
+    [_accountLabel setTextAlignment:NSTextAlignmentRight];
+    [_accountLabel setTextColor:WhiteColor];
+    [_accountView addSubview:_accountLabel];
+    
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickAccountView:)];
+    [_accountView addGestureRecognizer:gesture];
+    [self.view addSubview:_accountView];
+    
     _accountButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_accountButton setFrame:CGRectMake(36.0f, (SCREEN_HEIGHT - 90.0f), 100.0f, 40.0f)];
     
@@ -105,19 +125,14 @@
     [icon setFrame:CGRectMake(10.0f, (_accountButton.frame.size.height - 25) / 2, 25.0f, 25.0f)];
     [_accountButton addSubview:icon];
     
-    [_accountButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    [_accountButton setBackgroundColor:WhiteColor];
-    [_accountButton addTarget:self action:@selector(onClickAccountButton:) forControlEvents:UIControlEventTouchUpInside];
-    _accountButton.layer.masksToBounds = YES;
-    _accountButton.layer.cornerRadius = 20.0f;
-    [_accountButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
-    [self.view addSubview:_accountButton];
-    
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"UserName"]) {
-        [self _updateUserName:[[NSUserDefaults standardUserDefaults] valueForKey:@"UserName"]];
-    } else {
-        [self _updateUserName:nil];
-    }
+//    [_accountButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
+//    [_accountButton setBackgroundColor:WhiteColor];
+//    [_accountButton addTarget:self action:@selector(onClickAccountButton:) forControlEvents:UIControlEventTouchUpInside];
+//    _accountButton.layer.masksToBounds = YES;
+//    _accountButton.layer.cornerRadius = 20.0f;
+//    [_accountButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+//    [self.view addSubview:_accountButton];
+//    
     
     _searchBar = [[UPSearchBar alloc] initWithFrame:SearchBarInitFrame];
     [_searchBar.layer setMasksToBounds:YES];
@@ -126,6 +141,12 @@
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     [_searchBar setBackgroundColor:WhiteColor];
     [self.view addSubview:_searchBar];
+    
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:UserDefault_UserName]) {
+        [self _updateUserName:[[NSUserDefaults standardUserDefaults] valueForKey:UserDefault_UserName]];
+    } else {
+        [self _updateUserName:nil];
+    }
     
 }
 
@@ -150,15 +171,8 @@
     description = [description stringByReplacingOccurrencesOfString:@"-" withString:@"\u25cf "];
     detailJobViewController.positionDescription = description;
     
-    
-    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
-    temporaryBarButtonItem.title = @"返回";
-    temporaryBarButtonItem.tintColor = [UIColor redColor];
-    temporaryBarButtonItem.target = self;
-    temporaryBarButtonItem.action = @selector(back:);
-    self.navigationItem.backBarButtonItem = temporaryBarButtonItem;
-    
     [self.navigationController pushViewController:detailJobViewController animated:YES];
+    
 }
 
 - (void)back:(id)sender {
@@ -179,13 +193,13 @@
 - (void)presentEnrollmentOrLoginViewController:(NSNotification *)notification {
     id class = objc_getClass("UPFirstPageLoginOrEnrollViewController");
     id enrollmentViewController = [[class alloc] init];
-    CATransition* transition = [CATransition animation];
-    transition.duration = 0.5;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.type = kCATransitionMoveIn;//可更改为其他方式
-    transition.subtype = kCATransitionFromTop;//可更改为其他方式
-    [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];
-    transition.delegate = self;
+//    CATransition* transition = [CATransition animation];
+//    transition.duration = 0.5;
+//    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//    transition.type = kCATransitionMoveIn;//可更改为其他方式
+//    transition.subtype = kCATransitionFromTop;//可更改为其他方式
+//    [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];
+//    transition.delegate = self;
     [self.navigationController pushViewController:enrollmentViewController animated:YES];
 }
 
@@ -205,19 +219,25 @@
 
 - (void)_updateUserName:(NSString *)userName {
     if (userName.length > 0) {
-        [((UIImageView *)[_accountButton viewWithTag:33566]) setImage:[UIImage imageNamed:@"icn_user_default_highlight.png"]];
-        [_accountButton setTitle:userName forState:UIControlStateNormal];
-        [_accountButton setTitleColor:RGBCOLOR(46.0f, 204.0f, 113.0f) forState:UIControlStateNormal];
-        [_accountButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+        [_accountImageView setImage:[UIImage imageNamed:@"icn_user_white_highlight.png"]];
+        CGRect rect = _accountView.frame;
+        rect.origin.x = 170.0f;
+        rect.size.width = 140.0f;
+        _accountView.frame = rect;
+        NSLog(@"ffff-->frame: %@", NSStringFromCGRect(rect));
+        _accountLabel.frame = CGRectMake(0, 0, 110, _accountView.frame.size.height);
+        _accountImageView.frame = CGRectMake(115, 0, 25, 25);
+        _accountLabel.text = userName;
     } else {
-        [_accountButton setTitleColor:ColorWithWhite(179.0f) forState:UIControlStateNormal];
-        [((UIImageView *)[_accountButton viewWithTag:33566]) setImage:[UIImage imageNamed:@"icn_user_default.png"]];
-        [_accountButton setTitle:@"未登录" forState:UIControlStateNormal];
+        [_accountImageView setImage:[UIImage imageNamed:@"icn_user_white.png"]];
+        _accountLabel.frame = CGRectMake(0, 0, 0, 0);
+        _accountLabel.text = nil;
+        _accountView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - _accountImageView.frame.size.width, 30, _accountImageView.frame.size.width, _accountImageView.frame.size.height)];
     }
 }
 
-- (void)onClickAccountButton:(UIButton *)sender {
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"UserName"] == nil) {
+- (void)onClickAccountView:(id)sender {
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:UserDefault_UserName] == nil) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPopEnrollmentOrLoginViewController object:nil];
     }
 }

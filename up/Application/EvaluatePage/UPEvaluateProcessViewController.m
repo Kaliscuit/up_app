@@ -92,7 +92,6 @@
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0.5)];
     [lineView setBackgroundColor:ColorWithWhiteAlpha(255.0f, 0.6)];
     [bottomView addSubview:lineView];
-    
     [self.view addSubview:bottomView];
     
      _pageControl = [[SMPageControl alloc] initWithFrame:bottomView.bounds];
@@ -103,7 +102,6 @@
     [_pageControl setPageIndicatorImage:[UIImage imageNamed:@"icn_indicator_normal.png"]];
     [_pageControl setCurrentPageIndicatorImage:[UIImage imageNamed:@"icn_indicator_active.png"]];
     [bottomView addSubview:_pageControl];
-    
     
     _beforeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_beforeButton setFrame:CGRectMake(0, 0, 70, bottomView.frame.size.height)];
@@ -124,7 +122,6 @@
 }
 
 - (void)evaluatePageResult:(NSString *)questionID AnswerID:(NSString *)answerIDStr {
-    NSLog(@"ffffff--->question : %@", _evalueateResultDict);
     [_evalueateResultDict setObject:answerIDStr forKey:questionID];
 }
 

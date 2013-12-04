@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UPRotatePieView.h"
 #import "UILabel+VerticalAlign.h"
+#import "UPNavigationBar.h"
 
 @interface UPDetailJobViewController () {
     
@@ -40,7 +41,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.navigationBarHidden = NO;
+    self.navigationItem.hidesBackButton = YES;
 }
 - (void)viewDidLoad
 {
@@ -48,27 +50,7 @@
     
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    UIView *navigationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
-    [navigationView setBackgroundColor:RGBCOLOR(248.0f, 248.0f, 248.0f)];
-    
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setFrame:CGRectMake(0, 20, 44, 44)];
-    [backButton setImage:[UIImage imageNamed:@"icn_back.png"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(onClickBackButton:) forControlEvents:UIControlEventTouchUpInside];
-    [navigationView addSubview:backButton];
-    
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(44, 20, 232, 44)];
-    [titleLabel setText:@"职位详情"];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
-    [titleLabel setTextColor:BlackColor];
-    [titleLabel setBackgroundColor:ClearColor];
-    [navigationView addSubview:titleLabel];
-    
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 63.5, 320.0f, 0.5)];
-    [lineView setBackgroundColor:GrayColor];
-    [navigationView addSubview:lineView];
-    [self.view addSubview:navigationView];
-    
+    [UPNavigationBar NavigationBarConfig:self title:@"职位详情" leftImage:[UIImage imageNamed:@"icn_back.png"] leftTitle:nil leftSelector:@selector(onClickBackButton:) rightImage:nil rightTitle:nil rightSelector:nil];
     
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, 320, SCREEN_HEIGHT - 64)];
     _scrollView.showsHorizontalScrollIndicator = NO;
@@ -176,6 +158,7 @@
 }
 
 - (void)onClickBackButton:(id)sender {
+    NSLog(@"back button");
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -200,5 +183,7 @@
 - (void)back:(id)sender {
     NSLog(@"1111");
 }
+
+
 @end
 

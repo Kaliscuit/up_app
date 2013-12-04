@@ -12,4 +12,7 @@
 #define UMongAppKey @"52922c5356240b69f5183d58"
 #define FlurryAppkey @"YXSPS2D6WDQHCKDP8WRW"
 
+// UserDefault
+#define UserDefault_UserName @"UserName"
+
 #endif

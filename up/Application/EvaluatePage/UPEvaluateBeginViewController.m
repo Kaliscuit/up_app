@@ -9,7 +9,7 @@
 #import "UPEvaluateBeginViewController.h"
 #import "CommonDefine.h"
 #import "UPEvaluateProcessViewController.h"
-#import "UPNetworkHelper.h"
+#import "UPNavigationBar.h"
 
 @interface UPEvaluateBeginViewController ()<UPNetworkHelperDelegate> {
     UILabel *_titleLabel;
@@ -52,26 +52,28 @@
     _networkHelper = [[UPNetworkHelper alloc] init];
     _networkHelper.delegate = self;
     
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setImage:[UIImage imageNamed:@"icn_back_white.png"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(onClickBackButton:) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setFrame:CGRectMake(0, 20, 44, 44)];
-    [self.view addSubview:backButton];
-    
-    UILabel *navigationLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 20, 210, 44)];
-    [navigationLabel setTextAlignment:NSTextAlignmentCenter];
-    [navigationLabel setTextColor:WhiteColor];
-    [navigationLabel setFont:[UIFont systemFontOfSize:22]];
-    [navigationLabel setText:@"技能评估"];
-    [self.view addSubview:navigationLabel];
-    
-    UIButton *jumpEvaluationButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [jumpEvaluationButton setFrame:CGRectMake(SCREEN_WIDTH - 70.0f, 35.0f, 70.0f, 24.0f)];
-    [jumpEvaluationButton setTitle:@"跳过评估" forState:UIControlStateNormal];
-    [jumpEvaluationButton.titleLabel setFont:[UIFont systemFontOfSize:16.0f]];
-    [jumpEvaluationButton addTarget:self action:@selector(onClickJumpEvaluationButton:) forControlEvents:UIControlEventTouchUpInside];
-    [jumpEvaluationButton setTitleColor:ColorWithWhiteAlpha(255.0f, 0.6f) forState:UIControlStateNormal];
-    [self.view addSubview:jumpEvaluationButton];
+//    [UPNavigationBar NavigationBarConfig:self title:@"技能评估" leftImage:[UIImage imageNamed:@"icn_back_white.png"] leftTitle:nil leftSelector:@selector(onClickBackButton:) rightImage:nil rightTitle:@"跳过评估" rightSelector:@selector(onClickJumpEvaluationButton:)];
+//
+//    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [backButton setImage:[UIImage imageNamed:@"icn_back_white.png"] forState:UIControlStateNormal];
+//    [backButton addTarget:self action:@selector(onClickBackButton:) forControlEvents:UIControlEventTouchUpInside];
+//    [backButton setFrame:CGRectMake(0, 20, 44, 44)];
+//    [self.view addSubview:backButton];
+//    
+//    UILabel *navigationLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 20, 210, 44)];
+//    [navigationLabel setTextAlignment:NSTextAlignmentCenter];
+//    [navigationLabel setTextColor:WhiteColor];
+//    [navigationLabel setFont:[UIFont systemFontOfSize:22]];
+//    [navigationLabel setText:@"技能评估"];
+//    [self.view addSubview:navigationLabel];
+//    
+//    UIButton *jumpEvaluationButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [jumpEvaluationButton setFrame:CGRectMake(SCREEN_WIDTH - 70.0f, 35.0f, 70.0f, 24.0f)];
+//    [jumpEvaluationButton setTitle:@"跳过评估" forState:UIControlStateNormal];
+//    [jumpEvaluationButton.titleLabel setFont:[UIFont systemFontOfSize:16.0f]];
+//    [jumpEvaluationButton addTarget:self action:@selector(onClickJumpEvaluationButton:) forControlEvents:UIControlEventTouchUpInside];
+//    [jumpEvaluationButton setTitleColor:ColorWithWhiteAlpha(255.0f, 0.6f) forState:UIControlStateNormal];
+//    [self.view addSubview:jumpEvaluationButton];
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icn_evaluation_target.png"]];
     [imageView setFrame:CGRectMake(0, 130, 320, 214)];

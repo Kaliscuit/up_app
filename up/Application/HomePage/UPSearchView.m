@@ -8,7 +8,6 @@
 
 #import "UPSearchView.h"
 #import "UPSearchBar.h"
-#import "UPNetworkHelper.h"
 #import "UPTopPositionTableViewCell.h"
 
 #define SearchBarInitFrame CGRectMake(35, 250, 248, 40)

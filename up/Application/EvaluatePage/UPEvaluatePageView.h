@@ -14,7 +14,7 @@
 
 @interface UPEvaluatePageView : UIView
 
-@property (nonatomic, weak) id<UPEvaluatePageResultDelegate> delegate;
+@property (nonatomic, assign) id<UPEvaluatePageResultDelegate> delegate;
 
 - (void)updateDataWithDictionary:(NSDictionary *)dict;
 

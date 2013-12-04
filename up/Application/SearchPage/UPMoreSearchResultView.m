@@ -7,7 +7,6 @@
 //
 
 #import "UPMoreSearchResultView.h"
-#import "UPNetworkHelper.h"
 #import "UPSearchBar.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UPTopPositionTableViewCell.h"

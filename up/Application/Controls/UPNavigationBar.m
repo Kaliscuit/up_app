@@ -44,6 +44,11 @@
 }
 
 + (UPNavigationBar *)NavigationBarConfig:(UIViewController *)viewController title:(NSString *)title leftImage:(UIImage *)leftImage leftTitle:(NSString *)leftTitle leftSelector:(SEL)leftSelector rightImage:(UIImage *)rightImage rightTitle:(NSString *)rightTitle rightSelector:(SEL)rightSelector {
+    
+    
+    [viewController.navigationController setNavigationBarHidden:NO];
+    viewController.navigationItem.hidesBackButton = YES;
+    
     UPNavigationBar *navigationBar = [[UPNavigationBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
     if (title.length > 0) {
         navigationBar.titleLabel.text = title;
@@ -67,7 +72,18 @@
             [navigationBar.rightButton addTarget:viewController action:rightSelector forControlEvents:UIControlEventTouchUpInside];
         }
     }
+    [navigationBar removeExistedNavigationBar:viewController];
+    
     [viewController.navigationController.navigationBar addSubview:navigationBar];
     return navigationBar;
+}
+
+- (void)removeExistedNavigationBar:(UIViewController *)viewController {
+    for (UIView * sender in viewController.navigationController.navigationBar.subviews) {
+        if ([sender isKindOfClass:[UPNavigationBar class]]) {
+            [sender removeFromSuperview];
+            break;
+        }
+    }
 }
 @end
