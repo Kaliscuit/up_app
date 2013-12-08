@@ -106,7 +106,7 @@
         self.textFieldName.layer.borderColor = [[UIColor redColor] CGColor];
         self.textFieldName.rightViewMode = UITextFieldViewModeAlways;
     } else {
-        self.textFieldName.layer.borderColor = [[UIColor blackColor] CGColor];
+        self.textFieldName.layer.borderColor = [[UIColor clearColor] CGColor];
         self.textFieldName.rightViewMode = UITextFieldViewModeNever;
     }
 }
