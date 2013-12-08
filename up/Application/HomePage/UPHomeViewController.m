@@ -25,14 +25,13 @@
 @interface UPHomeViewController ()<UPNetworkHelperDelegate,UITextFieldDelegate> {
     
     UILabel             *_searchBarBeforeLabel;             // 搜索框上面的label
-    UIButton            *_accountButton;                    // 账号按钮
     UPSearchBar         *_searchBar;                        // 搜索条
     NSMutableArray      *_top10DataArray;                   // 预存Top 10的数据
     UPNetworkHelper     *_networkHelper;
     
-    UIView *_accountView;
-    UIImageView *_accountImageView;
-    UILabel *_accountLabel;
+    UIView              *_accountView;
+    UIImageView         *_accountImageView;
+    UILabel             *_accountLabel;
 }
 @end
 
@@ -75,7 +74,6 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     _searchBar = nil;
-    _accountButton = nil;
     _searchBarBeforeLabel = nil;
     _top10DataArray = nil;
 }
@@ -94,9 +92,10 @@
 
 - (void)_initUI {
     _searchBarBeforeLabel = [[UILabel alloc] init];
-    [_searchBarBeforeLabel setFrame:CGRectMake(36, 223, 150, 25)];
+    [_searchBarBeforeLabel setFrame:CGRectMake(0, 223, SCREEN_WIDTH, 25)];
     [_searchBarBeforeLabel setText:@"寻找梦想职业"];
     [_searchBarBeforeLabel setTextColor:WhiteColor];
+    [_searchBarBeforeLabel setTextAlignment:NSTextAlignmentCenter];
     [_searchBarBeforeLabel setBackgroundColor:ClearColor ];
     [_searchBarBeforeLabel setFont:[UIFont systemFontOfSize:20]];
     [self.view addSubview:_searchBarBeforeLabel];
@@ -117,22 +116,19 @@
     [_accountView addGestureRecognizer:gesture];
     [self.view addSubview:_accountView];
     
-    _accountButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_accountButton setFrame:CGRectMake(36.0f, (SCREEN_HEIGHT - 90.0f), 100.0f, 40.0f)];
+    UIButton *allCourseButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [allCourseButton setFrame:CGRectMake(0, SCREEN_HEIGHT - 44, SCREEN_WIDTH, 44)];
+    [allCourseButton setBackgroundColor:RGBCOLOR(32.0f, 116.0f, 169.0f)];
+    [allCourseButton setTitleColor:WhiteColor forState:UIControlStateNormal];
+    [allCourseButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    [allCourseButton setTitle:@"浏览全部课程" forState:UIControlStateNormal];
+    [allCourseButton addTarget:self action:@selector(presentAllCourseViewController:) forControlEvents:UIControlEventTouchUpInside];
+    [allCourseButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 20)];
+    UIImageView *array = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icn_home_arrow.png"]];
+    [array setFrame:CGRectMake(200, 16, 7, 12)];
+    [allCourseButton addSubview:array];
+    [self.view addSubview:allCourseButton];
     
-    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icn_user_default.png"]];
-    [icon setTag:33566];
-    [icon setFrame:CGRectMake(10.0f, (_accountButton.frame.size.height - 25) / 2, 25.0f, 25.0f)];
-    [_accountButton addSubview:icon];
-    
-//    [_accountButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
-//    [_accountButton setBackgroundColor:WhiteColor];
-//    [_accountButton addTarget:self action:@selector(onClickAccountButton:) forControlEvents:UIControlEventTouchUpInside];
-//    _accountButton.layer.masksToBounds = YES;
-//    _accountButton.layer.cornerRadius = 20.0f;
-//    [_accountButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
-//    [self.view addSubview:_accountButton];
-//    
     
     _searchBar = [[UPSearchBar alloc] initWithFrame:SearchBarInitFrame];
     [_searchBar.layer setMasksToBounds:YES];
@@ -158,6 +154,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentJobTypeViewController:) name:NotificationPopJobTypeViewController object:nil];
 }
 
+- (void)presentAllCourseViewController:(id)sender {
+    id class = objc_getClass("UPAllCourseViewController");
+    id allCourseViewController = [[class alloc] init];
+    [self.navigationController pushViewController:allCourseViewController animated:YES];
+}
+
 - (void)presentDetailJobViewController:(NSNotification *)notify {
     NSDictionary *dict = [notify userInfo];
     UPDetailJobViewController *detailJobViewController = [[UPDetailJobViewController alloc] init];
@@ -175,15 +177,6 @@
     
 }
 
-- (void)back:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)backTo:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
-
-
 - (void)presentJobTypeViewController:(NSNotification *)notification {
     id class = objc_getClass("UPJobTypeViewController");
     id enrollmentViewController = [[class alloc] init];
@@ -193,18 +186,10 @@
 - (void)presentEnrollmentOrLoginViewController:(NSNotification *)notification {
     id class = objc_getClass("UPFirstPageLoginOrEnrollViewController");
     id enrollmentViewController = [[class alloc] init];
-//    CATransition* transition = [CATransition animation];
-//    transition.duration = 0.5;
-//    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//    transition.type = kCATransitionMoveIn;//可更改为其他方式
-//    transition.subtype = kCATransitionFromTop;//可更改为其他方式
-//    [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];
-//    transition.delegate = self;
     [self.navigationController pushViewController:enrollmentViewController animated:YES];
 }
 
 - (void)presentEvaluateViewController:(NSNotification *)notification {
-    
     NSDictionary *infoDict = [notification userInfo];
     UPEvaluateBeginViewController *evaluateViewController = [[UPEvaluateBeginViewController alloc] init];
     evaluateViewController.positionTitle = [infoDict objectForKey:@"positionTitle"];
@@ -224,7 +209,6 @@
         rect.origin.x = 170.0f;
         rect.size.width = 140.0f;
         _accountView.frame = rect;
-        NSLog(@"ffff-->frame: %@", NSStringFromCGRect(rect));
         _accountLabel.frame = CGRectMake(0, 0, 110, _accountView.frame.size.height);
         _accountImageView.frame = CGRectMake(115, 0, 25, 25);
         _accountLabel.text = userName;
@@ -254,7 +238,6 @@
     if ([tag integerValue] == Tag_Search_Hot) {
         if ([[responseObject objectForKey:@"c"] integerValue] == 200) {
             [_top10DataArray addObjectsFromArray:[[responseObject objectForKey:@"d"] objectForKey:@"positions"]];
-            NSLog(@"top10DataArray : %@", _top10DataArray);
         }
     }
 }

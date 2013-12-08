@@ -40,7 +40,7 @@
     
     UIButton *evaluateAgainButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [evaluateAgainButton setTitle:@"重新评估" forState:UIControlStateNormal];
-    [evaluateAgainButton setTitleColor:ColorWithWhiteAlpha(255.0f, 0.8f) forState:UIControlStateNormal];
+    [evaluateAgainButton setTitleColor:ColorWithWhiteAlpha(1.0f, 0.8f) forState:UIControlStateNormal];
     [evaluateAgainButton.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
     [evaluateAgainButton addTarget:self action:@selector(onClickEvaluateAgainButton:) forControlEvents:UIControlEventTouchUpInside];
     [evaluateAgainButton setFrame:CGRectMake(10, 30, 70, 34)];
@@ -82,7 +82,7 @@
 //    [jumpEvaluationButton setTitle:@"跳过评估" forState:UIControlStateNormal];
 //    [jumpEvaluationButton.titleLabel setFont:[UIFont systemFontOfSize:16.0f]];
 //    [jumpEvaluationButton addTarget:self action:@selector(onClickJumpEvaluationButton:) forControlEvents:UIControlEventTouchUpInside];
-//    [jumpEvaluationButton setTitleColor:ColorWithWhiteAlpha(255.0f, 0.6f) forState:UIControlStateNormal];
+//    [jumpEvaluationButton setTitleColor:ColorWithWhiteAlpha(1.0f, 0.6f) forState:UIControlStateNormal];
 //    [self.view addSubview:jumpEvaluationButton];
     
     UIView *abilitiesAnalysisView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 330.0f, 320.0f, 330.0f)];

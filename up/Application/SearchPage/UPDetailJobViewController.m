@@ -50,7 +50,7 @@
     
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    [UPNavigationBar NavigationBarConfig:self title:@"职位详情" leftImage:[UIImage imageNamed:@"icn_back.png"] leftTitle:nil leftSelector:@selector(onClickBackButton:) rightImage:nil rightTitle:nil rightSelector:nil];
+    [UPNavigationBar NavigationBarConfigWithBackButton:self title:@"职位详情" isLightBackground:YES leftSelector:@selector(onClickBackButton:)];
     
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, 320, SCREEN_HEIGHT - 64)];
     _scrollView.showsHorizontalScrollIndicator = NO;

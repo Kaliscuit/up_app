@@ -23,7 +23,7 @@
         self.backgroundColor = BaseColor;
         
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0.5)];
-        [lineView setBackgroundColor:ColorWithWhiteAlpha(255.0f, 0.5f)];
+        [lineView setBackgroundColor:ColorWithWhiteAlpha(1.0f, 0.5f)];
         [self addSubview:lineView];
         
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(40.0f, 0.5f, 280.0f, self.frame.size.height - 0.5f)];

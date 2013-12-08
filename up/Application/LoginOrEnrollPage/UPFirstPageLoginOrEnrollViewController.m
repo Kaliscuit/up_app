@@ -49,10 +49,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    
-    [UPNavigationBar NavigationBarConfig:self title:Title_NavigationBar leftImage:[UIImage imageNamed:@"icn_back.png"] leftTitle:nil leftSelector:@selector(onClickBackButton:) rightImage:nil rightTitle:nil rightSelector:nil];
+    [UPNavigationBar NavigationBarConfigWithBackButton:self title:Title_NavigationBar isLightBackground:YES leftSelector:@selector(onClickBackButton:)];
    
-    
+    NSLog(@"self.message.frame ： %@", NSStringFromCGRect(self.messageLabel.frame));
     self.messageLabel.text = Text_Please_Input_Email;
     [self.textFieldName setPlaceholder:Text_Email_PlaceHolder];
     

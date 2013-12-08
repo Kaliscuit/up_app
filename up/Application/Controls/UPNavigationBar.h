@@ -10,7 +10,7 @@
 
 @interface UPNavigationBar : UIView
 
++ (UPNavigationBar *)NavigationBarConfig:(UIViewController *)viewController title:(NSString *)title leftImage:(UIImage *)leftImage leftTitle:(NSString *)leftTitle leftSelector:(SEL)leftSelector rightImage:(UIImage *)rightImage rightTitle:(NSString *)rightTitle rightSelector:(SEL)rightSelector isLightBackground:(BOOL)isLightBackground;
 
-+ (UPNavigationBar *)NavigationBarConfig:(UIViewController *)viewController title:(NSString *)title leftImage:(UIImage *)leftImage leftTitle:(NSString *)leftTitle leftSelector:(SEL)leftSelector rightImage:(UIImage *)rightImage rightTitle:(NSString *)rightTitle rightSelector:(SEL)rightSelector;
-
++ (UPNavigationBar *)NavigationBarConfigWithBackButton:(UIViewController *)viewController title:(NSString *)title isLightBackground:(BOOL)isLightBackground leftSelector:(SEL)leftSelector;
 @end

@@ -31,15 +31,15 @@
 {
     [super viewDidLoad];
 	
-    self.view.backgroundColor = RGBCOLOR(235.0f, 235.0f, 2241.0f);
+    self.view.backgroundColor = RGBCOLOR(235.0f, 235.0f, 241.0f);
     
-    _messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 25, 300, 30)];
+    _messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 25 + Offset_Y_In_IOS7_StatusBar, 300, 30)];
     [_messageLabel setBackgroundColor:ClearColor];
     [_messageLabel setFont:[UIFont systemFontOfSize:14]];
     [_messageLabel setTextColor:BlackColor];
     [self.view addSubview:_messageLabel];
    
-    _textFieldName = [[UPTextField alloc] initWithFrame:CGRectMake(0, 57, 320, 40)];
+    _textFieldName = [[UPTextField alloc] initWithFrame:CGRectMake(0, 57 + Offset_Y_In_IOS7_StatusBar, 320, 40)];
     [_textFieldName setBackgroundColor:WhiteColor];
     _textFieldName.tag = Tag_TextField_Name;
     _textFieldName.layer.borderWidth = 0.5f;
@@ -51,14 +51,14 @@
     [self.view addSubview:_textFieldName];
     
     _nextStepButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_nextStepButton setFrame:CGRectMake(0, 147, 320, 50)];
+    [_nextStepButton setFrame:CGRectMake(0, 147 + Offset_Y_In_IOS7_StatusBar, 320, 50)];
     [_nextStepButton setBackgroundColor:BaseGreenColor];
     [_nextStepButton setTitleColor:WhiteColor forState:UIControlStateNormal];
     [_nextStepButton addTarget:self action:@selector(onClickNextStepButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_nextStepButton];
     
     _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [_indicatorView setCenter:CGPointMake(300, 77)];
+    [_indicatorView setCenter:CGPointMake(300, 77 + Offset_Y_In_IOS7_StatusBar)];
     [_indicatorView setHidesWhenStopped:YES];
     [_indicatorView setHidden:YES];
     [self.view addSubview:_indicatorView];
@@ -71,7 +71,7 @@
 }
 - (void)updateUIPosition {
     if (_isEnrollProcess) {
-        _textFieldPassword = [[UPTextField alloc] initWithFrame:CGRectMake(0.0f, 96.5f, 320.0f, 40.0f)];
+        _textFieldPassword = [[UPTextField alloc] initWithFrame:CGRectMake(0.0f, 96.5f + Offset_Y_In_IOS7_StatusBar, 320.0f, 40.0f)];
         [_textFieldPassword setBackgroundColor:WhiteColor];
         _textFieldPassword.layer.borderWidth = 0.5f;
         _textFieldPassword.tag = Tag_TextField_Password;
@@ -83,18 +83,18 @@
         [self.view addSubview:_textFieldPassword];
         
         if ([UPCommonHelper isLongScreen]) {
-            [_textFieldPassword setFrame:CGRectMake(0, 120.0f, 320.0f, 40.0f)];
+            [_textFieldPassword setFrame:CGRectMake(0, 120.0f + Offset_Y_In_IOS7_StatusBar, 320.0f, 40.0f)];
         }
     } else {
         if (![UPCommonHelper isLongScreen]) {
-            [_nextStepButton setFrame:CGRectMake(0, 120, 320, 50)];
+            [_nextStepButton setFrame:CGRectMake(0, 140, 320, 50)];
         }
     }
     if ([UPCommonHelper isLongScreen]) {
-        [_messageLabel setFrame:CGRectMake(10, 45, 300, 30)];
-        [_textFieldName setFrame:CGRectMake(0, 80, 320, 40)];
-        [_nextStepButton setFrame:CGRectMake(0, 200, 320, 50)];
-        [_indicatorView setCenter:CGPointMake(300, 100)];
+        [_messageLabel setFrame:CGRectMake(10, 45 + Offset_Y_In_IOS7_StatusBar, 300, 30)];
+        [_textFieldName setFrame:CGRectMake(0, 80 + Offset_Y_In_IOS7_StatusBar, 320, 40)];
+        [_nextStepButton setFrame:CGRectMake(0, 200 + Offset_Y_In_IOS7_StatusBar, 320, 50)];
+        [_indicatorView setCenter:CGPointMake(300, 100 + Offset_Y_In_IOS7_StatusBar)];
     }
 }
 

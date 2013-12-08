@@ -9,7 +9,8 @@
 #ifndef up_CommonURL_h
 #define up_CommonURL_h
 
-#define Url_Server_base             @"http://api.dev.v2up.me"
+//#define Url_Server_base             @"http://api.dev.v2up.me"
+#define Url_Server_base            @"http://api2.v2up.me:3000"
 
 #define Url_Login_Post              @"user/login"
 #define Url_Enroll_Post             @"user/register"

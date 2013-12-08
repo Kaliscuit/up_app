@@ -19,4 +19,5 @@
     #import "CommonNotification.h"
     #import "CommonKey.h"
     #import "UPNetworkHelper.h"
+    #import "UPNavigationBar.h"
 #endif

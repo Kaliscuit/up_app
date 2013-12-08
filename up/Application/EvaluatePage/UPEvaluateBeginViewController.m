@@ -72,7 +72,7 @@
 //    [jumpEvaluationButton setTitle:@"跳过评估" forState:UIControlStateNormal];
 //    [jumpEvaluationButton.titleLabel setFont:[UIFont systemFontOfSize:16.0f]];
 //    [jumpEvaluationButton addTarget:self action:@selector(onClickJumpEvaluationButton:) forControlEvents:UIControlEventTouchUpInside];
-//    [jumpEvaluationButton setTitleColor:ColorWithWhiteAlpha(255.0f, 0.6f) forState:UIControlStateNormal];
+//    [jumpEvaluationButton setTitleColor:ColorWithWhiteAlpha(1.0f, 0.6f) forState:UIControlStateNormal];
 //    [self.view addSubview:jumpEvaluationButton];
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icn_evaluation_target.png"]];

@@ -56,6 +56,11 @@
 		A892561B1846654600A195EF /* UPTopPositionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A892561A1846654600A195EF /* UPTopPositionTableViewCell.m */; };
 		A89A1D71184D0659000801CB /* UPNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A89A1D70184D0659000801CB /* UPNavigationBar.m */; };
 		A8AC407C1849DAF600F7C5D7 /* UPLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8AC407B1849DAF600F7C5D7 /* UPLineView.m */; };
+		A8BED4EE185321EF0082AB59 /* UPAllCourseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8BED4EB185321EF0082AB59 /* UPAllCourseViewController.m */; };
+		A8BED4EF185321EF0082AB59 /* UPCourseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A8BED4ED185321EF0082AB59 /* UPCourseTableViewCell.m */; };
+		A8BED4F2185323240082AB59 /* UPCourseClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8BED4F1185323240082AB59 /* UPCourseClassViewController.m */; };
+		A8BED4FA18534F050082AB59 /* UPCourseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8BED4F918534F050082AB59 /* UPCourseDetailViewController.m */; };
+		A8BED4FD1853570B0082AB59 /* UPCourseInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8BED4FC1853570B0082AB59 /* UPCourseInfoView.m */; };
 		A8D113AE181EBE31001385FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D113AD181EBE31001385FE /* Foundation.framework */; };
 		A8D113B0181EBE31001385FE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D113AF181EBE31001385FE /* CoreGraphics.framework */; };
 		A8D113B2181EBE31001385FE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D113B1181EBE31001385FE /* UIKit.framework */; };
@@ -182,6 +187,16 @@
 		A89A1D70184D0659000801CB /* UPNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPNavigationBar.m; sourceTree = "<group>"; };
 		A8AC407A1849DAF600F7C5D7 /* UPLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPLineView.h; sourceTree = "<group>"; };
 		A8AC407B1849DAF600F7C5D7 /* UPLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPLineView.m; sourceTree = "<group>"; };
+		A8BED4EA185321EF0082AB59 /* UPAllCourseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPAllCourseViewController.h; sourceTree = "<group>"; };
+		A8BED4EB185321EF0082AB59 /* UPAllCourseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPAllCourseViewController.m; sourceTree = "<group>"; };
+		A8BED4EC185321EF0082AB59 /* UPCourseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPCourseTableViewCell.h; path = ../UPCourseTableViewCell.h; sourceTree = "<group>"; };
+		A8BED4ED185321EF0082AB59 /* UPCourseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UPCourseTableViewCell.m; path = ../UPCourseTableViewCell.m; sourceTree = "<group>"; };
+		A8BED4F0185323240082AB59 /* UPCourseClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPCourseClassViewController.h; sourceTree = "<group>"; };
+		A8BED4F1185323240082AB59 /* UPCourseClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPCourseClassViewController.m; sourceTree = "<group>"; };
+		A8BED4F818534F050082AB59 /* UPCourseDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPCourseDetailViewController.h; sourceTree = "<group>"; };
+		A8BED4F918534F050082AB59 /* UPCourseDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPCourseDetailViewController.m; sourceTree = "<group>"; };
+		A8BED4FB1853570B0082AB59 /* UPCourseInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPCourseInfoView.h; sourceTree = "<group>"; };
+		A8BED4FC1853570B0082AB59 /* UPCourseInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPCourseInfoView.m; sourceTree = "<group>"; };
 		A8D113AA181EBE31001385FE /* up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = up.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8D113AD181EBE31001385FE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A8D113AF181EBE31001385FE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -287,6 +302,7 @@
 		A87B092F182F62C20064A8E9 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				A8BED4E9185321CD0082AB59 /* Course */,
 				A87B094A182F63380064A8E9 /* main */,
 				A8065B7E1835E1B600AFE71E /* HomePage */,
 				A8812A851833E491006EAA1E /* Model */,
@@ -455,6 +471,31 @@
 				A8812A871833E4B4006EAA1E /* UPUserItem.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		A8BED4E9185321CD0082AB59 /* Course */ = {
+			isa = PBXGroup;
+			children = (
+				A8BED4F7185327C50082AB59 /* Cell */,
+				A8BED4EA185321EF0082AB59 /* UPAllCourseViewController.h */,
+				A8BED4EB185321EF0082AB59 /* UPAllCourseViewController.m */,
+				A8BED4F0185323240082AB59 /* UPCourseClassViewController.h */,
+				A8BED4F1185323240082AB59 /* UPCourseClassViewController.m */,
+				A8BED4F818534F050082AB59 /* UPCourseDetailViewController.h */,
+				A8BED4F918534F050082AB59 /* UPCourseDetailViewController.m */,
+				A8BED4FB1853570B0082AB59 /* UPCourseInfoView.h */,
+				A8BED4FC1853570B0082AB59 /* UPCourseInfoView.m */,
+			);
+			path = Course;
+			sourceTree = "<group>";
+		};
+		A8BED4F7185327C50082AB59 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A8BED4EC185321EF0082AB59 /* UPCourseTableViewCell.h */,
+				A8BED4ED185321EF0082AB59 /* UPCourseTableViewCell.m */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		A8D113A1181EBE31001385FE = {
@@ -646,6 +687,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8BED4FA18534F050082AB59 /* UPCourseDetailViewController.m in Sources */,
 				A87B0983182F63380064A8E9 /* main.m in Sources */,
 				A87B0982182F63380064A8E9 /* UPSecondPageLoginOrEnrollViewController.m in Sources */,
 				A87B099E182F98350064A8E9 /* UPEvaluatePageView.m in Sources */,
@@ -655,6 +697,7 @@
 				A8902460184B1F5D00774AFF /* UPEvaluateResultViewController.m in Sources */,
 				A81C2E81183E56E300BAA952 /* SMPageControl.m in Sources */,
 				A87B098C182F63380064A8E9 /* AFNetworkReachabilityManager.m in Sources */,
+				A8BED4F2185323240082AB59 /* UPCourseClassViewController.m in Sources */,
 				A87B0989182F63380064A8E9 /* AFHTTPRequestOperation.m in Sources */,
 				A87B098F182F63380064A8E9 /* AFURLRequestSerialization.m in Sources */,
 				A8AC407C1849DAF600F7C5D7 /* UPLineView.m in Sources */,
@@ -670,6 +713,7 @@
 				A87B097E182F63380064A8E9 /* UPTextField.m in Sources */,
 				A87B097F182F63380064A8E9 /* UPFirstPageLoginOrEnrollViewController.m in Sources */,
 				A87B0993182F63380064A8E9 /* FMDatabase.m in Sources */,
+				A8BED4EE185321EF0082AB59 /* UPAllCourseViewController.m in Sources */,
 				A81B5D871847A4060058537E /* UPAllPositionTableViewCell.m in Sources */,
 				A87B097A182F63380064A8E9 /* UPCommonHelper.m in Sources */,
 				A890245D184B019900774AFF /* UPAnswerSectionView.m in Sources */,
@@ -682,8 +726,10 @@
 				A87B098A182F63380064A8E9 /* AFHTTPRequestOperationManager.m in Sources */,
 				A84C4690183132E2004A71B0 /* UPEvaluateProcessViewController.m in Sources */,
 				A87B0995182F63380064A8E9 /* FMDatabasePool.m in Sources */,
+				A8BED4EF185321EF0082AB59 /* UPCourseTableViewCell.m in Sources */,
 				A87B097C182F63380064A8E9 /* UPNetworkHelper.m in Sources */,
 				A8065B8A183659A400AFE71E /* UPJobTypeViewController.m in Sources */,
+				A8BED4FD1853570B0082AB59 /* UPCourseInfoView.m in Sources */,
 				A87B0990182F63380064A8E9 /* AFURLResponseSerialization.m in Sources */,
 				A8812A881833E4B4006EAA1E /* UPUserItem.m in Sources */,
 				A87B0996182F63380064A8E9 /* FMDatabaseQueue.m in Sources */,

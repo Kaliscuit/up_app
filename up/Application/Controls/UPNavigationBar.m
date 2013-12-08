@@ -24,32 +24,42 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        [self setBackgroundColor:BaseColor];
+        
         _leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_leftButton setFrame:CGRectMake(0, 0, Width_Label, Height_Label)];
+        [_leftButton setFrame:CGRectMake(0, 20, Width_Label, Height_Label)];
         [self addSubview:_leftButton];
         
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(Width_Label, 0, SCREEN_WIDTH - 2 * Width_Label, Height_Label)];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(Width_Label, 20, SCREEN_WIDTH - 2 * Width_Label, Height_Label)];
         [_titleLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_titleLabel];
         
         _rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_rightButton setFrame:CGRectMake(320 - Width_Label, 0, Width_Label, Height_Label)];
+        [_rightButton setFrame:CGRectMake(320 - Width_Label, 20, Width_Label, Height_Label)];
         [self addSubview:_rightButton];
         
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 43.5f, SCREEN_WIDTH, 0.5f)];
+        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 63.5f, SCREEN_WIDTH, 0.5f)];
         [lineView setBackgroundColor:GrayColor];
         [self addSubview:lineView];
     }
     return self;
 }
 
-+ (UPNavigationBar *)NavigationBarConfig:(UIViewController *)viewController title:(NSString *)title leftImage:(UIImage *)leftImage leftTitle:(NSString *)leftTitle leftSelector:(SEL)leftSelector rightImage:(UIImage *)rightImage rightTitle:(NSString *)rightTitle rightSelector:(SEL)rightSelector {
++ (UPNavigationBar *)NavigationBarConfig:(UIViewController *)viewController title:(NSString *)title leftImage:(UIImage *)leftImage leftTitle:(NSString *)leftTitle leftSelector:(SEL)leftSelector rightImage:(UIImage *)rightImage rightTitle:(NSString *)rightTitle rightSelector:(SEL)rightSelector isLightBackground:(BOOL)isLightBackground {
     
-    
-    [viewController.navigationController setNavigationBarHidden:NO];
+//    viewController.navigationController.navigationBar.translucent = NO;
+    [viewController.navigationController setNavigationBarHidden:YES];
     viewController.navigationItem.hidesBackButton = YES;
     
-    UPNavigationBar *navigationBar = [[UPNavigationBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
+    UPNavigationBar *navigationBar = [[UPNavigationBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
+    
+    if (isLightBackground) {
+        navigationBar.titleLabel.textColor = BlackColor;
+        [navigationBar setBackgroundColor:WhiteColor];
+    } else {
+        navigationBar.titleLabel.textColor = WhiteColor;
+        [navigationBar setBackgroundColor:BaseColor];
+    }
     if (title.length > 0) {
         navigationBar.titleLabel.text = title;
     }
@@ -74,8 +84,16 @@
     }
     [navigationBar removeExistedNavigationBar:viewController];
     
-    [viewController.navigationController.navigationBar addSubview:navigationBar];
+    [viewController.view addSubview:navigationBar];
     return navigationBar;
+}
+
++ (UPNavigationBar *)NavigationBarConfigWithBackButton:(UIViewController *)viewController title:(NSString *)title isLightBackground:(BOOL)isLightBackground leftSelector:(SEL)leftSelector {
+    if (isLightBackground) {
+        return [UPNavigationBar NavigationBarConfig:viewController title:title leftImage:[UIImage imageNamed:@"icn_back.png"] leftTitle:nil leftSelector:leftSelector rightImage:nil rightTitle:nil rightSelector:nil isLightBackground:isLightBackground];
+    } else {
+        return [UPNavigationBar NavigationBarConfig:viewController title:title leftImage:[UIImage imageNamed:@"icn_back_white.png"] leftTitle:nil leftSelector:leftSelector rightImage:nil rightTitle:nil rightSelector:nil isLightBackground:isLightBackground];
+    }
 }
 
 - (void)removeExistedNavigationBar:(UIViewController *)viewController {

@@ -62,7 +62,7 @@
         [self addSubview:_cancelButton];
         
         _searchSuggestResultTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        [_searchSuggestResultTableView setBackgroundColor:ColorWithWhiteAlpha(255.0f, 1.0)];
+        [_searchSuggestResultTableView setBackgroundColor:ColorWithWhiteAlpha(1.0f, 1.0)];
 //        [_searchSuggestResultTableView setHidden:YES];
         _searchSuggestResultTableView.delegate = self;
         _searchSuggestResultTableView.bounces = NO;
@@ -70,7 +70,7 @@
         [self addSubview:_searchSuggestResultTableView];
         
         _searchPositionResultTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT - 60)];
-        [_searchPositionResultTableView setBackgroundColor:ColorWithWhiteAlpha(255.0f, 1.0)];
+        [_searchPositionResultTableView setBackgroundColor:ColorWithWhiteAlpha(1.0f, 1.0)];
         [_searchPositionResultTableView setHidden:YES];
         _searchPositionResultTableView.delegate = self;
         _searchPositionResultTableView.dataSource =self;

@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UPNetworkHelper.h"
 #import "AFNetworkReachabilityManager.h"
+
 @implementation UPNetworkHelper
 
 - (id)init {

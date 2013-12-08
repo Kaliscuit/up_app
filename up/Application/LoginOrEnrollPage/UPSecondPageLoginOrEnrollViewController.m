@@ -43,7 +43,7 @@
     self.textFieldName.rightView = image;
     
     if (self.isEnrollProcess) {
-        [UPNavigationBar NavigationBarConfig:self title:@"注册" leftImage:[UIImage imageNamed:@"icn_back.png"] leftTitle:nil leftSelector:@selector(onClickBackButton:) rightImage:nil rightTitle:nil rightSelector:nil];
+        [UPNavigationBar NavigationBarConfigWithBackButton:self title:@"注册" isLightBackground:YES leftSelector:@selector(onClickBackButton:)];
         
         [self.textFieldName setPlaceholder:@"用户名"];
         self.textFieldName.secureTextEntry = NO;
@@ -68,7 +68,7 @@
         [self.textFieldName setPlaceholder:@"密码"];
         self.textFieldName.secureTextEntry = YES;
         
-        [UPNavigationBar NavigationBarConfig:self title:@"注册" leftImage:[UIImage imageNamed:@"icn_back.png"] leftTitle:nil leftSelector:@selector(onClickBackButton:) rightImage:nil rightTitle:nil rightSelector:nil];
+        [UPNavigationBar NavigationBarConfigWithBackButton:self title:@"登录" isLightBackground:YES leftSelector:@selector(onClickBackButton:)];
         
           [self.nextStepButton setTitle:@"登录" forState:UIControlStateNormal];
         

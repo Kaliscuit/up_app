@@ -68,12 +68,12 @@
     [_finishEvaluationButton setTitle:@"跳过评估" forState:UIControlStateNormal];
     [_finishEvaluationButton.titleLabel setFont:[UIFont systemFontOfSize:16.0f]];
     [_finishEvaluationButton addTarget:self action:@selector(onClickFinishEvaluationButton:) forControlEvents:UIControlEventTouchUpInside];
-    [_finishEvaluationButton setTitleColor:ColorWithWhiteAlpha(255.0f, 0.6f) forState:UIControlStateNormal];
+    [_finishEvaluationButton setTitleColor:ColorWithWhiteAlpha(1.0f, 0.6f) forState:UIControlStateNormal];
     [self.view addSubview:_finishEvaluationButton];
     
     _pageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, 320, 30)];
     [_pageLabel setTextAlignment:NSTextAlignmentCenter];
-    [_pageLabel setTextColor:ColorWithWhiteAlpha(255.0f, 0.8)];
+    [_pageLabel setTextColor:ColorWithWhiteAlpha(1.0f, 0.8)];
     [_pageLabel setBackgroundColor:ClearColor];
     [_pageLabel setText:@"1"];
     [_pageLabel setFont:[UIFont fontWithName:HelveticaNeueUltraLight size:24]];
@@ -90,12 +90,12 @@
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 70.0f, 320, 70)];
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0.5)];
-    [lineView setBackgroundColor:ColorWithWhiteAlpha(255.0f, 0.6)];
+    [lineView setBackgroundColor:ColorWithWhiteAlpha(1.0f, 0.6)];
     [bottomView addSubview:lineView];
     [self.view addSubview:bottomView];
     
      _pageControl = [[SMPageControl alloc] initWithFrame:bottomView.bounds];
-    [_pageControl setTintColor:ColorWithWhiteAlpha(255.0f, 0.5)];
+    [_pageControl setTintColor:ColorWithWhiteAlpha(1.0f, 0.5)];
     [_pageControl setIndicatorMargin:3.0f];
     [_pageControl setNumberOfPages:10];
     [_pageControl setCurrentPage:0];
