@@ -9,16 +9,17 @@
 #import <Foundation/Foundation.h>
 #import "AFHTTPRequestOperationManager.h"
 
-#define Tag_Email_Check 7777711
-#define Tag_Login 7777712
-#define Tag_Enroll 7777713
-#define Tag_Nickname 7777714
-#define Tag_Profile 7777715
-#define Tag_Search_Suggest 7777716
-#define Tag_Search_Position 7777717
-#define Tag_Search_Hot 7777718
-#define Tag_Position_Profile 7777719
-#define Tag_Position_Select 7777720
+#define Tag_Email_Check         7777711
+#define Tag_Login               7777712
+#define Tag_Enroll              7777713
+#define Tag_Nickname            7777714
+#define Tag_Profile             7777715
+#define Tag_Search_Suggest      7777716
+#define Tag_Search_Position     7777717
+#define Tag_Search_Hot          7777718
+#define Tag_Position_Profile    7777719
+#define Tag_Position_Select     7777720
+#define Tag_Ios_Apns            7777721
 @protocol UPNetworkHelperDelegate <NSObject>
 
 - (void)requestSuccess:(NSDictionary *)responseObject withTag:(NSNumber *)tag;
@@ -46,4 +47,6 @@
 - (void)postSearchPositionWithKeyword:(NSString *)keyword WithPage:(NSInteger)page;
 - (void)postSearchSuggestWithKeyword:(NSString *)keyword;
 - (void)postPositionSelectWithID:(NSInteger)positionID;
+
+- (void)postAPNSWithDictionar:(NSDictionary *)dict;
 @end

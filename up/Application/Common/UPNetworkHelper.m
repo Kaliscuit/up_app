@@ -29,7 +29,18 @@
     NSMutableURLRequest *request = [_manager.requestSerializer requestWithMethod:@"POST" URLString:[[NSURL URLWithString:url relativeToURL: _manager.baseURL] absoluteString] parameters:parametersDict];
     
     NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]];
+    NSLog(@"ddddd-->userAgent : %@", [request valueForHTTPHeaderField:@"User-Agent"]);
+    NSDictionary *dict = [[NSBundle mainBundle] infoDictionary];
     
+    NSString *userAgent = [NSString stringWithFormat:@"%@/%@ (%@; %@; %@)",
+                           [dict objectForKey:@"CFBundleDisplayName"],
+                           [dict objectForKey:@"CFBundleVersion"],
+                           [UIDevice currentDevice].model,
+                           [UIDevice currentDevice].systemVersion,
+                           [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] objectAtIndex:0]
+                           ];
+    
+    [request setValue:userAgent forHTTPHeaderField:@"User-Agent"];
     [request setAllHTTPHeaderFields:headers];
     
     AFHTTPRequestOperation *operation = [_manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -122,6 +133,10 @@
 //    } else {
 //        return YES;
 //    }
+}
+
+- (void)postAPNSWithDictionar:(NSDictionary *)dict {
+    [self _postURLWithTag:Url_Ios_Apns_Post tag:Tag_Ios_Apns Dictionary:dict];
 }
 
 #pragma mark - private method
