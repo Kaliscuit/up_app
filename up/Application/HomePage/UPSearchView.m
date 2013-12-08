@@ -172,7 +172,7 @@
                 return;
             }
             NSDictionary *objectDict = [_top10Array objectAtIndex:indexPath.row];
-            NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[objectDict objectForKey:@"id"],@"pid", nil];
+            NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[objectDict objectForKey:@"pid"],@"pid", nil];
             [_networkHelper postPositionProfileWithDictionary:dict];
             return;
         }

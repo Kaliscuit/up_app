@@ -24,5 +24,7 @@
 #define Url_Position_Profile_Post   @"position/profile"
 #define Url_Position_Select_Post    @"position/select"
 
+#define Url_Ios_Apns_Post @"ios/apns"
+
 #define Parameter_Search_Post_Keyword @"keyword"
 #endif

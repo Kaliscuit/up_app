@@ -200,7 +200,7 @@
         [self _showAlertMessage:CGPointMake(300, 95) title:@"邮箱或密码错误" isAssignBottom:YES];
         return;
     }
-    NSDictionary *userProfile = [responseObject objectForKey:@"d"];
+    NSDictionary *userProfile = [[responseObject objectForKey:@"d"] objectForKey:@"profile"];
     
     UPUserItem *user = [UPUserItem sharedInstance];
     user.name = [userProfile objectForKey:@"name"];
@@ -223,6 +223,7 @@
     
     [[NSUserDefaults standardUserDefaults] setValue:user.userid forKey:@"UserID"];
     [[NSUserDefaults standardUserDefaults] setValue:user.name forKey:UserDefault_UserName];
+    [[NSUserDefaults standardUserDefaults] setValue:user.avatarUrl forKey:@"UserAvatarUrl"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 
     if ([tag integerValue]== Tag_Login) { // 登录成功

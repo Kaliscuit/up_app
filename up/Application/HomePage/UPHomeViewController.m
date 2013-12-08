@@ -13,14 +13,26 @@
 #import "UPDetailJobViewController.h"
 #import "UPEvaluateBeginViewController.h"
 #import <objc/runtime.h>
-
+#import "UIImageView+AFNetworking.h"
 #import "UPSearchView.h"
+
 
 #define SearchBarWidth (240.0f)
 #define SearchBarHeight (50.0f)
 
 #define SearchBarInitFrame CGRectMake(35, 250, 248, 40)
 #define SearchBarEditFrame CGRectMake(10, 24, 248, 30)
+
+#define Text_Search_Dream_Job       @"寻找梦想职业"
+#define Text_Browse_All_Course      @"浏览全部课程"
+
+#define Class_Name_All_Course       "UPAllCourseViewController"
+
+typedef enum {
+    AccountImageTypeUnlogin,
+    AccountImageTypeDefaultLogin,
+    AccountImageTypeUserCustom,
+}AccountImageType;
 
 @interface UPHomeViewController ()<UPNetworkHelperDelegate,UITextFieldDelegate> {
     
@@ -52,6 +64,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:UserDefault_UserName]) {
+        [self _updateUserName:[[NSUserDefaults standardUserDefaults] valueForKey:UserDefault_UserName]];
+    } else {
+        [self _updateUserName:nil];
+    }
 }
 
 - (void)viewDidLoad
@@ -93,7 +110,7 @@
 - (void)_initUI {
     _searchBarBeforeLabel = [[UILabel alloc] init];
     [_searchBarBeforeLabel setFrame:CGRectMake(0, 223, SCREEN_WIDTH, 25)];
-    [_searchBarBeforeLabel setText:@"寻找梦想职业"];
+    [_searchBarBeforeLabel setText:Text_Search_Dream_Job];
     [_searchBarBeforeLabel setTextColor:WhiteColor];
     [_searchBarBeforeLabel setTextAlignment:NSTextAlignmentCenter];
     [_searchBarBeforeLabel setBackgroundColor:ClearColor ];
@@ -101,27 +118,26 @@
     [self.view addSubview:_searchBarBeforeLabel];
     
     _accountImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icn_user_white_highlight.png"]];
-    [_accountImageView setFrame:CGRectMake(0, 0, 25, 25)];
-    _accountView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 35, 30, 25, 25)];
-    [_accountView addSubview:_accountImageView];
+    [_accountImageView setUserInteractionEnabled:YES];
+    [_accountImageView setFrame:CGRectMake(SCREEN_WIDTH - 35, 30, 25, 25)];
+    [self.view addSubview:_accountImageView];
     
-    _accountLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    _accountLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 150, 30, 110, 25)];
     [_accountLabel setFont:[UIFont systemFontOfSize:14.0f]];
     [_accountLabel setBackgroundColor:ClearColor];
     [_accountLabel setTextAlignment:NSTextAlignmentRight];
     [_accountLabel setTextColor:WhiteColor];
-    [_accountView addSubview:_accountLabel];
+    [self.view addSubview:_accountLabel];
     
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickAccountView:)];
-    [_accountView addGestureRecognizer:gesture];
-    [self.view addSubview:_accountView];
+    [_accountImageView addGestureRecognizer:gesture];
     
     UIButton *allCourseButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [allCourseButton setFrame:CGRectMake(0, SCREEN_HEIGHT - 44, SCREEN_WIDTH, 44)];
     [allCourseButton setBackgroundColor:RGBCOLOR(32.0f, 116.0f, 169.0f)];
     [allCourseButton setTitleColor:WhiteColor forState:UIControlStateNormal];
     [allCourseButton.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    [allCourseButton setTitle:@"浏览全部课程" forState:UIControlStateNormal];
+    [allCourseButton setTitle:Text_Browse_All_Course forState:UIControlStateNormal];
     [allCourseButton addTarget:self action:@selector(presentAllCourseViewController:) forControlEvents:UIControlEventTouchUpInside];
     [allCourseButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 20)];
     UIImageView *array = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icn_home_arrow.png"]];
@@ -138,12 +154,6 @@
     [_searchBar setBackgroundColor:WhiteColor];
     [self.view addSubview:_searchBar];
     
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:UserDefault_UserName]) {
-        [self _updateUserName:[[NSUserDefaults standardUserDefaults] valueForKey:UserDefault_UserName]];
-    } else {
-        [self _updateUserName:nil];
-    }
-    
 }
 
 #pragma mark - Notification
@@ -155,7 +165,7 @@
 }
 
 - (void)presentAllCourseViewController:(id)sender {
-    id class = objc_getClass("UPAllCourseViewController");
+    id class = objc_getClass(Class_Name_All_Course);
     id allCourseViewController = [[class alloc] init];
     [self.navigationController pushViewController:allCourseViewController animated:YES];
 }
@@ -170,7 +180,7 @@
     detailJobViewController.positionID = [[dict objectForKey:@"id"] integerValue];
     
     NSString *description = [dict objectForKey:@"position_desc"];
-    description = [description stringByReplacingOccurrencesOfString:@"-" withString:@"\u25cf "];
+    description = [description stringByReplacingOccurrencesOfString:@"-" withString:@"\u25cf"];
     detailJobViewController.positionDescription = description;
     
     [self.navigationController pushViewController:detailJobViewController animated:YES];
@@ -204,25 +214,28 @@
 
 - (void)_updateUserName:(NSString *)userName {
     if (userName.length > 0) {
-        [_accountImageView setImage:[UIImage imageNamed:@"icn_user_white_highlight.png"]];
-        CGRect rect = _accountView.frame;
-        rect.origin.x = 170.0f;
-        rect.size.width = 140.0f;
-        _accountView.frame = rect;
-        _accountLabel.frame = CGRectMake(0, 0, 110, _accountView.frame.size.height);
-        _accountImageView.frame = CGRectMake(115, 0, 25, 25);
+        [self _updaetLoginedAccountImage:YES];
         _accountLabel.text = userName;
     } else {
-        [_accountImageView setImage:[UIImage imageNamed:@"icn_user_white.png"]];
-        _accountLabel.frame = CGRectMake(0, 0, 0, 0);
+        [self _updaetLoginedAccountImage:NO];
         _accountLabel.text = nil;
-        _accountView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - _accountImageView.frame.size.width, 30, _accountImageView.frame.size.width, _accountImageView.frame.size.height)];
+    }
+}
+
+- (void)_updaetLoginedAccountImage:(BOOL)isLogined {
+    if (isLogined) {
+        NSString *url = [[NSUserDefaults standardUserDefaults] valueForKey:@"UserAvatarUrl"];
+        [_accountImageView setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"icn_user_white_highlight.png"]];
+    } else {
+            [_accountImageView setImage:[UIImage imageNamed:@"icn_user_white.png"]];
     }
 }
 
 - (void)onClickAccountView:(id)sender {
     if ([[NSUserDefaults standardUserDefaults] valueForKey:UserDefault_UserName] == nil) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPopEnrollmentOrLoginViewController object:nil];
+    } else {
+        
     }
 }
 
