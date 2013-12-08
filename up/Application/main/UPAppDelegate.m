@@ -11,7 +11,13 @@
 #import "UPCommonHelper.h"
 #import "MobClick.h"
 #import "Flurry.h"
+#import <AdSupport/AdSupport.h>
 
+@interface UPAppDelegate()<UPNetworkHelperDelegate> {
+    UPNetworkHelper *_networkHelper;
+}
+
+@end
 @implementation UPAppDelegate
 @synthesize homeViewController = _homeViewController;
 @synthesize homeNavigationController = _homeNavigationController;
@@ -24,11 +30,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    _networkHelper = [[UPNetworkHelper alloc] init];
+    _networkHelper.delegate = self;
+    
     [MobClick startWithAppkey:UMongAppKey];
-    [MobClick setLogEnabled:YES];
+//    [MobClick setLogEnabled:YES];
     
     [Flurry startSession:FlurryAppkey];
-    [Flurry setDebugLogEnabled:YES];
+//    [Flurry setDebugLogEnabled:YES];
     
     _homeViewController = [[UPHomeViewController alloc] init];
     
@@ -71,11 +80,56 @@
 }
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    NSLog(@"deviceToken -------OOOOOO---- : %@", deviceToken);
+    //注册成功，上报token到服务器
+    char token[66] = {0};
+    int off = 0;
+    const unsigned char *t = (const unsigned char *) [deviceToken bytes];
+    for (int i = 0; i < deviceToken.length; i++) {
+        sprintf(token + off, "%02x", t[i] );
+        off += 2;
+    }
+    NSString *tokenString = [NSString stringWithCString:token encoding:NSUTF8StringEncoding];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:tokenString forKey:@"DeviceToken"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    NSDictionary *dict = @{@"deviceToken": tokenString,
+                           @"adfa":[self advertisingIdentifier],
+                           };
+    
+    [_networkHelper postAPNSWithDictionar:dict];
+    NSLog(@"deviceToken -------OOOOOO---- : %@", tokenString);
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     
 }
+- (void)requestSuccess:(NSDictionary *)responseObject withTag:(NSNumber *)tag {
+    if ([tag integerValue] == Tag_Ios_Apns) {
+        
+    }
+}
 
+- (void)requestFail:(NSError *)error withTag:(NSNumber *)tag {
+    
+}
+
+- (void)requestSuccessWithFailMessage:(NSString *)message withTag:(NSNumber *)tag {
+    
+}
+
+- (NSString *)advertisingIdentifier {
+    NSString *idfa = @"";
+    
+    NSUUID *tempUuid = [[ASIdentifierManager sharedManager] advertisingIdentifier];
+    if (nil == tempUuid) {
+        NSAssert(FALSE, @"did not get advertising identifier");
+    } else {
+        idfa = [tempUuid UUIDString];
+        idfa = [idfa stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    }
+
+    
+    return idfa;
+}
 @end
