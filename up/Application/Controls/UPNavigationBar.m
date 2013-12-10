@@ -47,13 +47,13 @@
 
 + (UPNavigationBar *)NavigationBarConfig:(UIViewController *)viewController title:(NSString *)title leftImage:(UIImage *)leftImage leftTitle:(NSString *)leftTitle leftSelector:(SEL)leftSelector rightImage:(UIImage *)rightImage rightTitle:(NSString *)rightTitle rightSelector:(SEL)rightSelector isLightBackground:(BOOL)isLightBackground {
     
-//    viewController.navigationController.navigationBar.translucent = NO;
     [viewController.navigationController setNavigationBarHidden:YES];
     viewController.navigationItem.hidesBackButton = YES;
     
     UPNavigationBar *navigationBar = [[UPNavigationBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
     
     if (isLightBackground) {
+        [navigationBar.rightButton setTitleColor:BaseGreenColor forState:UIControlStateNormal];
         navigationBar.titleLabel.textColor = BlackColor;
         [navigationBar setBackgroundColor:WhiteColor];
     } else {
@@ -74,10 +74,10 @@
     }
     
     if (rightSelector) {
-        if (leftImage) {
+        if (rightImage) {
             [navigationBar.rightButton setImage:rightImage forState:UIControlStateNormal];
             [navigationBar.rightButton addTarget:viewController action:rightSelector forControlEvents:UIControlEventTouchUpInside];
-        } else if (leftTitle) {
+        } else if (rightTitle) {
             [navigationBar.rightButton setTitle:rightTitle forState:UIControlStateNormal];
             [navigationBar.rightButton addTarget:viewController action:rightSelector forControlEvents:UIControlEventTouchUpInside];
         }
@@ -94,6 +94,14 @@
     } else {
         return [UPNavigationBar NavigationBarConfig:viewController title:title leftImage:[UIImage imageNamed:@"icn_back_white.png"] leftTitle:nil leftSelector:leftSelector rightImage:nil rightTitle:nil rightSelector:nil isLightBackground:isLightBackground];
     }
+}
+
++ (UPNavigationBar *)NavigationBarConfigInProfile:(UIViewController *)viewController title:(NSString *)title leftSelector:(SEL)leftSelector rightSelector:(SEL)rightSelector {
+    return [UPNavigationBar NavigationBarConfig:viewController title:title leftImage:[UIImage imageNamed:@"icn_nav_white.png"] leftTitle:nil leftSelector:leftSelector rightImage:[UIImage imageNamed:@"icn_setting_white.png"] rightTitle:nil rightSelector:rightSelector isLightBackground:NO];
+}
+
++ (UPNavigationBar *)NavigationBarConfigWithBackButtonAndRightTitle:(UIViewController *)viewController title:(NSString *)title leftSelector:(SEL)leftSelector rightTitle:(NSString *)rightTitle rightSelector:(SEL)rightSelector {
+    return [UPNavigationBar NavigationBarConfig:viewController title:title leftImage:[UIImage imageNamed:@"icn_back.png"] leftTitle:nil leftSelector:leftSelector rightImage:nil rightTitle:rightTitle rightSelector:rightSelector isLightBackground:YES];
 }
 
 - (void)removeExistedNavigationBar:(UIViewController *)viewController {
