@@ -15,6 +15,8 @@
 		A83C9BED182C07A200D8F644 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A83C9BEC182C07A200D8F644 /* QuartzCore.framework */; };
 		A84169CE1837480600A0C5E7 /* UPAlertTipLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A84169CD1837480600A0C5E7 /* UPAlertTipLabel.m */; };
 		A84C4690183132E2004A71B0 /* UPEvaluateProcessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C468F183132E2004A71B0 /* UPEvaluateProcessViewController.m */; };
+		A853DEB418561DDE009F80DC /* UPProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A853DEB318561DDE009F80DC /* UPProfileViewController.m */; };
+		A853DEB718563783009F80DC /* UPSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A853DEB618563783009F80DC /* UPSettingViewController.m */; };
 		A856225A183BA5BA0000A8EE /* UPRotatePieView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8562259183BA5BA0000A8EE /* UPRotatePieView.m */; };
 		A856225D183BC2510000A8EE /* UILabel+VerticalAlign.m in Sources */ = {isa = PBXBuildFile; fileRef = A856225C183BC2510000A8EE /* UILabel+VerticalAlign.m */; };
 		A860DBD518549F94002E6E99 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A860DBD418549F94002E6E99 /* AdSupport.framework */; };
@@ -108,6 +110,10 @@
 		A84169CD1837480600A0C5E7 /* UPAlertTipLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPAlertTipLabel.m; sourceTree = "<group>"; };
 		A84C468E183132E2004A71B0 /* UPEvaluateProcessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPEvaluateProcessViewController.h; sourceTree = "<group>"; };
 		A84C468F183132E2004A71B0 /* UPEvaluateProcessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPEvaluateProcessViewController.m; sourceTree = "<group>"; };
+		A853DEB218561DDE009F80DC /* UPProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPProfileViewController.h; sourceTree = "<group>"; };
+		A853DEB318561DDE009F80DC /* UPProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPProfileViewController.m; sourceTree = "<group>"; };
+		A853DEB518563783009F80DC /* UPSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPSettingViewController.h; sourceTree = "<group>"; };
+		A853DEB618563783009F80DC /* UPSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPSettingViewController.m; sourceTree = "<group>"; };
 		A8562258183BA5BA0000A8EE /* UPRotatePieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPRotatePieView.h; sourceTree = "<group>"; };
 		A8562259183BA5BA0000A8EE /* UPRotatePieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPRotatePieView.m; sourceTree = "<group>"; };
 		A856225B183BC2510000A8EE /* UILabel+VerticalAlign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+VerticalAlign.h"; sourceTree = "<group>"; };
@@ -307,6 +313,18 @@
 			path = SMPageControl;
 			sourceTree = "<group>";
 		};
+		A853DEB118561DC3009F80DC /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				A853DEB218561DDE009F80DC /* UPProfileViewController.h */,
+				A853DEB318561DDE009F80DC /* UPProfileViewController.m */,
+				A853DEB518563783009F80DC /* UPSettingViewController.h */,
+				A853DEB618563783009F80DC /* UPSettingViewController.m */,
+			);
+			name = Profile;
+			path = up/Application/Profile;
+			sourceTree = SOURCE_ROOT;
+		};
 		A8622B3618439BEB00E03E86 /* Flurry */ = {
 			isa = PBXGroup;
 			children = (
@@ -328,6 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				A8BED4E9185321CD0082AB59 /* Course */,
+				A853DEB118561DC3009F80DC /* Profile */,
 				A87B094A182F63380064A8E9 /* main */,
 				A8065B7E1835E1B600AFE71E /* HomePage */,
 				A8812A851833E491006EAA1E /* Model */,
@@ -756,6 +775,7 @@
 				A87B098E182F63380064A8E9 /* AFURLConnectionOperation.m in Sources */,
 				A87B0991182F63380064A8E9 /* AFURLSessionManager.m in Sources */,
 				A890244D184A0D9D00774AFF /* UPHomeViewController.m in Sources */,
+				A853DEB718563783009F80DC /* UPSettingViewController.m in Sources */,
 				A856225D183BC2510000A8EE /* UILabel+VerticalAlign.m in Sources */,
 				A87CBC6B1854E95E001807F8 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				A87CBC701854E95E001807F8 /* UIProgressView+AFNetworking.m in Sources */,
@@ -785,6 +805,7 @@
 				A87B097C182F63380064A8E9 /* UPNetworkHelper.m in Sources */,
 				A8065B8A183659A400AFE71E /* UPJobTypeViewController.m in Sources */,
 				A8BED4FD1853570B0082AB59 /* UPCourseInfoView.m in Sources */,
+				A853DEB418561DDE009F80DC /* UPProfileViewController.m in Sources */,
 				A87B0990182F63380064A8E9 /* AFURLResponseSerialization.m in Sources */,
 				A8812A881833E4B4006EAA1E /* UPUserItem.m in Sources */,
 				A87B0996182F63380064A8E9 /* FMDatabaseQueue.m in Sources */,
