@@ -25,11 +25,9 @@
 }
 
 - (void)_postURLWithTag:(NSString *)url tag:(int)tag Dictionary:(NSDictionary *)parametersDict{
-    
     NSMutableURLRequest *request = [_manager.requestSerializer requestWithMethod:@"POST" URLString:[[NSURL URLWithString:url relativeToURL: _manager.baseURL] absoluteString] parameters:parametersDict];
     
     NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]];
-    NSLog(@"ddddd-->userAgent : %@", [request valueForHTTPHeaderField:@"User-Agent"]);
     NSDictionary *dict = [[NSBundle mainBundle] infoDictionary];
     
     NSString *userAgent = [NSString stringWithFormat:@"%@/%@ (%@; %@; %@)",
@@ -84,11 +82,8 @@
     [self _postURLWithTag:Url_Nickname_Post tag:Tag_Nickname Dictionary:dict];
 }
 
-
 - (void)postProfileWithDictionary:(NSDictionary *)dict { // 不传字典拿到的是自己的，传字典拿到的是别人的
     [self _postURLWithTag:Url_Profile_Post tag:Tag_Profile Dictionary:dict];
-
- 
 }
 
 - (void)postSearchSuggestWithKeyword:(NSString *)keyword {
