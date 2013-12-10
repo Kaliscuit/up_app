@@ -27,6 +27,7 @@
 #define Text_Browse_All_Course      @"浏览全部课程"
 
 #define Class_Name_All_Course       "UPAllCourseViewController"
+#define Class_Name_Profile          "UPProfileViewController"
 
 typedef enum {
     AccountImageTypeUnlogin,
@@ -64,7 +65,9 @@ typedef enum {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:UserDefault_UserName]) {
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:UserDefault_UserName] && [[NSUserDefaults standardUserDefaults] objectForKey:@"Cookie"]) {
+        NSHTTPCookie *cookie = [[NSHTTPCookie alloc] initWithProperties:[[NSUserDefaults standardUserDefaults] objectForKey:@"Cookie"]];
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
         [self _updateUserName:[[NSUserDefaults standardUserDefaults] valueForKey:UserDefault_UserName]];
     } else {
         [self _updateUserName:nil];
@@ -119,15 +122,21 @@ typedef enum {
     
     _accountImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icn_user_white_highlight.png"]];
     [_accountImageView setUserInteractionEnabled:YES];
+    _accountImageView.layer.masksToBounds = YES;
+    _accountImageView.layer.cornerRadius = 11.0f;
     [_accountImageView setFrame:CGRectMake(SCREEN_WIDTH - 35, 30, 25, 25)];
     [self.view addSubview:_accountImageView];
     
     _accountLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 150, 30, 110, 25)];
+    [_accountLabel setUserInteractionEnabled:YES];
     [_accountLabel setFont:[UIFont systemFontOfSize:14.0f]];
     [_accountLabel setBackgroundColor:ClearColor];
     [_accountLabel setTextAlignment:NSTextAlignmentRight];
     [_accountLabel setTextColor:WhiteColor];
     [self.view addSubview:_accountLabel];
+    
+    UITapGestureRecognizer *gestureLabel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickAccountView:)];
+    [_accountLabel addGestureRecognizer:gestureLabel];
     
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickAccountView:)];
     [_accountImageView addGestureRecognizer:gesture];
@@ -225,7 +234,11 @@ typedef enum {
 - (void)_updaetLoginedAccountImage:(BOOL)isLogined {
     if (isLogined) {
         NSString *url = [[NSUserDefaults standardUserDefaults] valueForKey:@"UserAvatarUrl"];
-        [_accountImageView setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"icn_user_white_highlight.png"]];
+        if ([url hasPrefix:DefaultAvatarURLPrefix]) {
+            [_accountImageView setImage:[UIImage imageNamed:@"Thumbnail_64.png"]];
+        } else {
+            [_accountImageView setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"icn_user_white_highlight.png"]];
+        }
     } else {
             [_accountImageView setImage:[UIImage imageNamed:@"icn_user_white.png"]];
     }
@@ -235,7 +248,9 @@ typedef enum {
     if ([[NSUserDefaults standardUserDefaults] valueForKey:UserDefault_UserName] == nil) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPopEnrollmentOrLoginViewController object:nil];
     } else {
-        
+        id class = objc_getClass(Class_Name_Profile);
+        id profileViewController = [[class alloc] init];
+        [self.navigationController pushViewController:profileViewController animated:YES];
     }
 }
 
