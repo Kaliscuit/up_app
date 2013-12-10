@@ -14,6 +14,7 @@
 #define BaseColor [UIColor colorWithRed:41.0f/255.0f green:128.0f/255.0f blue:185.0f/255.0f alpha:1.0]
 #define BaseGreenColor [UIColor colorWithRed:46.0f/255.0f green:204.0f/255.0f blue:113.0f/255.0f alpha:1.0]
 #define LineColor RGBCOLOR(240.0f, 240.0f, 240.0f)
+#define BaseLightBackgroundColor RGBCOLOR(239.0f, 239.0f, 244.0f)
 
 #define ClearColor [UIColor clearColor]
 #define WhiteColor [UIColor whiteColor]
@@ -23,6 +24,9 @@
 #define RedColor [UIColor redColor]
 
 #define HelveticaNeueUltraLight @"HelveticaNeue-UltraLight"
+
+#define DefaultAvatarURLPrefix @"http://static.v2up.me/avatar/00/00/00000000-0000-0000-0000-000000000001_"
+
 #define isIPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 
 #define isPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
