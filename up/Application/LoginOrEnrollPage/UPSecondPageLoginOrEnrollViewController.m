@@ -212,15 +212,14 @@
     user.createDate = [userProfile objectForKey:@"create_at"];
     user.updateDate = [userProfile objectForKey:@"update_at"];
     
-    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    
-    NSLog(@"登陆或注册-->cookieJar : %@", [cookieJar cookies]);
     
     if ([tag integerValue] != Tag_Login && [tag integerValue] != Tag_Enroll) {
         NSLog(@"登陆注册第二阶段出错");
         return;
     }
     
+    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    [[NSUserDefaults standardUserDefaults] setObject:[[[cookieJar cookies] objectAtIndex:0] properties] forKey:@"Cookie"];
     [[NSUserDefaults standardUserDefaults] setValue:user.userid forKey:@"UserID"];
     [[NSUserDefaults standardUserDefaults] setValue:user.name forKey:UserDefault_UserName];
     [[NSUserDefaults standardUserDefaults] setValue:user.avatarUrl forKey:@"UserAvatarUrl"];
