@@ -112,7 +112,7 @@ typedef enum {
         [detailTextField setTag:Tag_Cell_Detail_Label];
         [cell addSubview:detailTextField];
     } else if (style == CellStylePhoto) {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(120, 0, 60, 60)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(120, 10, 40, 40)];
         [imageView setTag:2823];
         [cell addSubview:imageView];
     }
@@ -173,6 +173,7 @@ typedef enum {
             cell = [self cellForStyle:CellStyleWord reuseIdentifier:@"SettingCellWord"];
         }
         ((UILabel *)[cell viewWithTag:Tag_Cell_Title_Label]).text = @"注销登录";
+        ((UILabel *)[cell viewWithTag:Tag_Cell_Title_Label]).textColor = RGBCOLOR(231.0f, 76.0f, 60.0f);
     }
     return cell;
 }
