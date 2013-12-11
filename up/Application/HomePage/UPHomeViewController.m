@@ -186,7 +186,7 @@ typedef enum {
     detailJobViewController.positionTitle = [dict objectForKey:@"position"];
     detailJobViewController.rankNumber = [[dict objectForKey:@"rank"] integerValue];
     detailJobViewController.requirements = [dict objectForKey:@"requirements"];
-    detailJobViewController.positionID = [[dict objectForKey:@"id"] integerValue];
+    detailJobViewController.positionID = [[dict objectForKey:@"pid"] integerValue];
     
     NSString *description = [dict objectForKey:@"position_desc"];
     description = [description stringByReplacingOccurrencesOfString:@"-" withString:@"\u25cf"];
