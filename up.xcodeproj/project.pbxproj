@@ -17,6 +17,10 @@
 		A84C4690183132E2004A71B0 /* UPEvaluateProcessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A84C468F183132E2004A71B0 /* UPEvaluateProcessViewController.m */; };
 		A853DEB418561DDE009F80DC /* UPProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A853DEB318561DDE009F80DC /* UPProfileViewController.m */; };
 		A853DEB718563783009F80DC /* UPSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A853DEB618563783009F80DC /* UPSettingViewController.m */; };
+		A853DEBD1858CE23009F80DC /* UPProfileIntroduceView.m in Sources */ = {isa = PBXBuildFile; fileRef = A853DEBC1858CE23009F80DC /* UPProfileIntroduceView.m */; };
+		A853DEC01858CE34009F80DC /* UPProfileTimelineView.m in Sources */ = {isa = PBXBuildFile; fileRef = A853DEBF1858CE34009F80DC /* UPProfileTimelineView.m */; };
+		A853DEC31858D7A8009F80DC /* UPProcessingLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = A853DEC21858D7A8009F80DC /* UPProcessingLineView.m */; };
+		A853DEC61858E2D5009F80DC /* UPTimeLineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A853DEC51858E2D5009F80DC /* UPTimeLineTableViewCell.m */; };
 		A856225A183BA5BA0000A8EE /* UPRotatePieView.m in Sources */ = {isa = PBXBuildFile; fileRef = A8562259183BA5BA0000A8EE /* UPRotatePieView.m */; };
 		A856225D183BC2510000A8EE /* UILabel+VerticalAlign.m in Sources */ = {isa = PBXBuildFile; fileRef = A856225C183BC2510000A8EE /* UILabel+VerticalAlign.m */; };
 		A860DBD518549F94002E6E99 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A860DBD418549F94002E6E99 /* AdSupport.framework */; };
@@ -114,6 +118,14 @@
 		A853DEB318561DDE009F80DC /* UPProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPProfileViewController.m; sourceTree = "<group>"; };
 		A853DEB518563783009F80DC /* UPSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPSettingViewController.h; sourceTree = "<group>"; };
 		A853DEB618563783009F80DC /* UPSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPSettingViewController.m; sourceTree = "<group>"; };
+		A853DEBB1858CE23009F80DC /* UPProfileIntroduceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPProfileIntroduceView.h; sourceTree = "<group>"; };
+		A853DEBC1858CE23009F80DC /* UPProfileIntroduceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPProfileIntroduceView.m; sourceTree = "<group>"; };
+		A853DEBE1858CE34009F80DC /* UPProfileTimelineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPProfileTimelineView.h; sourceTree = "<group>"; };
+		A853DEBF1858CE34009F80DC /* UPProfileTimelineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPProfileTimelineView.m; sourceTree = "<group>"; };
+		A853DEC11858D7A8009F80DC /* UPProcessingLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPProcessingLineView.h; sourceTree = "<group>"; };
+		A853DEC21858D7A8009F80DC /* UPProcessingLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPProcessingLineView.m; sourceTree = "<group>"; };
+		A853DEC41858E2D5009F80DC /* UPTimeLineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPTimeLineTableViewCell.h; sourceTree = "<group>"; };
+		A853DEC51858E2D5009F80DC /* UPTimeLineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPTimeLineTableViewCell.m; sourceTree = "<group>"; };
 		A8562258183BA5BA0000A8EE /* UPRotatePieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPRotatePieView.h; sourceTree = "<group>"; };
 		A8562259183BA5BA0000A8EE /* UPRotatePieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPRotatePieView.m; sourceTree = "<group>"; };
 		A856225B183BC2510000A8EE /* UILabel+VerticalAlign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+VerticalAlign.h"; sourceTree = "<group>"; };
@@ -318,6 +330,14 @@
 			children = (
 				A853DEB218561DDE009F80DC /* UPProfileViewController.h */,
 				A853DEB318561DDE009F80DC /* UPProfileViewController.m */,
+				A853DEBB1858CE23009F80DC /* UPProfileIntroduceView.h */,
+				A853DEBC1858CE23009F80DC /* UPProfileIntroduceView.m */,
+				A853DEBE1858CE34009F80DC /* UPProfileTimelineView.h */,
+				A853DEBF1858CE34009F80DC /* UPProfileTimelineView.m */,
+				A853DEC41858E2D5009F80DC /* UPTimeLineTableViewCell.h */,
+				A853DEC51858E2D5009F80DC /* UPTimeLineTableViewCell.m */,
+				A853DEC11858D7A8009F80DC /* UPProcessingLineView.h */,
+				A853DEC21858D7A8009F80DC /* UPProcessingLineView.m */,
 				A853DEB518563783009F80DC /* UPSettingViewController.h */,
 				A853DEB618563783009F80DC /* UPSettingViewController.m */,
 			);
@@ -765,6 +785,7 @@
 				A87B097D182F63380064A8E9 /* UPSearchBar.m in Sources */,
 				A8902460184B1F5D00774AFF /* UPEvaluateResultViewController.m in Sources */,
 				A81C2E81183E56E300BAA952 /* SMPageControl.m in Sources */,
+				A853DEC31858D7A8009F80DC /* UPProcessingLineView.m in Sources */,
 				A87CBC6D1854E95E001807F8 /* UIAlertView+AFNetworking.m in Sources */,
 				A87B098C182F63380064A8E9 /* AFNetworkReachabilityManager.m in Sources */,
 				A8BED4F2185323240082AB59 /* UPCourseClassViewController.m in Sources */,
@@ -774,11 +795,13 @@
 				A84169CE1837480600A0C5E7 /* UPAlertTipLabel.m in Sources */,
 				A87B098E182F63380064A8E9 /* AFURLConnectionOperation.m in Sources */,
 				A87B0991182F63380064A8E9 /* AFURLSessionManager.m in Sources */,
+				A853DEBD1858CE23009F80DC /* UPProfileIntroduceView.m in Sources */,
 				A890244D184A0D9D00774AFF /* UPHomeViewController.m in Sources */,
 				A853DEB718563783009F80DC /* UPSettingViewController.m in Sources */,
 				A856225D183BC2510000A8EE /* UILabel+VerticalAlign.m in Sources */,
 				A87CBC6B1854E95E001807F8 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				A87CBC701854E95E001807F8 /* UIProgressView+AFNetworking.m in Sources */,
+				A853DEC61858E2D5009F80DC /* UPTimeLineTableViewCell.m in Sources */,
 				A87B0998182F63380064A8E9 /* FMResultSet.m in Sources */,
 				A8902463184B210600774AFF /* UPEvaluateBeginViewController.m in Sources */,
 				A8065B8D18365E3300AFE71E /* UPDetailJobViewController.m in Sources */,
@@ -791,6 +814,7 @@
 				A8BED4EE185321EF0082AB59 /* UPAllCourseViewController.m in Sources */,
 				A81B5D871847A4060058537E /* UPAllPositionTableViewCell.m in Sources */,
 				A87B097A182F63380064A8E9 /* UPCommonHelper.m in Sources */,
+				A853DEC01858CE34009F80DC /* UPProfileTimelineView.m in Sources */,
 				A890245D184B019900774AFF /* UPAnswerSectionView.m in Sources */,
 				A87B0980182F63380064A8E9 /* UPLoginOrEnrollViewControllerBase.m in Sources */,
 				A87B0984182F63380064A8E9 /* UPAppDelegate.m in Sources */,

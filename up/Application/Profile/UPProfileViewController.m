@@ -8,9 +8,16 @@
 
 #import "UPProfileViewController.h"
 #import "UPSettingViewController.h"
+#import "UIImageView+AFNetworking.h"
+#import <QuartzCore/QuartzCore.h>
+
+#import "UPProfileIntroduceView.h"
+#import "UPProfileTimelineView.h"
 
 @interface UPProfileViewController ()<UPNetworkHelperDelegate> {
     UPNetworkHelper *_networkHelper;
+    UPProfileIntroduceView *_introduceView;
+    UPProfileTimelineView *_timelineView;
 }
 
 @end
@@ -47,7 +54,18 @@
     [lineView setBackgroundColor:RGBCOLOR(84.0f, 153.0f, 199.0f)];
     [self.view addSubview:lineView];
     
+    _introduceView = [[UPProfileIntroduceView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 153)];
+    [self.view addSubview:_introduceView];
+    
+    _timelineView = [[UPProfileTimelineView alloc] initWithFrame:CGRectMake(0, 217, SCREEN_WIDTH, SCREEN_HEIGHT - 217)];
+    [self.view addSubview:_timelineView];
+    
+    UIView *veticalLineView = [[UIView alloc] initWithFrame:CGRectMake(49, 139, 2, SCREEN_HEIGHT - 139)];
+    [veticalLineView setBackgroundColor:ColorWithWhiteAlpha(0.0f, 0.1)];
+    [self.view addSubview:veticalLineView];
+    
 }
+
 
 - (void)onClickLeftButton:(id)sender {
     
