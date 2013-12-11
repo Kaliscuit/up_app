@@ -44,6 +44,20 @@ typedef enum {
     [tableView setBackgroundColor:BaseLightBackgroundColor];
     tableView.delegate = self;
     tableView.dataSource = self;
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 20)];
+    [headerView setBackgroundColor:BaseLightBackgroundColor];
+    tableView.tableHeaderView = headerView;
+    
+    
+     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40.0f)];
+    UILabel *_label = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, 110, 40.0f)];
+    _label.numberOfLines = 2;
+    [_label setText:[NSString stringWithFormat:@"UP %@ \n Ⓒ UP 2013-2014", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]]];
+    [_label setTextAlignment:NSTextAlignmentCenter];
+    [_label setFont:[UIFont systemFontOfSize:10.0f]];
+    [_label setTextColor:RGBCOLOR(153.0f, 153.0f, 153.0f)];
+    [view addSubview:_label];
+    tableView.tableFooterView = view;
     [self.view addSubview:tableView];
 }
 
@@ -54,7 +68,7 @@ typedef enum {
 }
 
 - (void)onClickBackButton:(id)sender {
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)onClickFinishButton:(id)sender {
@@ -70,10 +84,11 @@ typedef enum {
     [cell addSubview:_titleLabel];
     if (style == CellStyleWord) {
         [_titleLabel setTextAlignment:NSTextAlignmentCenter];
-        [_titleLabel setFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+        [_titleLabel setFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50)];
     } else if (style == CellStyleSwitch){
+        [_titleLabel setFrame:CGRectMake(20, 0, 100, 50)];
         UISwitch *onOff = [[UISwitch alloc] init];
-        [onOff setCenter:CGPointMake(280, 30)];
+        [onOff setCenter:CGPointMake(280, 25)];
         [onOff setOn:YES];
         [onOff setTag:38835];
         [cell addSubview:onOff];
@@ -86,7 +101,9 @@ typedef enum {
         [cell addSubview:detailLabel];
         
     } else if (style == CellStylePassword) {
-        UITextField *detailTextField = [[UITextField alloc] initWithFrame:CGRectMake(120, 0, SCREEN_WIDTH - 120, 60)];
+        [_titleLabel setFrame:CGRectMake(20, 0, 100, 50)];
+        
+        UITextField *detailTextField = [[UITextField alloc] initWithFrame:CGRectMake(120, 0, SCREEN_WIDTH - 120, 50)];
         [detailTextField setSecureTextEntry:YES];
         [detailTextField setText:@"XXXXXXX"];
         [detailTextField setUserInteractionEnabled:NO];
@@ -172,14 +189,24 @@ typedef enum {
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return 0.0f;
+    }
     return 20.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 60.0f;
+    if (indexPath.section == 0) {
+        return 60.0f;
+    } else {
+        return 50.0f;
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return nil;
+    }
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 20)];
     [view setBackgroundColor:BaseLightBackgroundColor];
     return view;
