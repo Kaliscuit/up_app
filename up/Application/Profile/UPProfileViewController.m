@@ -56,6 +56,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.view setTag:1111];
+    
     _navigationView = [[UPNavigationView alloc] initWithFrame:self.view.frame];
     [self.view addSubview:_navigationView];
     
@@ -81,6 +83,17 @@
     [_profileBackgourndView addSubview:veticalLineView];
     
     [self getScreenShot];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToHomePage) name:NotificationPopFromProfileToHome object:nil];
+    
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)jumpToHomePage {
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)getScreenShot {

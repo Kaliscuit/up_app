@@ -15,3 +15,5 @@
 #define NotificationPopJobTypeViewController @"PopJobTypeViewController"
 
 #define NotificationUpdateUsername @"UpdateUserName"
+
+#define NotificationPopFromProfileToHome @"NotificationFromProfileToHomePage"

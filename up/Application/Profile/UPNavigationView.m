@@ -60,7 +60,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if ([[_keyArray objectAtIndex:indexPath.row] isEqualToString:@"SearchPosition"]) {
+        if (self.superview.tag == 1111) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:NotificationPopFromProfileToHome object:nil];
+        }
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
