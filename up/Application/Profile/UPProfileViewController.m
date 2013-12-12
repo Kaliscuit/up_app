@@ -13,11 +13,20 @@
 
 #import "UPProfileIntroduceView.h"
 #import "UPProfileTimelineView.h"
+#import "UPNavigationView.h"
 
 @interface UPProfileViewController ()<UPNetworkHelperDelegate> {
+    UIView *_profileBackgourndView;
+    UPNavigationBar *_navigationBar;
+    UITapGestureRecognizer *_gesture;
+    
     UPNetworkHelper *_networkHelper;
     UPProfileIntroduceView *_introduceView;
     UPProfileTimelineView *_timelineView;
+    UPNavigationView *_navigationView;
+    
+    UIImage *_screenshot;
+    UIImageView *_fakeImageView;
 }
 
 @end
@@ -47,28 +56,71 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:BaseColor];
+    _navigationView = [[UPNavigationView alloc] initWithFrame:self.view.frame];
+    [self.view addSubview:_navigationView];
     
-    [UPNavigationBar NavigationBarConfigInProfile:self title:@"个人简介" leftSelector:@selector(onClickLeftButton:) rightSelector:@selector(onClickRightButton:)];
+    _profileBackgourndView = [[UIView alloc] initWithFrame:self.view.frame];
+    [self.view addSubview:_profileBackgourndView];
+    
+    [_profileBackgourndView setBackgroundColor:BaseColor];
+    
+    _navigationBar = [UPNavigationBar NavigationBarConfigInProfile:self title:@"个人简介" leftSelector:@selector(onClickLeftButton:) rightSelector:@selector(onClickRightButton:)];
+    
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 63.5f, SCREEN_WIDTH, 0.5f)];
     [lineView setBackgroundColor:RGBCOLOR(84.0f, 153.0f, 199.0f)];
-    [self.view addSubview:lineView];
+    [_profileBackgourndView addSubview:lineView];
     
     _introduceView = [[UPProfileIntroduceView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 153)];
-    [self.view addSubview:_introduceView];
+    [_profileBackgourndView addSubview:_introduceView];
     
     _timelineView = [[UPProfileTimelineView alloc] initWithFrame:CGRectMake(0, 217, SCREEN_WIDTH, SCREEN_HEIGHT - 217)];
-    [self.view addSubview:_timelineView];
+    [_profileBackgourndView addSubview:_timelineView];
     
     UIView *veticalLineView = [[UIView alloc] initWithFrame:CGRectMake(49, 139, 2, SCREEN_HEIGHT - 139)];
     [veticalLineView setBackgroundColor:ColorWithWhiteAlpha(0.0f, 0.1)];
-    [self.view addSubview:veticalLineView];
+    [_profileBackgourndView addSubview:veticalLineView];
     
+    [self getScreenShot];
 }
 
+- (void)getScreenShot {
+    UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, YES, 2.0f);
+    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    _fakeImageView = [[UIImageView alloc] initWithImage:UIGraphicsGetImageFromCurrentImageContext()];
+    UIGraphicsEndImageContext();
+    [_fakeImageView setFrame:self.view.frame];
+    [self.view addSubview:_fakeImageView];
+    
+    _gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resetProfileView:)];
+    [_fakeImageView addGestureRecognizer:_gesture];
+    
+    [_fakeImageView setUserInteractionEnabled:YES];
+    [_fakeImageView setHidden:YES];
+}
 
 - (void)onClickLeftButton:(id)sender {
-    
+    if (_fakeImageView == nil) {
+        [self getScreenShot];
+    }
+    [_fakeImageView setHidden:NO];
+    [UIView animateWithDuration:0.3f animations:^{
+        [_navigationBar setHidden:YES];
+        [_profileBackgourndView setHidden:YES];
+        [_fakeImageView setFrame:CGRectMake(SCREEN_WIDTH - 50, 124, 320 * 320 / 568, 320)];
+    }];
+}
+
+- (void)resetProfileView:(UITapGestureRecognizer *)gesture {
+    [UIView animateWithDuration:0.3f animations:^{
+        [_fakeImageView setFrame:self.view.frame];
+    } completion:^(BOOL finished) {
+        [_navigationBar setHidden:NO];
+        [_profileBackgourndView setHidden:NO];
+        [_fakeImageView removeGestureRecognizer:_gesture];
+        [_fakeImageView removeFromSuperview];
+        _fakeImageView = nil;
+        _gesture = nil;
+    }];
 }
 
 - (void)onClickRightButton:(id)sender {
