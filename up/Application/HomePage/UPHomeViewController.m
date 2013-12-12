@@ -15,7 +15,7 @@
 #import <objc/runtime.h>
 #import "UIImageView+AFNetworking.h"
 #import "UPSearchView.h"
-
+#import "UPNavigationView.h"
 
 #define SearchBarWidth (240.0f)
 #define SearchBarHeight (50.0f)
@@ -36,15 +36,19 @@ typedef enum {
 }AccountImageType;
 
 @interface UPHomeViewController ()<UPNetworkHelperDelegate,UITextFieldDelegate> {
+    UIView                      *_homePageBackgroundView;
+    UILabel                     *_searchBarBeforeLabel;             // 搜索框上面的label
+    UPSearchBar                 *_searchBar;                        // 搜索条
+    NSMutableArray              *_top10DataArray;                   // 预存Top 10的数据
+    UPNetworkHelper             *_networkHelper;
     
-    UILabel             *_searchBarBeforeLabel;             // 搜索框上面的label
-    UPSearchBar         *_searchBar;                        // 搜索条
-    NSMutableArray      *_top10DataArray;                   // 预存Top 10的数据
-    UPNetworkHelper     *_networkHelper;
-    
-    UIView              *_accountView;
-    UIImageView         *_accountImageView;
-    UILabel             *_accountLabel;
+    UIView                      *_accountView;
+    UIImageView                 *_accountImageView;
+    UILabel                     *_accountLabel;
+    UIButton                    *_navigationButton;
+    UIImageView                 *_fakeImageView;
+    UITapGestureRecognizer      *_gesture;
+    UPNavigationView            *_navigationView;
 }
 @end
 
@@ -78,7 +82,6 @@ typedef enum {
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = BaseColor;
     
     _top10DataArray = [[NSMutableArray alloc] init];
     
@@ -111,6 +114,20 @@ typedef enum {
 }
 
 - (void)_initUI {
+    _navigationView = [[UPNavigationView alloc] initWithFrame:self.view.frame];
+    [self.view addSubview:_navigationView];
+    
+    _homePageBackgroundView = [[UIView alloc] initWithFrame:self.view.frame];
+    [_homePageBackgroundView setBackgroundColor:BaseColor];
+    [self.view addSubview:_homePageBackgroundView];
+    
+    _navigationButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_navigationButton setImage:[UIImage imageNamed:@"icn_nav_white.png"] forState:UIControlStateNormal];
+    [_navigationButton addTarget:self action:@selector(onClickNavigationButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_navigationButton setFrame:CGRectMake(0, 20, 50, 50)];
+    [_navigationButton setHidden:YES];
+    [_homePageBackgroundView addSubview:_navigationButton];
+    
     _searchBarBeforeLabel = [[UILabel alloc] init];
     [_searchBarBeforeLabel setFrame:CGRectMake(0, 223, SCREEN_WIDTH, 25)];
     [_searchBarBeforeLabel setText:Text_Search_Dream_Job];
@@ -118,14 +135,14 @@ typedef enum {
     [_searchBarBeforeLabel setTextAlignment:NSTextAlignmentCenter];
     [_searchBarBeforeLabel setBackgroundColor:ClearColor ];
     [_searchBarBeforeLabel setFont:[UIFont systemFontOfSize:20]];
-    [self.view addSubview:_searchBarBeforeLabel];
+    [_homePageBackgroundView addSubview:_searchBarBeforeLabel];
     
     _accountImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icn_user_white_highlight.png"]];
     [_accountImageView setUserInteractionEnabled:YES];
     _accountImageView.layer.masksToBounds = YES;
     _accountImageView.layer.cornerRadius = 11.0f;
     [_accountImageView setFrame:CGRectMake(SCREEN_WIDTH - 35, 30, 25, 25)];
-    [self.view addSubview:_accountImageView];
+    [_homePageBackgroundView addSubview:_accountImageView];
     
     _accountLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 150, 30, 110, 25)];
     [_accountLabel setUserInteractionEnabled:YES];
@@ -133,7 +150,7 @@ typedef enum {
     [_accountLabel setBackgroundColor:ClearColor];
     [_accountLabel setTextAlignment:NSTextAlignmentRight];
     [_accountLabel setTextColor:WhiteColor];
-    [self.view addSubview:_accountLabel];
+    [_homePageBackgroundView addSubview:_accountLabel];
     
     UITapGestureRecognizer *gestureLabel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickAccountView:)];
     [_accountLabel addGestureRecognizer:gestureLabel];
@@ -152,7 +169,7 @@ typedef enum {
     UIImageView *array = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icn_home_arrow.png"]];
     [array setFrame:CGRectMake(200, 16, 7, 12)];
     [allCourseButton addSubview:array];
-    [self.view addSubview:allCourseButton];
+    [_homePageBackgroundView addSubview:allCourseButton];
     
     
     _searchBar = [[UPSearchBar alloc] initWithFrame:SearchBarInitFrame];
@@ -161,8 +178,10 @@ typedef enum {
     _searchBar.delegate = self;
     _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     [_searchBar setBackgroundColor:WhiteColor];
-    [self.view addSubview:_searchBar];
+    [_homePageBackgroundView addSubview:_searchBar];
     
+    
+    [self getScreenShot];
 }
 
 #pragma mark - Notification
@@ -216,6 +235,44 @@ typedef enum {
     [self.navigationController pushViewController:evaluateViewController animated:YES];
 }
 
+- (void)onClickNavigationButton:(id)sender {
+    if (_fakeImageView == nil) {
+        [self getScreenShot];
+    }
+    [_fakeImageView setHidden:NO];
+    [UIView animateWithDuration:0.3f animations:^{
+        [_homePageBackgroundView setHidden:YES];
+        [_fakeImageView setFrame:CGRectMake(SCREEN_WIDTH - 50, 124, 320 * 320 / 568, 320)];
+    }];
+}
+
+- (void)getScreenShot {
+    UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, YES, 2.0f);
+    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    _fakeImageView = [[UIImageView alloc] initWithImage:UIGraphicsGetImageFromCurrentImageContext()];
+    UIGraphicsEndImageContext();
+    [_fakeImageView setFrame:self.view.frame];
+    [self.view addSubview:_fakeImageView];
+    
+    _gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resetProfileView:)];
+    [_fakeImageView addGestureRecognizer:_gesture];
+    
+    [_fakeImageView setUserInteractionEnabled:YES];
+    [_fakeImageView setHidden:YES];
+}
+
+- (void)resetProfileView:(UITapGestureRecognizer *)gesture {
+    [UIView animateWithDuration:0.3f animations:^{
+        [_fakeImageView setFrame:self.view.frame];
+    } completion:^(BOOL finished) {
+        [_homePageBackgroundView setHidden:NO];
+        [_fakeImageView removeGestureRecognizer:_gesture];
+        [_fakeImageView removeFromSuperview];
+        _fakeImageView = nil;
+        _gesture = nil;
+    }];
+}
+
 #pragma mark - 注册登陆之后如果没有选择职位则回到首页
 - (void)updateUserName:(NSNotification *)notify {
     [self _updateUserName:[[notify userInfo] objectForKey:@"Nickname"]];
@@ -225,9 +282,11 @@ typedef enum {
     if (userName.length > 0) {
         [self _updaetLoginedAccountImage:YES];
         _accountLabel.text = userName;
+        [_navigationButton setHidden:NO];
     } else {
         [self _updaetLoginedAccountImage:NO];
         _accountLabel.text = nil;
+        [_navigationButton setHidden:YES];
     }
 }
 
